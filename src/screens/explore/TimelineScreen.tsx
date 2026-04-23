@@ -1,0 +1,93 @@
+import { ScrollView, View } from 'react-native';
+
+import { AppText } from '../../components/AppText';
+import { SurfaceCard } from '../../components/SurfaceCard';
+import { TagPill } from '../../components/TagPill';
+import { chapterMap, locationMap, timelineEvents } from '../../data';
+import { useAppTheme } from '../../theme/ThemeContext';
+
+export function TimelineScreen() {
+  const { theme } = useAppTheme();
+
+  return (
+    <ScrollView
+      contentContainerStyle={{
+        gap: theme.spacing.lg,
+        padding: theme.spacing.lg,
+        paddingBottom: theme.spacing.xxl * 2,
+      }}
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: theme.colors.background }}
+    >
+      <View style={{ gap: theme.spacing.sm }}>
+        <AppText variant="display">Cronologia</AppText>
+        <AppText>
+          Una linea temporal mas visual para seguir la vida en Galicia, la salida,
+          Cuba, la zafra, el motin y la llegada a Sao Paulo.
+        </AppText>
+      </View>
+
+      <View
+        style={{
+          gap: theme.spacing.md,
+          paddingLeft: theme.spacing.md,
+        }}
+      >
+        {timelineEvents.map((event, index) => (
+          <View
+            key={event.id}
+            style={{
+              flexDirection: 'row',
+              gap: theme.spacing.md,
+            }}
+          >
+            <View
+              style={{
+                alignItems: 'center',
+                width: 18,
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: theme.colors.accent,
+                  borderRadius: theme.radii.pill,
+                  height: 12,
+                  marginTop: theme.spacing.sm,
+                  width: 12,
+                }}
+              />
+              {index < timelineEvents.length - 1 ? (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.border,
+                    flex: 1,
+                    marginTop: theme.spacing.xs,
+                    width: 2,
+                  }}
+                />
+              ) : null}
+            </View>
+
+            <SurfaceCard style={{ flex: 1, marginBottom: theme.spacing.md }}>
+              <View style={{ gap: theme.spacing.sm }}>
+                <AppText tone="accent" variant="caption">
+                  {event.approxDate}
+                </AppText>
+                <AppText variant="subtitle">{event.title}</AppText>
+                <AppText tone="secondary">
+                  {event.locationIds.map((id) => locationMap[id]?.name).join(' · ')}
+                </AppText>
+                <AppText>{event.summary}</AppText>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
+                  {event.chapterIds.map((chapterId) => (
+                    <TagPill key={chapterId} label={chapterMap[chapterId]?.title ?? chapterId} />
+                  ))}
+                </View>
+              </View>
+            </SurfaceCard>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
