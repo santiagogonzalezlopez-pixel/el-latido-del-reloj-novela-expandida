@@ -1,117 +1,100 @@
-# El latido del reloj – Novela expandida
+# El latido del reloj - Novela expandida
 
-## Arquitectura elegida
+App movil editorial construida con React Native, Expo y TypeScript para convertir la obra en una experiencia narrativa expandida: lectura, cartas, personajes, genealogia, cronologia, lugares y un futuro modulo de IA restringido al corpus.
 
-La app está construida con **React Native + Expo + TypeScript** sobre una arquitectura modular en `src/`, con navegación principal por **bottom tabs** y pantallas de detalle en un **stack root**. Esta combinación permite mantener la navegación principal estable y, al mismo tiempo, abrir capítulos, cartas, personajes y documentos con más profundidad sin enredar la estructura.
+## Arquitectura
 
-La base de datos actual es **mock relacional** y ya deja preparado el terreno para una futura ingestión del PDF **solo en español**, con enlaces entre:
+La app usa una arquitectura modular en `src/` con:
 
-- capítulos
-- personajes
-- cartas
-- lugares
-- cronología
-- archivo documental
+- navegacion principal por bottom tabs
+- stack root para pantallas de detalle
+- tema visual centralizado
+- componentes reutilizables
+- tipos relacionales para capitulos, personajes, cartas, lugares, cronologia y archivo
+- persistencia local con `AsyncStorage` para progreso, preferencias y citas favoritas
 
-También incluye persistencia local con `AsyncStorage` para:
-
-- modo claro / oscuro
-- tamaño de fuente
-- progreso de lectura
-- citas favoritas
-- subrayados base
+El contenido ya esta preparado para trabajar solo con el corpus espanol y crecer sin mezclar idiomas.
 
 ## Estructura de carpetas
 
 ```text
 novela-expandida-app/
   App.tsx
-  app.json
+  app.config.ts
+  eas.json
   package.json
+  scripts/
   src/
     components/
-      AppText.tsx
-      CoverPlaceholder.tsx
-      ListRow.tsx
-      ProgressBar.tsx
-      QuickLinkGrid.tsx
-      SectionHeader.tsx
-      SurfaceCard.tsx
-      TagPill.tsx
     data/
+      content/
+        es/
+          raw/
       index.ts
-      mockLibrary.ts
     hooks/
-      usePersistedState.ts
-      useReaderPreferences.ts
-      useReadingProgress.ts
     navigation/
-      RootNavigator.tsx
-      types.ts
     screens/
-      HomeScreen.tsx
       ai/
       archive/
       explore/
       letters/
       read/
     theme/
-      ThemeContext.tsx
-      theme.ts
     types/
-      content.ts
-      external.d.ts
     utils/
-      formatters.ts
-      mockAssistant.ts
+  docs/
 ```
 
-## Qué incluye este MVP
+## Contenido actual
 
-- `Inicio` con portada placeholder, CTA, accesos rápidos y continuidad de lectura
-- `Leer` con listado de capítulos y lector con progreso, cambio de fuente, modo claro/oscuro, citas y subrayado base
-- `Cartas` con listado y detalle visual tipo documento
-- `Explorar` con personajes, árbol familiar, cronología, lugares y sección especial del reloj
-- `Archivo` con placeholders documentales navegables
-- `IA` con chat mock y arquitectura inicial para futuro RAG
+La app ya incorpora una primera base estructurada con contenido real en espanol para:
 
-## Ejecutar el proyecto
+- capitulos
+- personajes
+- lugares
+- cronologia basica
+- cartas relacionadas con Cuba, Flora y la emigracion
 
-Desde `C:\Users\Admin\Desktop\MINE\LIBRO\novela-expandida-app`:
+El corpus extraido y sus referencias estan organizados en `src/data/content/es/`.
+
+## Desarrollo local
+
+Desde [novela-expandida-app](C:/Users/Admin/Desktop/MINE/LIBRO/novela-expandida-app):
 
 ```bash
 npm install
 npm run start
 ```
 
-Luego abre la app con Expo:
+Atajos utiles en Expo:
 
-- `a` para Android
-- `i` para iOS, si estás en macOS
-- `w` para web
+- `a` abre Android
+- `i` abre iOS en macOS
+- `w` abre web
 
-## Verificación técnica
-
-Chequeo de TypeScript:
+## Verificacion
 
 ```bash
 npm run typecheck
 ```
 
-## GitHub y Play Store
+## Build Android
 
-La app ya queda preparada para builds Android con Expo EAS:
+La configuracion EAS ya esta preparada:
 
-- `preview`: APK interna para pruebas
-- `production`: AAB para Google Play
+```bash
+npm run build:android:preview
+npm run build:android:production
+```
 
-Consulta también:
+- `preview` genera una build interna Android para pruebas
+- `production` genera el `.aab` para Google Play
 
-- [release-and-publish.md](/C:/Users/Admin/Desktop/MINE/LIBRO/novela-expandida-app/docs/release-and-publish.md)
+Mas detalle en [release-and-publish.md](C:/Users/Admin/Desktop/MINE/LIBRO/novela-expandida-app/docs/release-and-publish.md).
 
-## Próximos pasos recomendados
+## Proximos pasos
 
-1. Sustituir el mock por una capa de ingestión del PDF español.
-2. Añadir un índice semántico para preguntas sobre la obra con restricción fuerte al corpus.
-3. Incorporar audio para cartas y lectura de fragmentos.
-4. Evolucionar `Lugares` hacia mapa real y `Archivo` hacia galería documental.
+1. Sustituir mas fragmentos mock por corpus real espanol.
+2. Anadir icono y splash definitivos.
+3. Conectar un sistema RAG que responda solo desde la obra y su archivo.
+4. Publicar una primera build interna en Android.

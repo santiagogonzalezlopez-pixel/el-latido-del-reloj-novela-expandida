@@ -2,26 +2,30 @@
 
 ## Estado actual
 
-La app ya está preparada para:
+La app ya esta preparada para:
 
 - desarrollo con Expo
 - build interna Android en APK
-- build de producción Android en AAB
-- subida posterior a Google Play
+- build de produccion Android en AAB
+- publicacion posterior en Google Play
 
 ## Identificadores editables
 
-Los identificadores están centralizados en:
+Los identificadores estan centralizados en:
 
 - `app.config.ts`
 - `.env.example`
 
-Variables:
+Variables disponibles:
 
 - `EXPO_ANDROID_PACKAGE`
 - `EXPO_IOS_BUNDLE_IDENTIFIER`
 
-Antes de la primera subida real a Google Play, confirma el package definitivo.
+Valor por defecto actual:
+
+- `com.santiagogonzalezlopezpixel.latidodelreloj`
+
+Antes de la primera publicacion real en Google Play, conviene confirmar que ese package name sera el definitivo.
 
 ## Ver la app
 
@@ -30,47 +34,67 @@ npm install
 npm run start
 ```
 
+## Login en Expo
+
+Si aun no has iniciado sesion en Expo:
+
+```bash
+npx eas login
+```
+
 ## Build interna Android
 
 ```bash
-npx eas-cli build --platform android --profile preview
+npm run build:android:preview
 ```
 
-Esto genera un `.apk` instalable para probar en móvil.
+Esto genera una build interna Android para probar la app en movil antes de publicar.
 
-## Build de producción Android
+## Build de produccion Android
 
 ```bash
-npx eas-cli build --platform android --profile production
+npm run build:android:production
 ```
 
-Esto genera un `.aab` para Google Play.
+Esto genera el `.aab` para Google Play.
 
-## Publicar en Google Play
+## Envio a Google Play
 
-1. Crear o abrir la app en Play Console.
-2. Subir el `.aab` generado por EAS.
-3. Completar ficha, capturas, icono, privacidad y clasificación.
-4. Enviar a revisión.
+Cuando la ficha de Play Console este creada y el servicio de subida configurado:
+
+```bash
+npm run submit:android:production
+```
+
+Tambien puedes subir el `.aab` manualmente desde Play Console.
 
 ## GitHub
 
-Si el repo aún no existe en remoto:
+Repo sugerido:
+
+```text
+https://github.com/santiagogonzalezlopez-pixel/el-latido-del-reloj-novela-expandida
+```
+
+Cuando el repo exista en GitHub, el push inicial sera:
 
 ```bash
-git init
-git add .
-git commit -m "Prepare Expo app for GitHub and Play Store"
-git branch -M main
-git remote add origin <REPO_URL>
 git push -u origin main
 ```
 
-## Siguiente paso recomendado
+Si necesitas configurar el remoto manualmente:
 
-1. Confirmar package name final.
-2. Crear repo remoto GitHub.
-3. Hacer primer commit limpio.
-4. Lanzar build `preview`.
-5. Revisar la app en Android real.
-6. Lanzar build `production`.
+```bash
+git remote add origin https://github.com/santiagogonzalezlopez-pixel/el-latido-del-reloj-novela-expandida.git
+```
+
+## Orden recomendado
+
+1. Crear el repo remoto en GitHub con ese nombre o uno equivalente.
+2. Hacer el primer push de `main`.
+3. Iniciar sesion en Expo con `npx eas login`.
+4. Lanzar `npm run build:android:preview`.
+5. Probar la app en Android real.
+6. Crear o abrir la ficha de la app en Google Play Console.
+7. Lanzar `npm run build:android:production`.
+8. Subir el `.aab` a Play Console.
