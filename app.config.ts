@@ -47,5 +47,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   extra: {
     ...config.extra,
     appVariant: process.env.APP_VARIANT ?? 'production',
+    eas: {
+      projectId: '25b5ecc9-f96f-4e43-a1ae-e78b8f61e648',
+    },
   },
 });
