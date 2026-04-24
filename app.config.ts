@@ -4,6 +4,7 @@ const APP_NAME = 'El latido del reloj';
 const APP_SLUG = 'el-latido-del-reloj-novela-expandida';
 const APP_SCHEME = 'latidodelreloj';
 const APP_VERSION = '1.0.0';
+const WEB_BASE_URL = '/el-latido-del-reloj-novela-expandida';
 const ANDROID_PACKAGE =
   process.env.EXPO_ANDROID_PACKAGE ??
   'com.santiagogonzalezlopezpixel.latidodelreloj';
@@ -42,6 +43,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   web: {
     favicon: './assets/favicon.png',
+    bundler: 'metro',
+    output: 'single',
+  },
+  experiments: {
+    baseUrl: WEB_BASE_URL,
   },
   plugins: ['expo-font'],
   extra: {

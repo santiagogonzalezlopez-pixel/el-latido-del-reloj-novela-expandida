@@ -92,6 +92,16 @@ npm run build:android:production
 
 Mas detalle en [release-and-publish.md](C:/Users/Admin/Desktop/MINE/LIBRO/novela-expandida-app/docs/release-and-publish.md).
 
+## Version web
+
+La app puede exportarse como sitio web estatico y publicarse en GitHub Pages.
+
+```bash
+npm run build:web
+```
+
+La exportacion se genera en `dist/` y el repositorio incluye una GitHub Action para publicar automaticamente la web en Pages al hacer push a `main`.
+
 ## Proximos pasos
 
 1. Sustituir mas fragmentos mock por corpus real espanol.
