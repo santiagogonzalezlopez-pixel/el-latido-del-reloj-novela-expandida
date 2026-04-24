@@ -17,3 +17,11 @@ export function sentenceList(items: string[]) {
 
   return `${items.slice(0, -1).join(', ')} y ${items.at(-1)}`;
 }
+
+export function formatSourceReferences(
+  sources: Array<{ pdfId: string; pages: number[] }> = [],
+) {
+  return sources
+    .map((source) => `${source.pdfId}: ${source.pages.join(', ')}`)
+    .join(' / ');
+}

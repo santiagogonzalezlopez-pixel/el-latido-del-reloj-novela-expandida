@@ -1,19 +1,23 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, characterMap, locationMap, quoteMap } from '../../data';
+import { characterMediaNotes, characterMediaSources } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
+import { formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CharacterDetail'>;
 
 export function CharacterDetailScreen({ navigation, route }: Props) {
   const { theme } = useAppTheme();
   const character = characterMap[route.params.characterId];
+  const mediaSource = characterMediaSources[character.id];
+  const mediaNote = characterMediaNotes[character.id];
 
   return (
     <ScrollView
@@ -27,6 +31,18 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
     >
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.lg }}>
+          {mediaSource ? (
+            <Image
+              resizeMode="cover"
+              source={mediaSource}
+              style={{
+                borderRadius: theme.radii.lg,
+                height: 244,
+                width: '100%',
+              }}
+            />
+          ) : null}
+
           <View style={{ gap: theme.spacing.xs }}>
             <AppText tone="accent" variant="caption">
               {character.role.toUpperCase()}
@@ -35,11 +51,31 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
             <AppText>{character.biography}</AppText>
           </View>
 
+          {mediaNote ? (
+            <View
+              style={{
+                backgroundColor: theme.colors.cardMuted,
+                borderRadius: theme.radii.md,
+                paddingHorizontal: theme.spacing.md,
+                paddingVertical: theme.spacing.md,
+              }}
+            >
+              <AppText tone="secondary">{mediaNote}</AppText>
+            </View>
+          ) : null}
+
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
             <TagPill label={`${character.relationships.length} relaciones`} />
             <TagPill label={`${character.chapterIds.length} capitulos`} />
             <TagPill label={`${character.locationIds.length} lugares`} />
+            <TagPill label={`${character.quoteIds.length} citas`} />
           </View>
+
+          {character.sources?.length ? (
+            <AppText tone="secondary">
+              Fuentes: {formatSourceReferences(character.sources)}
+            </AppText>
+          ) : null}
         </View>
       </SurfaceCard>
 
@@ -105,7 +141,12 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
               }}
               tone="paper"
             >
-              <AppText style={{ fontStyle: 'italic' }}>“{quoteMap[quoteId]?.text}”</AppText>
+              <View style={{ gap: theme.spacing.xs }}>
+                <AppText style={{ fontStyle: 'italic' }}>"{quoteMap[quoteId]?.text}"</AppText>
+                <AppText tone="secondary" variant="caption">
+                  {chapterMap[quoteMap[quoteId]?.chapterId ?? '']?.title ?? 'Cita asociada'}
+                </AppText>
+              </View>
             </SurfaceCard>
           ))}
         </View>

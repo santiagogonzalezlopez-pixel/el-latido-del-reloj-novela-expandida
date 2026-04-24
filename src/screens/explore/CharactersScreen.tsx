@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, characterMap, characters, locationMap } from '../../data';
+import { characterMediaNotes, characterMediaSources } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -27,9 +28,33 @@ export function CharactersScreen() {
         <AppText variant="display">Personajes</AppText>
         <AppText>
           Fichas vivas con biografia, red de relaciones, trayectorias por capitulos y
-          lugares asociados.
+          materiales de archivo asociados.
         </AppText>
       </View>
+
+      <SurfaceCard tone="paper">
+        <View style={{ gap: theme.spacing.md }}>
+          <Image
+            resizeMode="cover"
+            source={characterMediaSources.flora}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 184,
+              width: '100%',
+            }}
+          />
+          <View style={{ gap: theme.spacing.xs }}>
+            <AppText tone="accent" variant="caption">
+              GALERIA DE PERSONAJES
+            </AppText>
+            <AppText variant="subtitle">Voces, parentescos y huellas visuales</AppText>
+            <AppText tone="secondary">
+              Cada ficha conecta el personaje con capitulos, lugares, citas y
+              material documental del archivo familiar.
+            </AppText>
+          </View>
+        </View>
+      </SurfaceCard>
 
       {characters.map((character) => {
         const relatedNames = character.relatedCharacterIds
@@ -40,6 +65,7 @@ export function CharactersScreen() {
           .slice(0, 2)
           .map((id) => locationMap[id]?.name)
           .filter(Boolean);
+        const mediaSource = characterMediaSources[character.id];
 
         return (
           <SurfaceCard
@@ -49,8 +75,21 @@ export function CharactersScreen() {
                 characterId: character.id,
               })
             }
+            tone="paper"
           >
             <View style={{ gap: theme.spacing.md }}>
+              {mediaSource ? (
+                <Image
+                  resizeMode="cover"
+                  source={mediaSource}
+                  style={{
+                    borderRadius: theme.radii.lg,
+                    height: 210,
+                    width: '100%',
+                  }}
+                />
+              ) : null}
+
               <View
                 style={{
                   alignItems: 'flex-start',
@@ -71,6 +110,19 @@ export function CharactersScreen() {
               <AppText numberOfLines={4} tone="secondary">
                 {character.biography}
               </AppText>
+
+              {characterMediaNotes[character.id] ? (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.cardMuted,
+                    borderRadius: theme.radii.md,
+                    paddingHorizontal: theme.spacing.md,
+                    paddingVertical: theme.spacing.md,
+                  }}
+                >
+                  <AppText tone="secondary">{characterMediaNotes[character.id]}</AppText>
+                </View>
+              ) : null}
 
               <View style={{ gap: theme.spacing.xs }}>
                 <AppText variant="bodyStrong">Relacion central</AppText>

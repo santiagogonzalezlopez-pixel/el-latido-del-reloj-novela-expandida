@@ -104,17 +104,13 @@ export type Location = {
 export type ArchiveItem = {
   id: EntityId;
   title: string;
-  type:
-    | 'fotografía'
-    | 'carta escaneada'
-    | 'documento'
-    | 'árbol familiar'
-    | 'material complementario';
+  type: string;
   description: string;
   characterIds: EntityId[];
   locationId?: EntityId;
   chapterId?: EntityId;
   placeholderLabel: string;
+  sources?: SourceReference[];
 };
 
 export type Book = {

@@ -23,3 +23,33 @@ export const letterMediaSources: Record<string, ImageSourcePropType> = {
   'letter-esmeralda-flora': archivePortraitSource,
   'letter-iracema-santiago': familyPresentImageSource,
 };
+
+export const characterMediaSources: Record<string, ImageSourcePropType> = {
+  flora: motherChildPortraitSource,
+  pedro: consularDocumentSource,
+  tomas: familyPresentImageSource,
+  indalecia: archivePortraitSource,
+  maria: familyArchivePhotoSource,
+  esmeralda: archivePortraitSource,
+  iracema: familyPresentImageSource,
+  luis: motherChildPortraitSource,
+};
+
+export const characterMediaNotes: Record<string, string> = {
+  flora:
+    'Pieza del archivo familiar usada en la app para evocar maternidad, cuidado y continuidad de la memoria.',
+  pedro:
+    'Documento asociado a partida, puerto y burocracia migratoria dentro del universo narrativo.',
+  tomas:
+    'Fotografia contemporanea del linaje, vinculada a la continuidad familiar y a la lectura de la descendencia.',
+  indalecia:
+    'Retrato de archivo incorporado como atmosfera visual del origen, la espera y la casa que permanece.',
+  maria:
+    'Fotografia familiar utilizada para reforzar la dimension domestica y la continuidad del hogar.',
+  esmeralda:
+    'Retrato de archivo usado como apoyo visual de la rama brasileña y de la correspondencia tardia.',
+  iracema:
+    'Imagen del presente familiar que dialoga con las ramas transamericanas y la carta desde Nueva York.',
+  luis:
+    'Fotografia familiar empleada para evocar la infancia y la continuidad resguardada por Flora.',
+};

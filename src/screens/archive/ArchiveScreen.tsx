@@ -1,12 +1,16 @@
-import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Image, ScrollView, View } from 'react-native';
 
-import { archiveItems, characterMap, locationMap } from '../../data';
-import { archiveMediaSources } from '../../data/editorialMedia';
-import { AppNavigationProp } from '../../navigation/types';
-import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
 import { ListRow } from '../../components/ListRow';
+import { archiveItems, characterMap, locationMap } from '../../data';
+import {
+  archiveMediaSources,
+  familyTreeImageSource,
+  manuscriptImageSource,
+} from '../../data/editorialMedia';
+import { AppNavigationProp } from '../../navigation/types';
+import { useAppTheme } from '../../theme/ThemeContext';
 
 export function ArchiveScreen() {
   const navigation = useNavigation<AppNavigationProp>();
@@ -24,8 +28,30 @@ export function ArchiveScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Archivo</AppText>
         <AppText>
-          Espacio documental preparado para fotografías, cartas escaneadas, documentos, árbol familiar e imágenes complementarias.
+          Espacio documental para fotografias, cartas escaneadas, arbol familiar,
+          documentos y materiales complementarios asociados al corpus en espanol.
         </AppText>
+      </View>
+
+      <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
+        <Image
+          resizeMode="cover"
+          source={manuscriptImageSource}
+          style={{
+            borderRadius: theme.radii.lg,
+            flex: 1,
+            height: 160,
+          }}
+        />
+        <Image
+          resizeMode="cover"
+          source={familyTreeImageSource}
+          style={{
+            borderRadius: theme.radii.lg,
+            flex: 1,
+            height: 160,
+          }}
+        />
       </View>
 
       {archiveItems.map((item) => (

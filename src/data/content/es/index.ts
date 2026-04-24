@@ -1,5 +1,6 @@
 import { ArchiveItem, Book } from '../../../types/content';
-import { archiveItems, aiSuggestedQuestions } from '../../mockLibrary';
+import { aiSuggestedQuestions } from '../../mockLibrary';
+import { archiveItems } from './archiveItems';
 import { chapters } from './chapters';
 import { characters } from './characters';
 import { letters } from './letters';
