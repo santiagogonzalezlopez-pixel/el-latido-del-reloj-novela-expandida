@@ -33,14 +33,16 @@ const chapterRanges = [
 ];
 
 const appendixPages = [
-  { id: 'timeline-spanish', pages: [2], label: 'Cronología básica' },
-  { id: 'tomas-birth-record', pages: [8], label: 'Certificación de nacimiento de Tomás' },
-  { id: 'tomas-registration', pages: [10], label: 'Registro de Extranjeros de Tomás' },
-  { id: 'tomas-marriage', pages: [12], label: 'Matrimonio de Tomás y Esmeralda' },
-  { id: 'eduardo-birth', pages: [14], label: 'Nacimiento de Eduardo' },
-  { id: 'vigo-legalization', pages: [16], label: 'Legalización consular' },
-  { id: 'iracema-letter', pages: [19], label: 'Carta de Iracema Pastore' },
-  { id: 'esmeralda-letter', pages: [20], label: 'Carta de Esmeralda Gomes' },
+  { id: 'timeline-spanish', pages: [3], label: 'Cronología básica' },
+  { id: 'tomas-birth-record', pages: [9], label: 'Certificación de nacimiento de Tomás' },
+  { id: 'tomas-registration', pages: [11], label: 'Registro de Extranjeros de Tomás' },
+  { id: 'tomas-marriage', pages: [13], label: 'Matrimonio de Tomás y Esmeralda' },
+  { id: 'eduardo-birth', pages: [15], label: 'Nacimiento de Eduardo' },
+  { id: 'vigo-legalization', pages: [17], label: 'Legalización consular' },
+  { id: 'iracema-letter', pages: [20], label: 'Carta de Iracema Pastore' },
+  { id: 'esmeralda-letter', pages: [21], label: 'Carta de Esmeralda Gomes' },
+  { id: 'tomas-pedro-photo', pages: [22], label: 'Fotografía de Tomás y Pedro' },
+  { id: 'barcelona-reunion-photo', pages: [23], label: 'Reencuentro familiar en Barcelona' },
 ];
 
 function normalizePageText(text) {

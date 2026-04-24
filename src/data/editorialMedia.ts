@@ -9,6 +9,8 @@ export const manuscriptImageSource: ImageSourcePropType = require('../../assets/
 export const consularDocumentSource: ImageSourcePropType = require('../../assets/editorial/consular-document.jpg');
 export const archivePortraitSource: ImageSourcePropType = require('../../assets/editorial/portrait-archive.jpg');
 export const motherChildPortraitSource: ImageSourcePropType = require('../../assets/editorial/mother-child.jpg');
+export const tomasBirthCertificateSource: ImageSourcePropType = require('../../assets/editorial/tomas-birth-certificate.jpg');
+export const iracemaEnvelopeSource: ImageSourcePropType = require('../../assets/editorial/iracema-envelope.jpg');
 
 export const archiveMediaSources: Record<string, ImageSourcePropType> = {
   'archive-photo-house': familyArchivePhotoSource,
@@ -16,12 +18,15 @@ export const archiveMediaSources: Record<string, ImageSourcePropType> = {
   'archive-family-tree': familyTreeImageSource,
   'archive-port-doc': consularDocumentSource,
   'archive-clock-note': require('../../assets/editorial/cover-book.png'),
+  'archive-tomas-birth': tomasBirthCertificateSource,
+  'archive-tomas-registration': require('../../assets/editorial/tomas-registration.jpg'),
+  'archive-iracema-envelope': iracemaEnvelopeSource,
 };
 
 export const letterMediaSources: Record<string, ImageSourcePropType> = {
   'letter-pedro-habana': consularDocumentSource,
   'letter-esmeralda-flora': archivePortraitSource,
-  'letter-iracema-santiago': familyPresentImageSource,
+  'letter-iracema-santiago': iracemaEnvelopeSource,
 };
 
 export const characterMediaSources: Record<string, ImageSourcePropType> = {

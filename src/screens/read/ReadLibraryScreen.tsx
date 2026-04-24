@@ -1,8 +1,12 @@
-import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView, View } from 'react-native';
 
+import { AppText } from '../../components/AppText';
+import { ListRow } from '../../components/ListRow';
+import { SectionHeader } from '../../components/SectionHeader';
+import { SurfaceCard } from '../../components/SurfaceCard';
 import {
-  chapterMap,
+  archiveItems,
   chapters,
   characterMap,
   contentSource,
@@ -13,10 +17,7 @@ import {
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { AppText } from '../../components/AppText';
-import { ListRow } from '../../components/ListRow';
-import { SectionHeader } from '../../components/SectionHeader';
-import { SurfaceCard } from '../../components/SurfaceCard';
+import { formatSourceReferences } from '../../utils/formatters';
 
 export function ReadLibraryScreen() {
   const navigation = useNavigation<AppNavigationProp>();
@@ -35,30 +36,28 @@ export function ReadLibraryScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Leer</AppText>
         <AppText>
-          Un lector limpio, persistente y preparado para enlazar cada fragmento con personajes, lugares, cartas y cronología.
+          Un lector limpio, persistente y preparado para enlazar cada fragmento con
+          personajes, lugares, cartas, cronologia y archivo documental.
         </AppText>
       </View>
 
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.sm }}>
           <AppText tone="accent" variant="caption">
-            FUENTE Y PREPARACIÓN
+            FUENTE Y PREPARACION
           </AppText>
-          <AppText>
-            Fuente activa: {contentSource.sourceLabel}
-          </AppText>
+          <AppText>Fuente activa: {contentSource.sourceLabel}</AppText>
           <AppText tone="secondary">{contentSource.ingestionNote}</AppText>
         </View>
       </SurfaceCard>
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle={`Capítulos disponibles: ${chapters.length}. Cartas enlazables: ${letters.length}. Lugares trazados: ${locations.length}.`}
-          title="Capítulos"
+          subtitle={`Capitulos disponibles: ${chapters.length}. Cartas enlazables: ${letters.length}. Lugares trazados: ${locations.length}.`}
+          title="Capitulos"
         />
         {chapters.map((chapter) => {
-          const percentage =
-            progress.chapterProgress[chapter.id]?.progress ?? 0;
+          const percentage = progress.chapterProgress[chapter.id]?.progress ?? 0;
           const tags = [
             ...chapter.characterIds
               .slice(0, 2)
@@ -68,13 +67,17 @@ export function ReadLibraryScreen() {
               .slice(0, 1)
               .map((id) => locationMap[id]?.name)
               .filter(Boolean),
+            ...archiveItems
+              .filter((item) => item.chapterId === chapter.id)
+              .slice(0, 1)
+              .map((item) => item.title),
           ];
 
           return (
             <ListRow
               key={chapter.id}
-              eyebrow={`CAPÍTULO ${String(chapter.order).padStart(2, '0')}`}
-              meta={`Progreso guardado: ${Math.round(percentage * 100)}%`}
+              eyebrow={`CAPITULO ${String(chapter.order).padStart(2, '0')}`}
+              meta={`Progreso guardado: ${Math.round(percentage * 100)}% / ${formatSourceReferences(chapter.sources)}`}
               onPress={() =>
                 navigation.navigate('ChapterReader', {
                   chapterId: chapter.id,

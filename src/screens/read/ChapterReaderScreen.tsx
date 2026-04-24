@@ -9,6 +9,7 @@ import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import {
+  archiveItems,
   chapterMap,
   characterMap,
   letterMap,
@@ -22,7 +23,7 @@ import {
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatProgress } from '../../utils/formatters';
+import { formatProgress, formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChapterReader'>;
 
@@ -56,6 +57,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
   const relatedLetters = chapter.letterIds
     .map((id) => letterMap[id]?.title)
     .filter(Boolean);
+  const relatedArchiveItems = archiveItems.filter((item) => item.chapterId === chapter.id);
 
   const favoriteQuotes = chapter.paragraphs
     .filter((paragraph) => paragraph.quoteId)
@@ -235,6 +237,42 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
         </View>
       </SurfaceCard>
 
+      <SurfaceCard tone="paper">
+        <View style={{ gap: theme.spacing.md }}>
+          <SectionHeader
+            subtitle="Trazabilidad del corpus y documentos enlazados al capitulo."
+            title="Fuentes del capitulo"
+          />
+          {chapter.sources?.length ? (
+            <AppText tone="secondary">
+              Paginas de origen: {formatSourceReferences(chapter.sources)}
+            </AppText>
+          ) : null}
+          {relatedArchiveItems.length ? (
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
+              {relatedArchiveItems.map((item) => (
+                <Pressable
+                  accessibilityRole="button"
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate('ArchiveDetail', {
+                      itemId: item.id,
+                    })
+                  }
+                >
+                  <TagPill label={item.title} />
+                </Pressable>
+              ))}
+            </View>
+          ) : (
+            <AppText tone="secondary">
+              Este capitulo ya esta preparado para enlazar nuevas piezas del archivo a
+              medida que sigamos integrando el apendice.
+            </AppText>
+          )}
+        </View>
+      </SurfaceCard>
+
       <View style={{ gap: theme.spacing.md }}>
         {chapter.paragraphs.map((paragraph, index) => {
           const isHighlighted = progress.highlightedParagraphIds.includes(paragraph.id);
@@ -342,7 +380,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
                 }}
               >
                 <View style={{ gap: theme.spacing.sm }}>
-                  <AppText style={{ fontStyle: 'italic' }}>“{quote.text}”</AppText>
+                  <AppText style={{ fontStyle: 'italic' }}>"{quote.text}"</AppText>
                   <Pressable
                     accessibilityRole="button"
                     onPress={() => toggleFavoriteQuote(quote.id)}

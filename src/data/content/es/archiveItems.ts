@@ -91,4 +91,58 @@ export const archiveItems: ArchiveItem[] = [
       },
     ],
   },
+  {
+    id: 'archive-tomas-birth',
+    title: 'Certificación de nacimiento de Tomás',
+    type: 'documento',
+    description:
+      'Documento civil que acredita el nacimiento de Tomás Fernández en Chandrexa de Queixa en 1908 y enlaza el relato literario con la prueba documental del apéndice.',
+    characterIds: ['tomas', 'indalecia', 'flora'],
+    locationId: 'casteligo',
+    chapterId: 'chapter-casteligo',
+    placeholderLabel: 'Certificación de nacimiento',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [223],
+        note: 'Certificación literal del nacimiento de Tomás Fernández, vinculada al origen familiar en Casteligo.',
+      },
+    ],
+  },
+  {
+    id: 'archive-tomas-registration',
+    title: 'Registro de Extranjeros de Tomás en São Paulo',
+    type: 'documento',
+    description:
+      'Registro emitido en 1945 por la Delegacia Especializada de Estrangeiros, donde figuran la nacionalidad española de Tomás y los nombres de sus padres.',
+    characterIds: ['tomas', 'indalecia'],
+    locationId: 'sao-paulo',
+    chapterId: 'chapter-tomas-esmeralda',
+    placeholderLabel: 'Registro de extranjeros',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [225],
+        note: 'Documento clave para fijar la permanencia de Tomás en Brasil y la continuidad del linaje.',
+      },
+    ],
+  },
+  {
+    id: 'archive-iracema-envelope',
+    title: 'Sobre postal de Iracema desde Nueva York',
+    type: 'carta escaneada',
+    description:
+      'Sobre conservado en el archivo familiar asociado a la carta enviada por Iracema Pastore desde Nueva York en mayo de 2001.',
+    characterIds: ['iracema', 'santiago'],
+    locationId: 'nueva-york',
+    chapterId: 'chapter-salto',
+    placeholderLabel: 'Sobre postal',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [234],
+        note: 'Se asocia a la carta de Iracema y al salto transamericano de la familia.',
+      },
+    ],
+  },
 ];
