@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SurfaceCard } from '../../components/SurfaceCard';
+import { familyTreeImageSource } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -95,6 +96,17 @@ export function FamilyTreeScreen() {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.lg }}>
+          <Image
+            source={familyTreeImageSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 220,
+              width: '100%',
+            }}
+          />
+          <AppText tone="secondary">
+            Imagen genealógica utilizada como apoyo visual del linaje. Debajo, la app resume el tronco principal para que la lectura siga siendo clara incluso en pantalla pequeña.
+          </AppText>
           <View style={{ gap: theme.spacing.sm }}>
             <AppText tone="accent" variant="caption">
               GENERACION DE ORIGEN

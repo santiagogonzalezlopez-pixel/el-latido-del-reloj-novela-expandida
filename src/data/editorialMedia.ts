@@ -1,6 +1,9 @@
 import { ImageSourcePropType } from 'react-native';
 
 export const bookCoverSource: ImageSourcePropType = require('../../assets/editorial/cover-book.png');
+export const timelineImageSource: ImageSourcePropType = require('../../assets/editorial/timeline-es.png');
+export const familyTreeImageSource: ImageSourcePropType = require('../../assets/editorial/family-tree.jpg');
+export const familyPresentImageSource: ImageSourcePropType = require('../../assets/editorial/family-present.jpg');
 
 export const archiveMediaSources: Record<string, ImageSourcePropType> = {
   'archive-photo-house': require('../../assets/editorial/family-photo.jpg'),

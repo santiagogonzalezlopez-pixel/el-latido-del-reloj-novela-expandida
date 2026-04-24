@@ -1,9 +1,10 @@
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, locationMap, timelineEvents } from '../../data';
+import { timelineImageSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 
 export function TimelineScreen() {
@@ -26,6 +27,22 @@ export function TimelineScreen() {
           Cuba, la zafra, el motin y la llegada a Sao Paulo.
         </AppText>
       </View>
+
+      <SurfaceCard tone="paper">
+        <View style={{ gap: theme.spacing.md }}>
+          <Image
+            source={timelineImageSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 180,
+              width: '100%',
+            }}
+          />
+          <AppText tone="secondary">
+            Esquema visual del arco historico principal, usado aqui como apoyo editorial a la linea temporal interactiva de la app.
+          </AppText>
+        </View>
+      </SurfaceCard>
 
       <View
         style={{

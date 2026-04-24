@@ -1,5 +1,6 @@
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 
+import { bookCoverSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
 import { ListRow } from '../../components/ListRow';
@@ -46,6 +47,14 @@ export function ClockScreen() {
     >
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
+          <Image
+            source={bookCoverSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 220,
+              width: '100%',
+            }}
+          />
           <AppText variant="display">El reloj</AppText>
           <AppText>
             El reloj funciona como objeto simbólico central: marca el paso del tiempo, pero también el peso material de la memoria, la casa y la transmisión familiar.

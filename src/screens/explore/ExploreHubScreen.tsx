@@ -1,7 +1,8 @@
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { AppNavigationProp } from '../../navigation/types';
+import { familyPresentImageSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
 import { QuickLinkGrid } from '../../components/QuickLinkGrid';
@@ -70,10 +71,21 @@ export function ExploreHubScreen() {
       </View>
 
       <SurfaceCard tone="muted">
-        <View style={{ gap: theme.spacing.sm }}>
+        <View style={{ gap: theme.spacing.md }}>
+          <Image
+            source={familyPresentImageSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 180,
+              width: '100%',
+            }}
+          />
           <AppText variant="subtitle">Archivo narrativo</AppText>
           <AppText tone="secondary">
             Cada sección está pensada para enlazar capítulos, cartas, personajes, lugares y eventos sin perder la atmósfera literaria.
+          </AppText>
+          <AppText tone="secondary">
+            La historia no queda detenida en el pasado: también puede leerse como herencia viva, reunión familiar y memoria que sigue reuniendo a las personas alrededor del libro.
           </AppText>
         </View>
       </SurfaceCard>
