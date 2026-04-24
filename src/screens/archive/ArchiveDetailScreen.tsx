@@ -1,7 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 import { archiveItemMap, chapterMap, characterMap, locationMap } from '../../data';
+import { archiveMediaSources } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
@@ -13,6 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArchiveDetail'>;
 export function ArchiveDetailScreen({ route }: Props) {
   const { theme } = useAppTheme();
   const item = archiveItemMap[route.params.itemId];
+  const mediaSource = archiveMediaSources[item.id];
 
   return (
     <View
@@ -24,20 +26,31 @@ export function ArchiveDetailScreen({ route }: Props) {
       }}
     >
       <SurfaceCard tone="muted">
-        <View
-          style={{
-            alignItems: 'center',
-            borderColor: theme.colors.border,
-            borderRadius: theme.radii.lg,
-            borderStyle: 'dashed',
-            borderWidth: 1,
-            justifyContent: 'center',
-            minHeight: 220,
-            padding: theme.spacing.lg,
-          }}
-        >
-          <AppText tone="secondary">{item.placeholderLabel}</AppText>
-        </View>
+        {mediaSource ? (
+          <Image
+            source={mediaSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 280,
+              width: '100%',
+            }}
+          />
+        ) : (
+          <View
+            style={{
+              alignItems: 'center',
+              borderColor: theme.colors.border,
+              borderRadius: theme.radii.lg,
+              borderStyle: 'dashed',
+              borderWidth: 1,
+              justifyContent: 'center',
+              minHeight: 220,
+              padding: theme.spacing.lg,
+            }}
+          >
+            <AppText tone="secondary">{item.placeholderLabel}</AppText>
+          </View>
+        )}
       </SurfaceCard>
 
       <SurfaceCard>

@@ -2,6 +2,7 @@ import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { archiveItems, characterMap, locationMap } from '../../data';
+import { archiveMediaSources } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
@@ -31,6 +32,7 @@ export function ArchiveScreen() {
         <ListRow
           key={item.id}
           eyebrow={item.type.toUpperCase()}
+          imageSource={archiveMediaSources[item.id]}
           meta={locationMap[item.locationId ?? '']?.name ?? 'Sin lugar asociado'}
           onPress={() =>
             navigation.navigate('ArchiveDetail', {

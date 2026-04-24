@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { View } from 'react-native';
+import { Image, ImageSourcePropType, View } from 'react-native';
 
 import { useAppTheme } from '../theme/ThemeContext';
 import { AppText } from './AppText';
@@ -13,6 +13,7 @@ type ListRowProps = {
   meta?: string;
   tags?: string[];
   onPress?: () => void;
+  imageSource?: ImageSourcePropType;
 };
 
 export function ListRow({
@@ -22,12 +23,23 @@ export function ListRow({
   subtitle,
   tags,
   title,
+  imageSource,
 }: ListRowProps) {
   const { theme } = useAppTheme();
 
   return (
     <SurfaceCard onPress={onPress}>
       <View style={{ gap: theme.spacing.sm }}>
+        {imageSource ? (
+          <Image
+            source={imageSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 160,
+              width: '100%',
+            }}
+          />
+        ) : null}
         {eyebrow ? (
           <AppText tone="accent" variant="caption">
             {eyebrow}
