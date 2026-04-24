@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { characterMap, letters, locationMap } from '../../data';
+import { letterMediaSources, manuscriptImageSource } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -33,7 +34,16 @@ export function LettersScreen() {
       </View>
 
       <SurfaceCard tone="paper">
-        <View style={{ gap: theme.spacing.sm }}>
+        <View style={{ gap: theme.spacing.md }}>
+          <Image
+            resizeMode="cover"
+            source={manuscriptImageSource}
+            style={{
+              borderRadius: theme.radii.lg,
+              height: 176,
+              width: '100%',
+            }}
+          />
           <SectionHeader
             subtitle="Correspondencia preparada para escucha, anotacion y navegacion hacia capitulos relacionados."
             title="Archivo epistolar"
@@ -50,6 +60,7 @@ export function LettersScreen() {
           const sender = characterMap[letter.senderId]?.name ?? 'Sin remitente';
           const recipient = characterMap[letter.recipientId]?.name ?? 'Sin destinatario';
           const location = locationMap[letter.locationId]?.name ?? 'Lugar sin definir';
+          const mediaSource = letterMediaSources[letter.id];
 
           return (
             <SurfaceCard
@@ -62,6 +73,18 @@ export function LettersScreen() {
               tone="paper"
             >
               <View style={{ gap: theme.spacing.md }}>
+                {mediaSource ? (
+                  <Image
+                    resizeMode="cover"
+                    source={mediaSource}
+                    style={{
+                      borderRadius: theme.radii.lg,
+                      height: 188,
+                      width: '100%',
+                    }}
+                  />
+                ) : null}
+
                 <View
                   style={{
                     alignItems: 'center',
@@ -96,13 +119,20 @@ export function LettersScreen() {
 
                 <View
                   style={{
+                    backgroundColor: theme.colors.cardMuted,
                     borderColor: theme.colors.paperBorder,
-                    borderTopWidth: 1,
-                    paddingTop: theme.spacing.md,
+                    borderRadius: theme.radii.md,
+                    borderWidth: 1,
+                    gap: theme.spacing.xs,
+                    paddingHorizontal: theme.spacing.md,
+                    paddingVertical: theme.spacing.md,
                   }}
                 >
+                  <AppText tone="accent" variant="caption">
+                    {location}
+                  </AppText>
                   <AppText tone="secondary">
-                    {sender} para {recipient} · {location}
+                    {sender} para {recipient}
                   </AppText>
                 </View>
 

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../components/AppText';
 import { CoverPlaceholder } from '../components/CoverPlaceholder';
@@ -9,6 +9,11 @@ import { QuickLinkGrid } from '../components/QuickLinkGrid';
 import { SectionHeader } from '../components/SectionHeader';
 import { SurfaceCard } from '../components/SurfaceCard';
 import { book, chapterMap, chapters, letters } from '../data';
+import {
+  archivePortraitSource,
+  manuscriptImageSource,
+  motherChildPortraitSource,
+} from '../data/editorialMedia';
 import { useReadingProgress } from '../hooks/useReadingProgress';
 import { AppNavigationProp } from '../navigation/types';
 import { useAppTheme } from '../theme/ThemeContext';
@@ -143,6 +148,55 @@ export function HomeScreen() {
                 Comenzar lectura
               </AppText>
             </Pressable>
+          </View>
+        </SurfaceCard>
+
+        <SurfaceCard tone="muted">
+          <View style={{ gap: theme.spacing.lg }}>
+            <View style={{ gap: theme.spacing.xs }}>
+              <AppText tone="accent" variant="caption">
+                ARCHIVO VIVO
+              </AppText>
+              <AppText variant="subtitle">Memoria familiar, imagen y huella material</AppText>
+              <AppText tone="secondary">
+                La experiencia ya dialoga con retratos y rastros documentales del
+                archivo, para que la lectura se sienta cercana, encarnada y situada.
+              </AppText>
+            </View>
+
+            <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
+              {[archivePortraitSource, motherChildPortraitSource].map((source, index) => (
+                <Image
+                  key={`home-archive-${index}`}
+                  resizeMode="cover"
+                  source={source}
+                  style={{
+                    borderRadius: theme.radii.lg,
+                    flex: 1,
+                    height: 188,
+                  }}
+                />
+              ))}
+            </View>
+
+            <View
+              style={{
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.border,
+                borderRadius: theme.radii.lg,
+                borderWidth: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <Image
+                resizeMode="cover"
+                source={manuscriptImageSource}
+                style={{
+                  height: 110,
+                  width: '100%',
+                }}
+              />
+            </View>
           </View>
         </SurfaceCard>
       </View>

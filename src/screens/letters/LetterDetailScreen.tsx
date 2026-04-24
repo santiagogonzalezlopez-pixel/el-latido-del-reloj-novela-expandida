@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, characterMap, letterMap, locationMap } from '../../data';
+import { letterMediaSources } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -19,6 +20,7 @@ export function LetterDetailScreen({ navigation, route }: Props) {
   const recipient = characterMap[letter.recipientId];
   const relatedLocation = locationMap[letter.locationId];
   const relatedChapter = chapterMap[letter.relatedChapterId];
+  const mediaSource = letterMediaSources[letter.id];
 
   return (
     <ScrollView
@@ -31,14 +33,28 @@ export function LetterDetailScreen({ navigation, route }: Props) {
       style={{ backgroundColor: theme.colors.background }}
     >
       <SurfaceCard tone="muted">
-        <View style={{ gap: theme.spacing.sm }}>
-          <AppText tone="accent" variant="caption">
-            PIEZA DEL ARCHIVO EPISTOLAR
-          </AppText>
-          <AppText variant="display">{letter.title}</AppText>
-          <AppText tone="secondary">
-            {sender?.name} para {recipient?.name} · {relatedLocation?.name}
-          </AppText>
+        <View style={{ gap: theme.spacing.md }}>
+          <View style={{ gap: theme.spacing.sm }}>
+            <AppText tone="accent" variant="caption">
+              PIEZA DEL ARCHIVO EPISTOLAR
+            </AppText>
+            <AppText variant="display">{letter.title}</AppText>
+            <AppText tone="secondary">
+              {sender?.name} para {recipient?.name} / {relatedLocation?.name}
+            </AppText>
+          </View>
+
+          {mediaSource ? (
+            <Image
+              resizeMode="cover"
+              source={mediaSource}
+              style={{
+                borderRadius: theme.radii.lg,
+                height: 220,
+                width: '100%',
+              }}
+            />
+          ) : null}
         </View>
       </SurfaceCard>
 
@@ -76,6 +92,32 @@ export function LetterDetailScreen({ navigation, route }: Props) {
                 Escuchar
               </AppText>
             </Pressable>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: theme.colors.cardMuted,
+              borderColor: theme.colors.paperBorder,
+              borderRadius: theme.radii.lg,
+              borderWidth: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: theme.spacing.md,
+              padding: theme.spacing.md,
+            }}
+          >
+            <View style={{ flex: 1, minWidth: 132, gap: theme.spacing.xs }}>
+              <AppText tone="accent" variant="caption">
+                REMITENTE
+              </AppText>
+              <AppText>{sender?.name}</AppText>
+            </View>
+            <View style={{ flex: 1, minWidth: 132, gap: theme.spacing.xs }}>
+              <AppText tone="accent" variant="caption">
+                DESTINATARIO
+              </AppText>
+              <AppText>{recipient?.name}</AppText>
+            </View>
           </View>
 
           <View
