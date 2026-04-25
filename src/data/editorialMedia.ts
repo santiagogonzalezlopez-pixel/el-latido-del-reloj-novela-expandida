@@ -9,6 +9,7 @@ type EditorialImageTreatment = {
 
 export const bookCoverSource: ImageSourcePropType = require('../../assets/editorial/cover-book.png');
 export const clockPortraitSource: ImageSourcePropType = require('../../assets/editorial/clock-portrait.jpg');
+export const appCoverSource: ImageSourcePropType = bookCoverSource;
 export const coverImageSource: ImageSourcePropType = clockPortraitSource;
 export const timelineImageSource: ImageSourcePropType = require('../../assets/editorial/timeline-es.png');
 export const familyTreeImageSource: ImageSourcePropType = require('../../assets/editorial/family-tree.jpg');
