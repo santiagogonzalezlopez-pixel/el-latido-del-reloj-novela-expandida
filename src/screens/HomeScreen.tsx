@@ -231,7 +231,7 @@ export function HomeScreen() {
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle="La app recuerda tu último capítulo abierto y el avance de lectura."
+          subtitle="Retoma el último capítulo abierto y el avance de lectura."
           title="Continuar leyendo"
         />
         <SurfaceCard>

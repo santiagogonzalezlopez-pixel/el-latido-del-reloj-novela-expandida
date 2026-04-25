@@ -18,7 +18,6 @@ import {
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatSourceReferences } from '../../utils/formatters';
 
 export function ReadLibraryScreen() {
   const navigation = useNavigation<AppNavigationProp>();
@@ -86,7 +85,7 @@ export function ReadLibraryScreen() {
                   ? 'APERTURA'
                   : `CAPÍTULO ${String(chapter.order).padStart(2, '0')}`
               }
-              meta={`Progreso guardado: ${Math.round(percentage * 100)}% / ${formatSourceReferences(chapter.sources)}`}
+              meta={`Progreso guardado: ${Math.round(percentage * 100)}%`}
               onPress={() =>
                 navigation.navigate('ChapterReader', {
                   chapterId: chapter.id,

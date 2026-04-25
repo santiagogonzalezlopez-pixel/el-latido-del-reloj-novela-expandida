@@ -103,25 +103,6 @@ export function LetterDetailScreen({ navigation, route }: Props) {
               </AppText>
               <AppText variant="bodyStrong">{relatedLocation?.name}</AppText>
             </View>
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => undefined}
-              style={{
-                alignItems: 'center',
-                borderColor: theme.colors.paperBorder,
-                borderRadius: theme.radii.pill,
-                borderWidth: 1,
-                flexDirection: 'row',
-                gap: theme.spacing.xs,
-                paddingHorizontal: theme.spacing.md,
-                paddingVertical: theme.spacing.sm,
-              }}
-            >
-              <Ionicons color={theme.colors.accent} name="volume-high-outline" size={16} />
-              <AppText tone="accent" variant="caption">
-                Escuchar
-              </AppText>
-            </Pressable>
           </View>
 
           <View
@@ -210,7 +191,7 @@ export function LetterDetailScreen({ navigation, route }: Props) {
             >
               <SectionHeader
                 subtitle="Lugar documental desde el que esta carta entra en la obra."
-                title="Fuente"
+                title="Referencia documental"
               />
               <AppText tone="secondary">
                 {formatSourceReferences(letter.sources)}

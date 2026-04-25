@@ -14,7 +14,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-author-note-epigraph",
-        text: "“Unha casa ténse con maos e con memoria” — Flora.",
+        text: "“Unha casa ténse con mans e con memoria” — Flora.",
         sources: [{ pdfId: 'main-es', pages: [7] }],
       },
       {
@@ -208,12 +208,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-zafra-12",
-        text: "-De veras -dijo Bieito-. Pero el viaje no perdona a los que van divididos. Hay que ir juntos. Tomás no supo si reír o llorar. Lo que sí supo fue que la aventura tenía otro capítulo escrito en la tinta que se le acababa de abrir en el pecho. Cuba los estaba templando; Brasil los esperaba. Juntos. Al amanecer, un trueno lejano fingió tormenta, pero fue un barco silbando al fondo. Candela se levantó, estiró la espalda y les lanzó una mirada que sabía más de lo que decía. -Cuando se vayan, gallegos, avisen. No es de buen amigo desaparecer. -Te avisaremos -dijo Pedro. -Y volveremos si hace falta -añadió Tomás. -No hace falta. Uno encuentra su camino -respondió Candela, volviendo al machete-. Pero dejen aquí una canción. Tomás asintió. Alzó el machete una vez más y, al dejarlo caer, el golpe tuvo la cadencia de un adiós que todavía no es despedida. La zafra siguió su curso, pero en Pedro y en Tomás ya había empezado la travesía siguiente. Cuba, con su calor encendido, con su azúcar pegada a la lengua, con su huracán en los huesos, se quedaría en ellos como una marca. Y, sin embargo, el mundo era más grande que un cañaveral.",
-        sources: [{ pdfId: 'main-es', pages: [44] }],
-      },
-      {
-        id: "p-zafra-13",
-        text: "Había cartas que aún no habían sido escritas, mares por cruzar, y el mismo reloj que Pedro llevaba envuelto en una manta -cuando llegara el día- sonaría distinto si entraban por la puerta los dos.",
+        text: "-De veras -dijo Bieito-. Pero el viaje no perdona a los que van divididos. Hay que ir juntos. Tomás no supo si reír o llorar. Lo que sí supo fue que la aventura tenía otro capítulo escrito en la tinta que se le acababa de abrir en el pecho. Cuba los estaba templando; Brasil los esperaba. Juntos. Al amanecer, un trueno lejano fingió tormenta, pero fue un barco silbando al fondo. Candela se levantó, estiró la espalda y les lanzó una mirada que sabía más de lo que decía. -Cuando se vayan, gallegos, avisen. No es de buen amigo desaparecer. -Te avisaremos -dijo Pedro. -Y volveremos si hace falta -añadió Tomás. -No hace falta. Uno encuentra su camino -respondió Candela, volviendo al machete-. Pero dejen aquí una canción. Tomás asintió. Alzó el machete una vez más y, al dejarlo caer, el golpe tuvo la cadencia de un adiós que todavía no es despedida. La zafra siguió su curso, pero en Pedro y en Tomás ya había empezado la travesía siguiente. Cuba, con su calor encendido, con su azúcar pegada a la lengua, con su huracán en los huesos, se quedaría en ellos como una marca. Y, sin embargo, el mundo era más grande que un cañaveral. Había cartas que aún no habían sido escritas, mares por cruzar, y el mismo reloj que Pedro llevaba envuelto en una manta -cuando llegara el día- sonaría distinto si entraban por la puerta los dos.",
         sources: [{ pdfId: 'main-es', pages: [44, 45, 46, 47, 48] }],
       },
     ],

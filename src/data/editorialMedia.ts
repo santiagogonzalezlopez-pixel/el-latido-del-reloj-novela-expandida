@@ -199,13 +199,13 @@ export const characterMediaTreatments: Record<string, EditorialImageTreatment> =
 
 export const characterMediaNotes: Record<string, string> = {
   flora:
-    'Retrato de Flora en la juventud. A partir de tu indicacion, pasa a ser la imagen principal de su ficha dentro de la app.',
+    'Retrato de Flora en la juventud. A partir de tu indicación, pasa a ser la imagen principal de su ficha dentro de la app.',
   pedro:
     'Pedro aparece identificado junto a Iracema en una fotografía familiar del archivo americano.',
   tomas:
     'Tomás aparece identificado junto a Pedro: en la primera fotografía, de izquierda a derecha, Tomás y Pedro.',
   indalecia:
-    'Indalecia con Flora bebe. Esta pieza ya queda identificada en la app como una imagen materna central del archivo familiar.',
+    'Indalecia con Flora bebé. Esta pieza ya queda identificada en la app como una imagen materna central del archivo familiar.',
   maria:
     'María aparece identificada en la fotografía de grupo junto a Tomás y Pedro.',
   iracema:

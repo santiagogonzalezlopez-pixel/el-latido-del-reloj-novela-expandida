@@ -21,7 +21,39 @@ export function sentenceList(items: string[]) {
 export function formatSourceReferences(
   sources: Array<{ pdfId: string; pages: number[] }> = [],
 ) {
+  const sourceLabels: Record<string, string> = {
+    'appendix-es': 'Apéndice documental',
+    'main-es': 'Obra principal',
+  };
+
+  const formatPages = (pages: number[]) => {
+    const sortedPages = [...new Set(pages)].sort((a, b) => a - b);
+    const ranges: string[] = [];
+    let start = sortedPages[0];
+    let previous = sortedPages[0];
+
+    for (const page of sortedPages.slice(1)) {
+      if (page === previous + 1) {
+        previous = page;
+        continue;
+      }
+
+      ranges.push(start === previous ? `${start}` : `${start}-${previous}`);
+      start = page;
+      previous = page;
+    }
+
+    if (start !== undefined && previous !== undefined) {
+      ranges.push(start === previous ? `${start}` : `${start}-${previous}`);
+    }
+
+    return `${sortedPages.length === 1 ? 'pág.' : 'págs.'} ${ranges.join(', ')}`;
+  };
+
   return sources
-    .map((source) => `${source.pdfId}: ${source.pages.join(', ')}`)
+    .map((source) => {
+      const label = sourceLabels[source.pdfId] ?? 'Archivo familiar';
+      return `${label}, ${formatPages(source.pages)}`;
+    })
     .join(' / ');
 }

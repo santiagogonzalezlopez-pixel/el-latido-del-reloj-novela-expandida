@@ -92,7 +92,7 @@ export function ArchiveDetailScreen({ route }: Props) {
 
           {item.sources?.length ? (
             <AppText tone="secondary">
-              Fuentes: {formatSourceReferences(item.sources)}
+              Referencia documental: {formatSourceReferences(item.sources)}
             </AppText>
           ) : null}
         </View>

@@ -135,11 +135,11 @@ export function CharactersScreen() {
               ) : null}
 
               <View style={{ gap: theme.spacing.xs }}>
-                <AppText variant="bodyStrong">Relacion central</AppText>
+                <AppText variant="bodyStrong">Relación central</AppText>
                 <AppText tone="secondary">
                   {relatedNames.length
                     ? relatedNames.join(', ')
-                    : 'Relacion en desarrollo'}
+                    : 'Relación en desarrollo'}
                 </AppText>
               </View>
 

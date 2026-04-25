@@ -40,8 +40,8 @@ export function TimelineScreen() {
             }}
           />
           <AppText tone="secondary">
-            Esquema visual del arco histórico principal, usado aquí como apoyo a la
-            línea temporal de la app.
+            Esquema visual del arco histórico principal: Galicia, Cuba, Brasil,
+            Barcelona y las ramas americanas.
           </AppText>
         </View>
       </SurfaceCard>

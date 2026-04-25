@@ -179,10 +179,6 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
                 );
               })}
             </View>
-            <AppText tone="secondary">
-              Interlineado optimizado para lectura prolongada: más aire, mejor ritmo y
-              menos fatiga visual.
-            </AppText>
           </View>
 
           <Pressable
@@ -231,12 +227,12 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
           <SectionHeader
-            subtitle="Páginas y piezas del archivo que sostienen este capítulo."
-            title="Fuentes del capítulo"
+            subtitle="Páginas y piezas conservadas que sostienen este tramo."
+            title="Archivo de apoyo"
           />
           {chapter.sources?.length ? (
             <AppText tone="secondary">
-              Páginas de origen: {formatSourceReferences(chapter.sources)}
+              Referencia: {formatSourceReferences(chapter.sources)}
             </AppText>
           ) : null}
           {relatedArchiveItems.length ? (
@@ -266,62 +262,17 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.xl }}>
-          <View style={{ gap: theme.spacing.xs }}>
-            <AppText tone="accent" variant="caption">
-              LECTURA CONTINUA
+          {chapter.paragraphs.map((paragraph) => (
+            <AppText
+              key={paragraph.id}
+              style={{
+                fontSize: paragraphFontSize,
+                lineHeight: paragraphLineHeight,
+              }}
+            >
+              {paragraph.text}
             </AppText>
-            <AppText tone="secondary">
-              El texto del capítulo se presenta como lectura continua, sin botones
-              repetidos entre fragmentos.
-            </AppText>
-          </View>
-
-          {chapter.paragraphs.map((paragraph, index) => {
-            const isLastParagraph = index === chapter.paragraphs.length - 1;
-
-            return (
-              <View key={paragraph.id} style={{ gap: theme.spacing.md }}>
-                <View
-                  style={{
-                    alignItems: 'flex-start',
-                    flexDirection: 'row',
-                    gap: theme.spacing.md,
-                  }}
-                >
-                  <AppText
-                    style={{
-                      minWidth: 18,
-                      opacity: 0.55,
-                      paddingTop: 2,
-                    }}
-                    tone="accent"
-                    variant="caption"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </AppText>
-                  <AppText
-                    style={{
-                      flex: 1,
-                      fontSize: paragraphFontSize,
-                      lineHeight: paragraphLineHeight,
-                    }}
-                  >
-                    {paragraph.text}
-                  </AppText>
-                </View>
-
-                {!isLastParagraph ? (
-                  <View
-                    style={{
-                      backgroundColor: theme.colors.separator,
-                      height: 1,
-                      marginLeft: 30,
-                    }}
-                  />
-                ) : null}
-              </View>
-            );
-          })}
+          ))}
         </View>
       </SurfaceCard>
     </ScrollView>

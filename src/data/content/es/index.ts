@@ -27,8 +27,7 @@ export const contentSource = {
     },
     {
       id: 'appendix-es',
-      label:
-        'El_latido_del_reloj - DEF Copyright Edit - Google Play Books - Edit-235-264 APENDICE ES.pdf',
+      label: 'Apéndice documental en español',
     },
   ],
 };

@@ -79,7 +79,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
 
           {character.sources?.length ? (
             <AppText tone="secondary">
-              Fuentes: {formatSourceReferences(character.sources)}
+              Referencia documental: {formatSourceReferences(character.sources)}
             </AppText>
           ) : null}
         </View>

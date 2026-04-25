@@ -76,7 +76,7 @@ function buildChildrenReply(personId: string) {
   }
 
   if (!person.children?.length) {
-    return `${person.name} no tiene descendientes directos registrados en la base genealógica de la app.`;
+    return `En el árbol familiar no constan descendientes directos de ${person.name}.`;
   }
 
   return `Según el árbol, los descendientes directos de ${person.name} son ${namesForIds(
@@ -110,7 +110,7 @@ function buildGenealogyReply(question: string) {
   }
 
   if (normalized.includes('pedro') && (normalized.includes('tio') || normalized.includes('flora'))) {
-    return 'Pedro Rodríguez es hermano de Indalecia. Por eso es tío de Flora y de Tomás. No es el tío directo de Santiago: en la app conviene decir siempre que Pedro es el tío de Flora.';
+    return 'Pedro Rodríguez es hermano de Indalecia. Por eso es tío de Flora y de Tomás. No es el tío directo de Santiago: pertenece a la generación anterior, como tío de la yaya Flora.';
   }
 
   if (normalized.includes('esmeralda')) {
@@ -198,5 +198,5 @@ export function buildBookAssistantReply(question: string) {
   }
 
   const characterSummary = characters.map((character) => getCharacterLine(character.id)).join(' ');
-  return `Puedo responder con la obra, el archivo familiar y el árbol genealógico cargado en la app. ${characterSummary}`;
+  return `Puedo responder a partir de la obra, el archivo familiar y el árbol genealógico. ${characterSummary}`;
 }
