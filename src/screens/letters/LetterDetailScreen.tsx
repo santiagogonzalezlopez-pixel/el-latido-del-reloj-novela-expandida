@@ -1,15 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Image, Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
-import { chapterMap, characterMap, letterMap, locationMap } from '../../data';
-import { letterMediaSources } from '../../data/editorialMedia';
+import {
+  archiveItems,
+  chapterMap,
+  characterMap,
+  letterMap,
+  locationMap,
+} from '../../data';
+import {
+  archiveMediaSources,
+  archiveMediaTreatments,
+  letterMediaSources,
+  letterMediaTreatments,
+} from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
+import { formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LetterDetail'>;
 
@@ -21,6 +34,22 @@ export function LetterDetailScreen({ navigation, route }: Props) {
   const relatedLocation = locationMap[letter.locationId];
   const relatedChapter = chapterMap[letter.relatedChapterId];
   const mediaSource = letterMediaSources[letter.id];
+  const relatedArchiveItems = archiveItems.filter((item) => {
+    const sameSourcePage = Boolean(
+      item.sources?.some((itemSource) =>
+        letter.sources?.some(
+          (letterSource) =>
+            itemSource.pdfId === letterSource.pdfId &&
+            itemSource.pages.some((page) => letterSource.pages.includes(page)),
+        ),
+      ),
+    );
+    const sharesCharacters = item.characterIds.some((id) => letter.characterIds.includes(id));
+    const sameNarrativeContext =
+      item.chapterId === letter.relatedChapterId || item.locationId === letter.locationId;
+
+    return sameSourcePage || (sharesCharacters && sameNarrativeContext);
+  });
 
   return (
     <ScrollView
@@ -45,14 +74,15 @@ export function LetterDetailScreen({ navigation, route }: Props) {
           </View>
 
           {mediaSource ? (
-            <Image
-              resizeMode="cover"
+            <EditorialImage
+              imageStyle={{ borderRadius: theme.radii.lg }}
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
-                height: 220,
+                height: 420,
                 width: '100%',
               }}
+              treatment={letterMediaTreatments[letter.id]}
             />
           ) : null}
         </View>
@@ -165,9 +195,105 @@ export function LetterDetailScreen({ navigation, route }: Props) {
             }
           >
             <AppText tone="accent" variant="caption">
-              Ir al capitulo relacionado: {relatedChapter.title}
+              Ir al capítulo relacionado: {relatedChapter.title}
             </AppText>
           </Pressable>
+
+          {letter.sources?.length ? (
+            <View
+              style={{
+                borderColor: theme.colors.separator,
+                borderTopWidth: 1,
+                gap: theme.spacing.sm,
+                paddingTop: theme.spacing.md,
+              }}
+            >
+              <SectionHeader
+                subtitle="Lugar documental desde el que esta carta entra en la obra."
+                title="Fuente"
+              />
+              <AppText tone="secondary">
+                {formatSourceReferences(letter.sources)}
+              </AppText>
+              {letter.sources.map((source) =>
+                source.note ? (
+                  <AppText key={`${source.pdfId}-${source.pages.join('-')}`}>
+                    {source.note}
+                  </AppText>
+                ) : null,
+              )}
+            </View>
+          ) : null}
+
+          {relatedArchiveItems.length ? (
+            <View
+              style={{
+                borderColor: theme.colors.separator,
+                borderTopWidth: 1,
+                gap: theme.spacing.sm,
+                paddingTop: theme.spacing.md,
+              }}
+            >
+              <SectionHeader
+                subtitle="Piezas físicas y documentales que amplían la lectura de esta carta."
+                title="Archivo relacionado"
+              />
+              <View style={{ gap: theme.spacing.sm }}>
+                {relatedArchiveItems.map((item) => {
+                  const archivePreview = archiveMediaSources[item.id];
+
+                  return (
+                    <Pressable
+                      key={item.id}
+                      accessibilityRole="button"
+                      onPress={() =>
+                        navigation.navigate('ArchiveDetail', {
+                          itemId: item.id,
+                        })
+                      }
+                      style={{
+                        alignItems: 'center',
+                        backgroundColor: theme.colors.cardMuted,
+                        borderColor: theme.colors.paperBorder,
+                        borderRadius: theme.radii.md,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        gap: theme.spacing.md,
+                        padding: theme.spacing.sm,
+                      }}
+                    >
+                      {archivePreview ? (
+                        <EditorialImage
+                          imageStyle={{ borderRadius: theme.radii.md }}
+                          source={archivePreview}
+                          style={{
+                            borderRadius: theme.radii.md,
+                            height: 78,
+                            width: 78,
+                          }}
+                          treatment={archiveMediaTreatments[item.id]}
+                        />
+                      ) : null}
+                      <View style={{ flex: 1, gap: theme.spacing.xs }}>
+                        <AppText tone="accent" variant="caption">
+                          {item.type.toUpperCase()}
+                        </AppText>
+                        <AppText variant="bodyStrong">{item.title}</AppText>
+                        <AppText numberOfLines={2} tone="secondary">
+                          {item.description}
+                        </AppText>
+                      </View>
+                      <Ionicons
+                        color={theme.colors.accent}
+                        name="arrow-forward-outline"
+                        size={18}
+                      />
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+          ) : null}
         </View>
       </SurfaceCard>
     </ScrollView>

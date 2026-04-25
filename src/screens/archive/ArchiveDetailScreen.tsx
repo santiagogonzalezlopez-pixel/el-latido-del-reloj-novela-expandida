@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { archiveItemMap, chapterMap, characterMap, locationMap } from '../../data';
-import { archiveMediaSources } from '../../data/editorialMedia';
+import { archiveMediaSources, archiveMediaTreatments } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { formatSourceReferences } from '../../utils/formatters';
@@ -30,14 +31,15 @@ export function ArchiveDetailScreen({ route }: Props) {
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.md }}>
           {mediaSource ? (
-            <Image
-              resizeMode="cover"
+            <EditorialImage
+              imageStyle={{ borderRadius: theme.radii.lg }}
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
-                height: 280,
+                height: 460,
                 width: '100%',
               }}
+              treatment={archiveMediaTreatments[item.id]}
             />
           ) : (
             <View
@@ -76,7 +78,7 @@ export function ArchiveDetailScreen({ route }: Props) {
           </View>
 
           <AppText tone="secondary">
-            Capitulo relacionado: {chapterMap[item.chapterId ?? '']?.title ?? 'Sin capitulo'}
+            Capítulo relacionado: {chapterMap[item.chapterId ?? '']?.title ?? 'Sin capítulo'}
           </AppText>
 
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>

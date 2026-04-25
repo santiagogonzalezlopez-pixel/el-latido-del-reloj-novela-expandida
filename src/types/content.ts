@@ -117,6 +117,8 @@ export type Book = {
   id: EntityId;
   title: string;
   subtitle: string;
+  authorName: string;
+  authorNote: string;
   intro: string;
   sourceLanguage: 'es';
   ignoredLanguages: Array<'pt' | 'en'>;

@@ -1,13 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { ListRow } from '../../components/ListRow';
 import { archiveItems, characterMap, locationMap } from '../../data';
 import {
+  archiveMediaTreatments,
   archiveMediaSources,
+  floraFieldPortraitSource,
   familyTreeImageSource,
-  manuscriptImageSource,
+  mediaTreatments,
 } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
@@ -28,29 +31,32 @@ export function ArchiveScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Archivo</AppText>
         <AppText>
-          Espacio documental para fotografias, cartas escaneadas, arbol familiar,
-          documentos y materiales complementarios asociados al corpus en espanol.
+          Fotografías, cartas escaneadas, árbol familiar, documentos y materiales
+          conservados para seguir la historia desde la memoria íntima hasta la prueba
+          física del archivo familiar.
         </AppText>
       </View>
 
       <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
-        <Image
-          resizeMode="cover"
-          source={manuscriptImageSource}
+        <EditorialImage
+          imageStyle={{ borderRadius: theme.radii.lg }}
+          source={floraFieldPortraitSource}
           style={{
             borderRadius: theme.radii.lg,
             flex: 1,
-            height: 160,
+            height: 260,
           }}
+          treatment={mediaTreatments.floraField}
         />
-        <Image
-          resizeMode="cover"
+        <EditorialImage
+          imageStyle={{ borderRadius: theme.radii.lg }}
           source={familyTreeImageSource}
           style={{
             borderRadius: theme.radii.lg,
             flex: 1,
-            height: 160,
+            height: 260,
           }}
+          treatment={mediaTreatments.familyTree}
         />
       </View>
 
@@ -59,6 +65,7 @@ export function ArchiveScreen() {
           key={item.id}
           eyebrow={item.type.toUpperCase()}
           imageSource={archiveMediaSources[item.id]}
+          imageTreatment={archiveMediaTreatments[item.id]}
           meta={locationMap[item.locationId ?? '']?.name ?? 'Sin lugar asociado'}
           onPress={() =>
             navigation.navigate('ArchiveDetail', {

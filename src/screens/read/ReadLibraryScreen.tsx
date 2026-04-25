@@ -7,6 +7,7 @@ import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import {
   archiveItems,
+  book,
   chapters,
   characterMap,
   contentSource,
@@ -36,25 +37,29 @@ export function ReadLibraryScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Leer</AppText>
         <AppText>
-          Un lector limpio, persistente y preparado para enlazar cada fragmento con
-          personajes, lugares, cartas, cronologia y archivo documental.
+          {book.intro}
+        </AppText>
+        <AppText tone="secondary">
+          {book.authorName} reconstruye la historia familiar como nieto de Flora e
+          hijo de Luis, con lectura, cartas, genealogía, cronología y archivo
+          documental enlazados.
         </AppText>
       </View>
 
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.sm }}>
           <AppText tone="accent" variant="caption">
-            FUENTE Y PREPARACION
+            ACERCA DE ESTA LECTURA
           </AppText>
-          <AppText>Fuente activa: {contentSource.sourceLabel}</AppText>
+          <AppText>{contentSource.sourceLabel}</AppText>
           <AppText tone="secondary">{contentSource.ingestionNote}</AppText>
         </View>
       </SurfaceCard>
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle={`Capitulos disponibles: ${chapters.length}. Cartas enlazables: ${letters.length}. Lugares trazados: ${locations.length}.`}
-          title="Capitulos"
+          subtitle={`Capítulos disponibles: ${chapters.length}. Cartas enlazables: ${letters.length}. Lugares trazados: ${locations.length}.`}
+          title="Capítulos"
         />
         {chapters.map((chapter) => {
           const percentage = progress.chapterProgress[chapter.id]?.progress ?? 0;
@@ -76,7 +81,11 @@ export function ReadLibraryScreen() {
           return (
             <ListRow
               key={chapter.id}
-              eyebrow={`CAPITULO ${String(chapter.order).padStart(2, '0')}`}
+              eyebrow={
+                chapter.order === 0
+                  ? 'APERTURA'
+                  : `CAPÍTULO ${String(chapter.order).padStart(2, '0')}`
+              }
               meta={`Progreso guardado: ${Math.round(percentage * 100)}% / ${formatSourceReferences(chapter.sources)}`}
               onPress={() =>
                 navigation.navigate('ChapterReader', {

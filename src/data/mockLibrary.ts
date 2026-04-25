@@ -15,7 +15,7 @@ export const contentSource = {
   sourceLabel:
     'El_latido_del_reloj - DEF Copyright Edit - Google Play Books - Edit-1-96 ESPAÑOL.pdf',
   ingestionNote:
-    'La app queda preparada para ingerir solo el corpus en español y omitir por completo las secciones en portugués e inglés.',
+    'La app queda preparada con la versión española de la obra y sin las secciones en portugués e inglés.',
 };
 
 export const quotes: Quote[] = [
@@ -491,7 +491,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: 'p-zafra-2',
-        text: 'Pedro descubre que el cuerpo también escribe: en los hombros, en las manos, en la fatiga que llega antes que la noche.',
+        text: 'Pedro descubre que el cuerpo también escribe: en los hombros, en las maños, en la fatiga que llega antes que la noche.',
       },
       {
         id: 'p-zafra-3',
@@ -687,14 +687,14 @@ export const chapters: Chapter[] = [
 export const archiveItems: ArchiveItem[] = [
   {
     id: 'archive-photo-house',
-    title: 'Fotografia familiar conservada',
+    title: 'Fotografía familiar conservada',
     type: 'fotografía',
     description:
-      'Fotografia en blanco y negro del archivo familiar. La pieza aporta cuerpo y presencia a la memoria transmitida entre generaciones.',
+      'Fotografía en blanco y negro del archivo familiar. La pieza aporta cuerpo y presencia a la memoria transmitida entre generaciones.',
     characterIds: ['flora', 'pedro', 'tomas'],
     locationId: 'chandrexa',
     chapterId: 'chapter-descendencia',
-    placeholderLabel: 'Fotografia familiar',
+    placeholderLabel: 'Fotografía familiar',
   },
   {
     id: 'archive-letter-scan',
@@ -709,14 +709,14 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: 'archive-family-tree',
-    title: 'Arbol familiar comentado',
+    title: 'Árbol familiar comentado',
     type: 'árbol familiar',
     description:
       'Version visual del linaje familiar, con ramas principales y continuidad entre Galicia, Brasil y las generaciones posteriores.',
     characterIds: ['maria', 'pedro', 'indalecia', 'flora', 'tomas'],
     locationId: 'chandrexa',
     chapterId: 'chapter-descendencia',
-    placeholderLabel: 'Arbol familiar',
+    placeholderLabel: 'árbol familiar',
   },
   {
     id: 'archive-port-doc',
@@ -734,7 +734,7 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Cubierta ilustrada de la obra',
     type: 'material complementario',
     description:
-      'Ilustracion editorial que condensa el reloj, el viaje y la emigracion como nucleo simbolico de la novela expandida.',
+      'Ilustración editorial que condensa el reloj, el viaje y la emigración como núcleo simbolico de la novela expandida.',
     characterIds: ['pedro', 'flora', 'tomas'],
     locationId: 'sao-paulo',
     chapterId: 'chapter-descendencia',
@@ -746,8 +746,11 @@ export const book: Book = {
   id: 'book-latido-reloj',
   title: 'El latido del reloj',
   subtitle: 'Novela expandida',
+  authorName: 'Santiago González López',
+  authorNote:
+    'Autor, nieto de Flora e hijo de Luis. Reconstruye la historia de su familia a partir de cartas, memoria oral, documentos y fotografías del archivo familiar.',
   intro:
-    'Una experiencia narrativa sobre memoria familiar, cartas, emigración y genealogía, articulada alrededor de un reloj que atraviesa generaciones.',
+    'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de su hermano Tomás y de su tío Pedro.',
   sourceLanguage: 'es',
   ignoredLanguages: ['pt', 'en'],
   chapterIds: chapters.map((chapter) => chapter.id),

@@ -10,16 +10,12 @@ export type ChapterProgressState = {
 export type ReadingProgress = {
   lastChapterId?: string;
   chapterProgress: Record<string, ChapterProgressState>;
-  favoriteQuoteIds: string[];
-  highlightedParagraphIds: string[];
 };
 
 const STORAGE_KEY = 'novela-expandida-reading-progress';
 
 const DEFAULT_PROGRESS: ReadingProgress = {
   chapterProgress: {},
-  favoriteQuoteIds: [],
-  highlightedParagraphIds: [],
 };
 
 export function useReadingProgress() {
@@ -42,36 +38,8 @@ export function useReadingProgress() {
     }));
   };
 
-  const toggleFavoriteQuote = (quoteId: string) => {
-    persisted.setState((current) => {
-      const exists = current.favoriteQuoteIds.includes(quoteId);
-
-      return {
-        ...current,
-        favoriteQuoteIds: exists
-          ? current.favoriteQuoteIds.filter((id) => id !== quoteId)
-          : [...current.favoriteQuoteIds, quoteId],
-      };
-    });
-  };
-
-  const toggleHighlight = (paragraphId: string) => {
-    persisted.setState((current) => {
-      const exists = current.highlightedParagraphIds.includes(paragraphId);
-
-      return {
-        ...current,
-        highlightedParagraphIds: exists
-          ? current.highlightedParagraphIds.filter((id) => id !== paragraphId)
-          : [...current.highlightedParagraphIds, paragraphId],
-      };
-    });
-  };
-
   return {
     ...persisted,
     saveChapterProgress,
-    toggleFavoriteQuote,
-    toggleHighlight,
   };
 }

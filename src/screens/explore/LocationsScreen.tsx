@@ -26,9 +26,9 @@ export function LocationsScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Lugares / mapa</AppText>
         <AppText>
-          Visualizacion narrativa preparada para evolucionar hacia un mapa real, sin
-          perder la logica de recorrido entre origen, puerto y ciudades de
-          emigracion.
+          Recorrido narrativo por los lugares que sostienen la historia: el origen
+          gallego, el puerto, Cuba, Brasil, Barcelona y las ramas que siguieron
+          abriéndose lejos de Casteligo.
         </AppText>
       </View>
 
@@ -49,8 +49,8 @@ export function LocationsScreen() {
             </AppText>
             <AppText variant="subtitle">Del interior gallego al archivo americano</AppText>
             <AppText tone="secondary">
-              La geografia del libro se sostiene sobre una cadena concreta de lugares:
-              casa, puerto, ingenio, travesia y ciudad de arraigo.
+              La geografía del libro se sostiene sobre una cadena concreta de lugares:
+              casa, puerto, ingenio, travesía y ciudad de arraigo.
             </AppText>
           </View>
         </View>
@@ -64,7 +64,7 @@ export function LocationsScreen() {
             justifyContent: 'space-between',
           }}
         >
-          {['Chandrexa', 'Vigo', 'La Habana', 'Sao Paulo'].map((label, index) => (
+          {['Chandrexa', 'Vigo', 'La Habana', 'São Paulo'].map((label, index) => (
             <View
               key={label}
               style={{
@@ -113,8 +113,8 @@ export function LocationsScreen() {
             }}
           />
           <AppText tone="secondary">
-            Papeles, sellos y fotografias tambien cuentan el mapa: la emigracion no
-            solo se recuerda, tambien queda inscrita en documentos y objetos.
+            Papeles, sellos y fotografías también cuentan el mapa: la emigración no
+            solo se recuerda, también queda inscrita en documentos y objetos.
           </AppText>
         </View>
       </SurfaceCard>
@@ -130,7 +130,7 @@ export function LocationsScreen() {
                 ? consularDocumentSource
                 : undefined
           }
-          meta={`${location.chapterIds.length} capitulos / ${location.characterIds.length} personajes`}
+          meta={`${location.chapterIds.length} capítulos / ${location.characterIds.length} personajes`}
           subtitle={location.summary}
           tags={location.eventIds.map((eventId) => timelineEventMap[eventId]?.title)}
           title={location.name}

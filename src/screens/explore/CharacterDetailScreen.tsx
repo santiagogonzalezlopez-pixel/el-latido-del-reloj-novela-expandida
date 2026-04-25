@@ -1,12 +1,17 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Image, Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, characterMap, locationMap, quoteMap } from '../../data';
-import { characterMediaNotes, characterMediaSources } from '../../data/editorialMedia';
+import {
+  characterMediaNotes,
+  characterMediaSources,
+  characterMediaTreatments,
+} from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { formatSourceReferences } from '../../utils/formatters';
@@ -32,14 +37,15 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.lg }}>
           {mediaSource ? (
-            <Image
-              resizeMode="cover"
+            <EditorialImage
+              imageStyle={{ borderRadius: theme.radii.lg }}
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
-                height: 244,
+                height: 440,
                 width: '100%',
               }}
+              treatment={characterMediaTreatments[character.id]}
             />
           ) : null}
 
@@ -66,7 +72,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
 
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
             <TagPill label={`${character.relationships.length} relaciones`} />
-            <TagPill label={`${character.chapterIds.length} capitulos`} />
+            <TagPill label={`${character.chapterIds.length} capítulos`} />
             <TagPill label={`${character.locationIds.length} lugares`} />
             <TagPill label={`${character.quoteIds.length} citas`} />
           </View>
@@ -105,7 +111,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
 
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.md }}>
-          <SectionHeader title="Capitulos y lugares" />
+          <SectionHeader title="Capítulos y lugares" />
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
             {character.chapterIds.map((chapterId) => (
               <Pressable

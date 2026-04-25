@@ -11,7 +11,7 @@ import {
 
 import { aiSuggestedQuestions } from '../../data';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { buildMockAssistantReply } from '../../utils/mockAssistant';
+import { buildBookAssistantReply } from '../../utils/bookAssistant';
 import { AppText } from '../../components/AppText';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
@@ -31,7 +31,7 @@ export function AIChatScreen() {
     {
       id: 'assistant-welcome',
       role: 'assistant',
-      text: 'Pregunta a la obra. Esta interfaz está preparada para un futuro sistema RAG y, por ahora, responde solo desde el corpus mock cargado.',
+      text: 'Pregunta a la obra y al archivo familiar. Puedo ayudarte con capítulos, personajes, cartas, lugares y el árbol genealógico.',
     },
   ]);
   const timersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
@@ -64,7 +64,7 @@ export function AIChatScreen() {
     setIsTyping(true);
 
     const timer = setTimeout(() => {
-      const reply = buildMockAssistantReply(question);
+      const reply = buildBookAssistantReply(question);
 
       startTransition(() => {
         setMessages((current) => [
@@ -93,14 +93,14 @@ export function AIChatScreen() {
         <View style={{ gap: theme.spacing.sm }}>
           <AppText variant="display">Pregunta a la obra</AppText>
           <AppText>
-            Interfaz de chat preparada para búsqueda semántica futura sobre capítulos, personajes, cartas, cronología y archivo.
+            Consulta guiada sobre la historia familiar, las cartas, los documentos, las fotografías y las relaciones del árbol.
           </AppText>
         </View>
 
         <SurfaceCard tone="muted">
           <View style={{ gap: theme.spacing.md }}>
             <SectionHeader
-              subtitle="La futura IA deberá responder solo a partir del corpus de la obra y del material relacionado."
+              subtitle="Las respuestas se apoyan en la obra, el archivo familiar y la lectura del árbol genealógico."
               title="Preguntas sugeridas"
             />
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
@@ -139,7 +139,7 @@ export function AIChatScreen() {
             );
           })}
           {isTyping ? (
-            <AppText tone="secondary">La obra está pensando…</AppText>
+            <AppText tone="secondary">La obra está pensando...</AppText>
           ) : null}
         </View>
       </ScrollView>
@@ -156,7 +156,7 @@ export function AIChatScreen() {
       >
         <TextInput
           onChangeText={setInput}
-          placeholder="Haz una pregunta sobre personajes, cartas o lugares…"
+          placeholder="Haz una pregunta sobre personajes, cartas, lugares o el árbol..."
           placeholderTextColor={theme.colors.textMuted}
           style={{
             backgroundColor: theme.colors.card,

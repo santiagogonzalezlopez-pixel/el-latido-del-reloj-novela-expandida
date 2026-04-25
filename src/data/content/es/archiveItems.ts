@@ -3,19 +3,18 @@ import { ArchiveItem } from '../../../types/content';
 export const archiveItems: ArchiveItem[] = [
   {
     id: 'archive-photo-house',
-    title: 'Fotografia familiar conservada',
-    type: 'fotografia',
+    title: 'Reencuentro familiar en Barcelona',
+    type: 'fotografía',
     description:
-      'Fotografia del archivo familiar incorporada a la app como huella material del linaje y de la continuidad afectiva entre generaciones.',
-    characterIds: ['flora', 'pedro', 'tomas'],
-    locationId: 'casteligo',
+      'Fotografía contemporánea del archivo vivo tomada en Barcelona en 2025. De izquierda a derecha aparecen Beatriz, Arlete, Bete —diminutivo de Elisabete— y Mari Carmen: las hermanas de Santiago en los extremos y sus primas brasileñas en el centro.',
+    characterIds: ['santiago', 'flora', 'luis'],
     chapterId: 'chapter-descendencia',
-    placeholderLabel: 'Fotografia familiar',
+    placeholderLabel: 'Reencuentro familiar en Barcelona',
     sources: [
       {
         pdfId: 'main-es',
-        pages: [71, 72],
-        note: 'Se asocia a la descendencia y al archivo familiar reconstruido en el tramo final de la novela.',
+        pages: [71, 75],
+        note: 'Identificación familiar confirmada para la app: Beatriz, Arlete, Bete y Mari Carmen, reunidas en Barcelona junto al árbol de la memoria.',
       },
     ],
   },
@@ -24,7 +23,7 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Fragmento manuscrito conservado',
     type: 'carta escaneada',
     description:
-      'Detalle manuscrito preservado como pieza del archivo vivo. Refuerza la materialidad de la escritura y la cercania tactil de la memoria.',
+      'Detalle manuscrito preservado como pieza del archivo vivo. Refuerza la materialidad de la escritura y la cercanía táctil de la memoria.',
     characterIds: ['flora', 'pedro'],
     locationId: 'casteligo',
     chapterId: 'chapter-voz-flora',
@@ -39,19 +38,19 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: 'archive-family-tree',
-    title: 'Arbol familiar comentado',
-    type: 'arbol familiar',
+    title: 'Árbol familiar comentado',
+    type: 'árbol familiar',
     description:
-      'Version visual del linaje con continuidad entre Galicia, Brasil y las generaciones posteriores, pensada como herramienta de lectura y archivo.',
+      'Versión visual del linaje con continuidad entre Galicia, Brasil y las generaciones posteriores, pensada como herramienta de lectura y archivo.',
     characterIds: ['maria', 'pedro', 'indalecia', 'flora', 'tomas'],
     locationId: 'casteligo',
     chapterId: 'chapter-descendencia',
-    placeholderLabel: 'Arbol familiar',
+    placeholderLabel: 'árbol familiar',
     sources: [
       {
         pdfId: 'appendix-es',
         pages: [217, 225, 227, 229, 234, 235],
-        note: 'Se apoya en el apendice documental y en el arbol familiar complementario integrado en la app.',
+        note: 'Se apoya en el apéndice documental y en el árbol familiar complementario integrado en la app.',
       },
     ],
   },
@@ -75,19 +74,73 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: 'archive-clock-note',
-    title: 'Cubierta ilustrada de la obra',
-    type: 'material complementario',
+    title: 'Reloj familiar conservado',
+    type: 'fotografía',
     description:
-      'Imagen editorial que condensa reloj, viaje y emigracion como nucleo simbolico de la novela expandida.',
-    characterIds: ['pedro', 'flora', 'tomas'],
+      'Fotografía actual del reloj familiar real, incorporada como objeto central del archivo narrativo y como eje simbólico de la memoria.',
+    characterIds: ['pedro', 'flora', 'indalecia'],
     locationId: 'casteligo',
     chapterId: 'chapter-casteligo',
-    placeholderLabel: 'Cubierta ilustrada',
+    placeholderLabel: 'Reloj familiar',
     sources: [
       {
         pdfId: 'main-es',
         pages: [14, 21],
-        note: 'La cubierta funciona en la app como sintesis visual del reloj y de la memoria familiar.',
+        note: 'En la novela el reloj ordena la memoria doméstica y acompaña la salida, la espera y la continuidad familiar; aquí aparece en una fotografía más nítida del objeto real.',
+      },
+    ],
+  },
+  {
+    id: 'archive-flora-envelope',
+    title: 'Sobre dirigido a Flora desde Brasil',
+    type: 'carta escaneada',
+    description:
+      'Sobre auténtico del archivo familiar dirigido a Flora en Barcelona y enviado desde Brasil, huella material de la correspondencia tardía que mantuvo unidos a ambos lados del océano.',
+    characterIds: ['flora', 'esmeralda', 'tomas'],
+    locationId: 'barcelona',
+    chapterId: 'chapter-voz-flora',
+    placeholderLabel: 'Sobre para Flora',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [235],
+        note: 'Sobre asociado a la carta de Esmeralda Gomes a Flora, enviada desde Brasil a Barcelona en agosto de 2003.',
+      },
+    ],
+  },
+  {
+    id: 'archive-indalecia-flora-baby',
+    title: 'Indalecia con su hija Flora',
+    type: 'fotografía',
+    description:
+      'Fotografía real del archivo familiar: Indalecia aparece con su hija Flora en los primeros años del siglo XX. La imagen abre visualmente la memoria materna de la obra.',
+    characterIds: ['indalecia', 'flora'],
+    locationId: 'casteligo',
+    chapterId: 'chapter-author-note',
+    placeholderLabel: 'Indalecia y Flora',
+    sources: [
+      {
+        pdfId: 'main-es',
+        pages: [17],
+        note: 'Leyenda de la fotografía incluida en la apertura del volumen.',
+      },
+    ],
+  },
+  {
+    id: 'archive-flora-luis-fields',
+    title: 'Flora y Luis en los campos de la infancia',
+    type: 'fotografía',
+    description:
+      'Flora regresa a los campos de su infancia junto a Luis, hijo de Flora y padre de Santiago. La pieza une memoria, filiación y paisaje familiar.',
+    characterIds: ['flora', 'luis', 'santiago'],
+    locationId: 'casteligo',
+    chapterId: 'chapter-apéndice-documental',
+    placeholderLabel: 'Flora y Luis',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [239],
+        note: 'Fotografía del archivo familiar mencionada en el apéndice.',
       },
     ],
   },
@@ -144,5 +197,63 @@ export const archiveItems: ArchiveItem[] = [
         note: 'Se asocia a la carta de Iracema y al salto transamericano de la familia.',
       },
     ],
+  },
+  {
+    id: 'archive-tomas-esmeralda-marriage',
+    title: 'Certificación de matrimonio de Tomás y Esmeralda',
+    type: 'documento',
+    description:
+      'Documento oficial del apéndice que acredita la unión de Tomás Fernandes Rodrigues con Esmeralda Gomes y fija en el archivo el momento en que la rama brasileña deja de ser tránsito para convertirse en familia.',
+    characterIds: ['tomas', 'esmeralda'],
+    locationId: 'sao-paulo',
+    chapterId: 'chapter-tomas-esmeralda',
+    placeholderLabel: 'Certificación de matrimonio',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [227],
+        note: 'Certificación de matrimonio de Tomás Fernandes Rodrigues y Esmeralda Gomes, con mención de Chandrexa de Queixa y Taubaté.',
+      },
+    ],
+  },
+  {
+    id: 'archive-tomas-pedro-photo',
+    title: 'Fotografía identificada de Tomás y Pedro',
+    type: 'fotografía',
+    description:
+      'Fotografía familiar identificada: de izquierda a derecha, Tomás y Pedro. La imagen fija visualmente la relación entre el joven viajero y el tío que lo acompaña en la emigración.',
+    characterIds: ['tomas', 'pedro'],
+    locationId: 'sao-paulo',
+    chapterId: 'chapter-descendencia',
+    placeholderLabel: 'Tomás y Pedro',
+    sources: [
+      {
+        pdfId: 'appendix-es',
+        pages: [236],
+        note: 'Identificación confirmada para la app: en la primera fotografía aparecen Tomás y Pedro, de izquierda a derecha.',
+      },
+    ],
+  },
+  {
+    id: 'archive-iracema-pedro-photo',
+    title: 'Iracema y Pedro',
+    type: 'fotografía',
+    description:
+      'Retrato familiar identificado: Iracema aparece junto a Pedro. La pieza enlaza la descendencia americana con el tronco migrante de la familia.',
+    characterIds: ['iracema', 'pedro'],
+    locationId: 'sao-paulo',
+    chapterId: 'chapter-salto',
+    placeholderLabel: 'Iracema y Pedro',
+  },
+  {
+    id: 'archive-maria-tomas-pedro-photo',
+    title: 'María, Tomás y Pedro',
+    type: 'fotografía',
+    description:
+      'Fotografía de grupo identificada: de izquierda a derecha, María, Tomás y Pedro. La imagen reúne tres figuras centrales del arraigo brasileño y la continuidad familiar.',
+    characterIds: ['maria', 'tomas', 'pedro'],
+    locationId: 'sao-paulo',
+    chapterId: 'chapter-descendencia',
+    placeholderLabel: 'María, Tomás y Pedro',
   },
 ];

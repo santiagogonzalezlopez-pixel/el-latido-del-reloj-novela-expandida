@@ -1,8 +1,13 @@
 import { ArchiveItem, Book } from '../../../types/content';
-import { aiSuggestedQuestions } from '../../mockLibrary';
 import { archiveItems } from './archiveItems';
 import { chapters } from './chapters';
 import { characters } from './characters';
+import {
+  genealogyAliases,
+  genealogyMap,
+  genealogyPeople,
+  genealogyReadingGuide,
+} from './genealogy';
 import { letters } from './letters';
 import { locations } from './locations';
 import { quotes } from './quotes';
@@ -11,10 +16,9 @@ import { timelineEvents } from './timeline';
 export const contentSource = {
   language: 'es' as const,
   ignoredLanguages: ['pt', 'en'] as const,
-  sourceLabel:
-    'Corpus español compuesto por Edit-1-96 ESPAÑOL.pdf y Edit-235-264 APENDICE ES.pdf',
+  sourceLabel: 'El latido del reloj y archivo familiar',
   ingestionNote:
-    'Este contenido usa solo los PDFs en español. La parte principal se tomó de la novela española y la cronología/cartas documentales proceden únicamente del apéndice en español.',
+    'La lectura reúne la obra de Santiago González López, la cronología familiar, cartas, documentos, fotografías y el árbol genealógico.',
   pdfs: [
     {
       id: 'main-es',
@@ -33,8 +37,11 @@ export const book: Book = {
   id: 'book-latido-reloj',
   title: 'El latido del reloj',
   subtitle: 'Novela expandida',
+  authorName: 'Santiago González López',
+  authorNote:
+    'Autor, nieto de Flora e hijo de Luis. Reconstruye la historia de su familia a partir de cartas, memoria oral, documentos y fotografías del archivo familiar.',
   intro:
-    'Crónica familiar construida con cartas, memoria y emigración entre Galicia, Cuba, Brasil, Cataluña y Estados Unidos, con el reloj como hilo persistente de la herencia.',
+    'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de Tomás —hermano de Flora— y de Pedro —tío de Flora y de Tomás—, entre Galicia, Cuba, Brasil, Cataluña y Estados Unidos.',
   sourceLanguage: 'es',
   ignoredLanguages: ['pt', 'en'],
   chapterIds: chapters.map((chapter) => chapter.id),
@@ -44,16 +51,33 @@ export const book: Book = {
   locationIds: locations.map((location) => location.id),
   archiveItemIds: archiveItems.map((item: ArchiveItem) => item.id),
   sources: [
-    { pdfId: 'main-es', pages: [14, 18, 21, 96] },
-    { pdfId: 'appendix-es', pages: [217, 235] },
+    { pdfId: 'main-es', pages: [5, 96] },
+    { pdfId: 'appendix-es', pages: [217, 239] },
   ],
 };
 
+export const aiSuggestedQuestions = [
+  '¿Cómo se lee el árbol genealógico?',
+  '¿Quién era Pedro?',
+  '¿Qué parentesco hay entre Flora y Tomás?',
+  '¿Quiénes son los hijos de Pedro?',
+  '¿Quiénes son los hijos de Iracema?',
+  '¿Quién es Santiago en esta historia?',
+  '¿Quién aparece en la foto reciente de Barcelona?',
+  '¿Por qué Esmeralda no aparece como rama de sangre?',
+  '¿Qué simboliza el reloj?',
+  '¿Qué pasó en Cuba?',
+  'Muéstrame las cartas relacionadas con La Habana',
+];
+
 export {
-  aiSuggestedQuestions,
   archiveItems,
   chapters,
   characters,
+  genealogyAliases,
+  genealogyMap,
+  genealogyPeople,
+  genealogyReadingGuide,
   letters,
   locations,
   quotes,

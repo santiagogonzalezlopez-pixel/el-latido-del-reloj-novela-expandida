@@ -1,12 +1,19 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, characterMap, characters, locationMap } from '../../data';
-import { characterMediaNotes, characterMediaSources } from '../../data/editorialMedia';
+import {
+  characterMediaNotes,
+  characterMediaSources,
+  characterMediaTreatments,
+  floraFieldPortraitSource,
+  mediaTreatments,
+} from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -27,21 +34,22 @@ export function CharactersScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Personajes</AppText>
         <AppText>
-          Fichas vivas con biografia, red de relaciones, trayectorias por capitulos y
+          Fichas vivas con biografía, red de relaciones, trayectorias por capítulos y
           materiales de archivo asociados.
         </AppText>
       </View>
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
-            resizeMode="cover"
-            source={characterMediaSources.flora}
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
+            source={floraFieldPortraitSource}
             style={{
               borderRadius: theme.radii.lg,
-              height: 184,
+              height: 320,
               width: '100%',
             }}
+            treatment={mediaTreatments.floraField}
           />
           <View style={{ gap: theme.spacing.xs }}>
             <AppText tone="accent" variant="caption">
@@ -49,8 +57,9 @@ export function CharactersScreen() {
             </AppText>
             <AppText variant="subtitle">Voces, parentescos y huellas visuales</AppText>
             <AppText tone="secondary">
-              Cada ficha conecta el personaje con capitulos, lugares, citas y
-              material documental del archivo familiar.
+              Cada ficha conecta el personaje con capítulos, lugares, citas y
+              material documental del archivo familiar, procurando que las fotos ya
+              identificadas queden centradas en los rostros.
             </AppText>
           </View>
         </View>
@@ -79,14 +88,15 @@ export function CharactersScreen() {
           >
             <View style={{ gap: theme.spacing.md }}>
               {mediaSource ? (
-                <Image
-                  resizeMode="cover"
+                <EditorialImage
+                  imageStyle={{ borderRadius: theme.radii.lg }}
                   source={mediaSource}
                   style={{
                     borderRadius: theme.radii.lg,
-                    height: 210,
+                    height: 360,
                     width: '100%',
                   }}
+                  treatment={characterMediaTreatments[character.id]}
                 />
               ) : null}
 

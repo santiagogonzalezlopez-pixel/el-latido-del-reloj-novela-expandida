@@ -1,7 +1,9 @@
-import { Image, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView, View } from 'react-native';
 
 import { AppNavigationProp } from '../../navigation/types';
+import { EditorialImage } from '../../components/EditorialImage';
+import { book } from '../../data';
 import { familyPresentImageSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
@@ -25,13 +27,15 @@ export function ExploreHubScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Explorar</AppText>
         <AppText>
-          Personajes, árbol familiar, cronología, lugares y el reloj como objeto simbólico forman un mismo sistema de lectura expandida.
+          Personajes, árbol familiar, cronología, lugares y el reloj forman el mapa
+          de una historia familiar reconstruida por {book.authorName}.
         </AppText>
+        <AppText tone="secondary">{book.authorNote}</AppText>
       </View>
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle="Subsecciones preparadas para crecer con relaciones cruzadas."
+          subtitle="Puertas de entrada a las personas, lugares, cartas y objetos de la memoria familiar."
           title="Rutas de exploración"
         />
         <QuickLinkGrid
@@ -72,20 +76,23 @@ export function ExploreHubScreen() {
 
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
+          <EditorialImage
             source={familyPresentImageSource}
             style={{
               borderRadius: theme.radii.lg,
-              height: 180,
+              height: 260,
               width: '100%',
             }}
           />
           <AppText variant="subtitle">Archivo narrativo</AppText>
           <AppText tone="secondary">
-            Cada sección está pensada para enlazar capítulos, cartas, personajes, lugares y eventos sin perder la atmósfera literaria.
+            Cada sección enlaza capítulos, cartas, personajes, lugares y eventos
+            sin perder la atmósfera literaria.
           </AppText>
           <AppText tone="secondary">
-            La historia no queda detenida en el pasado: también puede leerse como herencia viva, reunión familiar y memoria que sigue reuniendo a las personas alrededor del libro.
+            No es una novela al uso: es la memoria de Flora, Tomás y Pedro, y el
+            modo en que esa historia llega hasta Santiago, nieto de Flora e hijo
+            de Luis.
           </AppText>
         </View>
       </SurfaceCard>

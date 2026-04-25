@@ -21,16 +21,17 @@ export function TimelineScreen() {
       style={{ backgroundColor: theme.colors.background }}
     >
       <View style={{ gap: theme.spacing.sm }}>
-        <AppText variant="display">Cronologia</AppText>
+        <AppText variant="display">Cronología</AppText>
         <AppText>
-          Una linea temporal mas visual para seguir la vida en Galicia, la salida,
-          Cuba, la zafra, el motin y la llegada a Sao Paulo.
+          Una línea temporal más visual para seguir la vida en Galicia, la salida,
+          Cuba, la zafra, el motín y la llegada a São Paulo.
         </AppText>
       </View>
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
           <Image
+            resizeMode="contain"
             source={timelineImageSource}
             style={{
               borderRadius: theme.radii.lg,
@@ -39,7 +40,8 @@ export function TimelineScreen() {
             }}
           />
           <AppText tone="secondary">
-            Esquema visual del arco historico principal, usado aqui como apoyo editorial a la linea temporal interactiva de la app.
+            Esquema visual del arco histórico principal, usado aquí como apoyo a la
+            línea temporal de la app.
           </AppText>
         </View>
       </SurfaceCard>

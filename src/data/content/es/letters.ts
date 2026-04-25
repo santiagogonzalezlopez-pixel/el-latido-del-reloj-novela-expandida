@@ -32,7 +32,7 @@ export const letters: Letter[] = [
     locationId: 'nueva-york',
     approxDate: 'Mayo de 2001',
     summary:
-      'Pieza del archivo familiar: carta enviada por Iracema desde Nueva York a Santiago, prueba documental de la prolongación americana de la historia familiar.',
+      'Pieza del archivo familiar: carta enviada por Iracema desde Nueva York a Santiago, prueba documental de la prolongacion americana de la historia familiar.',
     body: [
       'Carta de Iracema Pastore (2001).',
       'Carta enviada por Iracema desde Nueva York, a Santiago, en Aix-en-Provence (Francia).',
@@ -53,16 +53,16 @@ export const letters: Letter[] = [
     locationId: 'sao-paulo',
     approxDate: 'Agosto de 2003',
     summary:
-      'Carta del archivo familiar enviada desde Brasil por Esmeralda a Flora en Barcelona, ya en el tiempo tardío de la memoria recuperada.',
+      'Carta del archivo familiar enviada desde Brasil por Esmeralda a Flora en Barcelona, ya en el tiempo tardio de la memoria recuperada y de la correspondencia que sigue enlazando ramas distantes.',
     body: [
       'Carta de Esmeralda Gomes (2003).',
-      'Carta dirigida a Flora en Barcelona, enviada desde Brasil por Esmeralda.',
-      'Agosto de 2003. Archivo familiar.',
+      'Carta dirigida a Flora Fernandez Rodriguez en Barcelona, Espana, enviada desde Brasil por Esmeralda.',
+      'Agosto de 2003. Archivo familiar conservado con su sobre postal.',
     ],
     relatedChapterId: 'chapter-voz-flora',
     characterIds: ['esmeralda', 'flora', 'tomas'],
     locationIds: ['sao-paulo', 'barcelona'],
-    tags: ['Flora', 'Brasil', 'archivo familiar', 'memoria'],
+    tags: ['Flora', 'Brasil', 'Barcelona', 'archivo familiar', 'memoria'],
     audioStatus: 'planned',
     sources: [{ pdfId: 'appendix-es', pages: [235] }],
   },

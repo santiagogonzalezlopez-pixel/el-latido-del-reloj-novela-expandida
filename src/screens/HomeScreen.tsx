@@ -1,18 +1,21 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../components/AppText';
 import { CoverPlaceholder } from '../components/CoverPlaceholder';
+import { EditorialImage } from '../components/EditorialImage';
 import { ProgressBar } from '../components/ProgressBar';
 import { QuickLinkGrid } from '../components/QuickLinkGrid';
 import { SectionHeader } from '../components/SectionHeader';
 import { SurfaceCard } from '../components/SurfaceCard';
 import { book, chapterMap, chapters, letters } from '../data';
 import {
-  archivePortraitSource,
+  characterMediaTreatments,
+  floraFieldPortraitSource,
   manuscriptImageSource,
   motherChildPortraitSource,
+  mediaTreatments,
 } from '../data/editorialMedia';
 import { useReadingProgress } from '../hooks/useReadingProgress';
 import { AppNavigationProp } from '../navigation/types';
@@ -27,6 +30,10 @@ export function HomeScreen() {
   const currentChapter = chapterMap[progress.lastChapterId ?? ''] ?? chapters[0];
   const currentChapterProgress =
     progress.chapterProgress[currentChapter.id]?.progress ?? 0;
+  const currentChapterLabel =
+    currentChapter.order === 0
+      ? 'APERTURA'
+      : `CAP ${String(currentChapter.order).padStart(2, '0')}`;
 
   const quickLinks = [
     {
@@ -37,13 +44,13 @@ export function HomeScreen() {
     },
     {
       id: 'arbol',
-      label: 'Arbol familiar',
+      label: 'Árbol familiar',
       icon: 'git-network-outline' as const,
       onPress: () => navigation.navigate('FamilyTree'),
     },
     {
       id: 'cronologia',
-      label: 'Cronologia',
+      label: 'Cronología',
       icon: 'time-outline' as const,
       onPress: () => navigation.navigate('Timeline'),
     },
@@ -90,9 +97,12 @@ export function HomeScreen() {
               <AppText tone="accent" variant="subtitle">
                 {book.subtitle}
               </AppText>
+              <AppText variant="bodyStrong">Por {book.authorName}</AppText>
               <AppText>
-                Una experiencia narrativa pensada como archivo vivo: lectura, cartas,
-                genealogia, cronologia y conversacion guiada por el corpus de la obra.
+                {book.intro}
+              </AppText>
+              <AppText tone="secondary">
+                {book.authorNote}
               </AppText>
             </View>
 
@@ -104,9 +114,9 @@ export function HomeScreen() {
               }}
             >
               {[
-                `${chapters.length} capitulos`,
+                `${chapters.length} capítulos`,
                 `${letters.length} cartas`,
-                `${progress.favoriteQuoteIds.length} citas guardadas`,
+                `${book.archiveItemIds.length} piezas de archivo`,
               ].map((label) => (
                 <View
                   key={label}
@@ -165,16 +175,26 @@ export function HomeScreen() {
             </View>
 
             <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
-              {[archivePortraitSource, motherChildPortraitSource].map((source, index) => (
-                <Image
+              {[
+                {
+                  source: floraFieldPortraitSource,
+                  treatment: mediaTreatments.floraField,
+                },
+                {
+                  source: motherChildPortraitSource,
+                  treatment: characterMediaTreatments.indalecia,
+                },
+              ].map((item, index) => (
+                <EditorialImage
                   key={`home-archive-${index}`}
-                  resizeMode="cover"
-                  source={source}
+                  imageStyle={{ borderRadius: theme.radii.lg }}
+                  source={item.source}
                   style={{
                     borderRadius: theme.radii.lg,
                     flex: 1,
-                    height: 188,
+                    height: 280,
                   }}
+                  treatment={item.treatment}
                 />
               ))}
             </View>
@@ -188,13 +208,13 @@ export function HomeScreen() {
                 overflow: 'hidden',
               }}
             >
-              <Image
-                resizeMode="cover"
+              <EditorialImage
                 source={manuscriptImageSource}
                 style={{
-                  height: 110,
+                  height: 220,
                   width: '100%',
                 }}
+                treatment={mediaTreatments.manuscript}
               />
             </View>
           </View>
@@ -204,14 +224,14 @@ export function HomeScreen() {
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
           subtitle="Entradas directas al archivo narrativo."
-          title="Accesos rapidos"
+          title="Accesos rápidos"
         />
         <QuickLinkGrid items={quickLinks} />
       </View>
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle="La app recuerda tu ultimo capitulo abierto y el avance de lectura."
+          subtitle="La app recuerda tu último capítulo abierto y el avance de lectura."
           title="Continuar leyendo"
         />
         <SurfaceCard>
@@ -226,7 +246,7 @@ export function HomeScreen() {
             >
               <View style={{ flex: 1, gap: theme.spacing.xs }}>
                 <AppText tone="accent" variant="caption">
-                  ULTIMA APERTURA
+                  ÚLTIMA APERTURA
                 </AppText>
                 <AppText variant="subtitle">{currentChapter.title}</AppText>
                 <AppText numberOfLines={3} tone="secondary">
@@ -244,10 +264,12 @@ export function HomeScreen() {
                 }}
               >
                 <AppText tone="accent" variant="caption">
-                  CAP
+                  {currentChapter.order === 0 ? 'SECCIÓN' : 'CAP'}
                 </AppText>
                 <AppText variant="subtitle">
-                  {String(currentChapter.order).padStart(2, '0')}
+                  {currentChapter.order === 0
+                    ? 'Apertura'
+                    : String(currentChapter.order).padStart(2, '0')}
                 </AppText>
               </View>
             </View>
@@ -280,7 +302,7 @@ export function HomeScreen() {
               })}
             >
               <Ionicons color={theme.colors.accent} name="play-circle-outline" size={18} />
-              <AppText variant="bodyStrong">Abrir capitulo</AppText>
+              <AppText variant="bodyStrong">Abrir {currentChapterLabel.toLowerCase()}</AppText>
             </Pressable>
           </View>
         </SurfaceCard>
@@ -288,16 +310,16 @@ export function HomeScreen() {
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle="Una misma identidad visual sostiene lectura, archivo, cartas y exploracion."
-          title="Base editorial"
+          subtitle="Una obra familiar hecha de memoria, documentos, cartas y fotografías."
+          title="Historia reconstruida"
         />
         <SurfaceCard tone="muted">
           <View style={{ gap: theme.spacing.sm }}>
-            <AppText variant="subtitle">Preparada para corpus en espanol</AppText>
+            <AppText variant="subtitle">La historia de Flora, Tomás y Pedro</AppText>
             <AppText>
-              La arquitectura mantiene el foco en el texto literario en espanol y deja
-              preparada la futura carga real de capitulos, cartas y materiales
-              documentales sin mezclar otros idiomas.
+              Santiago González López reúne la memoria de su yaya Flora, de Tomás,
+              hermano de Flora, y de Pedro, tío de ambos, para devolver a la familia
+              una historia que cruzó Galicia, Cuba, Brasil y Barcelona.
             </AppText>
           </View>
         </SurfaceCard>

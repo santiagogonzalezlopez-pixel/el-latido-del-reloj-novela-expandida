@@ -14,7 +14,6 @@ import {
   characterMap,
   letterMap,
   locationMap,
-  quoteMap,
 } from '../../data';
 import {
   fontScalePresets,
@@ -31,12 +30,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
   const { theme, toggleTheme } = useAppTheme();
   const chapter = chapterMap[route.params.chapterId];
   const { setFontScale, state: preferences } = useReaderPreferences();
-  const {
-    saveChapterProgress,
-    state: progress,
-    toggleFavoriteQuote,
-    toggleHighlight,
-  } = useReadingProgress();
+  const { saveChapterProgress, state: progress } = useReadingProgress();
 
   const scrollRef = useRef<ScrollView>(null);
   const restoredRef = useRef(false);
@@ -58,13 +52,6 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
     .map((id) => letterMap[id]?.title)
     .filter(Boolean);
   const relatedArchiveItems = archiveItems.filter((item) => item.chapterId === chapter.id);
-
-  const favoriteQuotes = chapter.paragraphs
-    .filter((paragraph) => paragraph.quoteId)
-    .map((paragraph) => paragraph.quoteId!)
-    .filter((quoteId) => progress.favoriteQuoteIds.includes(quoteId))
-    .map((quoteId) => quoteMap[quoteId])
-    .filter(Boolean);
 
   const persistProgress = () => {
     const { contentHeight, layoutHeight, offset } = metricsRef.current;
@@ -102,6 +89,10 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
     theme.typography.body.fontSize * preferences.fontScale,
   );
   const paragraphLineHeight = Math.round(paragraphFontSize * 1.82);
+  const chapterLabel =
+    chapter.order === 0
+      ? 'APERTURA'
+      : `CAPÍTULO ${String(chapter.order).padStart(2, '0')}`;
 
   return (
     <ScrollView
@@ -130,7 +121,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
         <View style={{ gap: theme.spacing.lg }}>
           <View style={{ gap: theme.spacing.xs }}>
             <AppText tone="accent" variant="caption">
-              CAPITULO {String(chapter.order).padStart(2, '0')}
+              {chapterLabel}
             </AppText>
             <AppText variant="title">{chapter.title}</AppText>
             <AppText tone="secondary">{chapter.summary}</AppText>
@@ -144,7 +135,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
           </View>
 
           <View style={{ gap: theme.spacing.sm }}>
-            <AppText variant="bodyStrong">Tamano de letra</AppText>
+            <AppText variant="bodyStrong">Tamaño de letra</AppText>
             <View
               style={{
                 flexDirection: 'row',
@@ -189,7 +180,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
               })}
             </View>
             <AppText tone="secondary">
-              Interlineado optimizado para lectura prolongada: mas aire, mejor ritmo y
+              Interlineado optimizado para lectura prolongada: más aire, mejor ritmo y
               menos fatiga visual.
             </AppText>
           </View>
@@ -221,8 +212,8 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       <SurfaceCard>
         <View style={{ gap: theme.spacing.md }}>
           <SectionHeader
-            subtitle="Relaciones activas para la navegacion contextual y una futura capa semantica."
-            title="Vinculos del capitulo"
+            subtitle="Personas, lugares y cartas que acompañan este tramo de la historia."
+            title="Vínculos del capítulo"
           />
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
             {[...relatedCharacters, ...relatedLocations].map((label) => (
@@ -240,12 +231,12 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
           <SectionHeader
-            subtitle="Trazabilidad del corpus y documentos enlazados al capitulo."
-            title="Fuentes del capitulo"
+            subtitle="Páginas y piezas del archivo que sostienen este capítulo."
+            title="Fuentes del capítulo"
           />
           {chapter.sources?.length ? (
             <AppText tone="secondary">
-              Paginas de origen: {formatSourceReferences(chapter.sources)}
+              Páginas de origen: {formatSourceReferences(chapter.sources)}
             </AppText>
           ) : null}
           {relatedArchiveItems.length ? (
@@ -266,29 +257,30 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
             </View>
           ) : (
             <AppText tone="secondary">
-              Este capitulo ya esta preparado para enlazar nuevas piezas del archivo a
-              medida que sigamos integrando el apendice.
+              Este capítulo se lee dentro del conjunto familiar reconstruido por
+              Santiago González López.
             </AppText>
           )}
         </View>
       </SurfaceCard>
 
-      <View style={{ gap: theme.spacing.md }}>
-        {chapter.paragraphs.map((paragraph, index) => {
-          const isHighlighted = progress.highlightedParagraphIds.includes(paragraph.id);
-          const isFavorite = paragraph.quoteId
-            ? progress.favoriteQuoteIds.includes(paragraph.quoteId)
-            : false;
+      <SurfaceCard tone="paper">
+        <View style={{ gap: theme.spacing.xl }}>
+          <View style={{ gap: theme.spacing.xs }}>
+            <AppText tone="accent" variant="caption">
+              LECTURA CONTINUA
+            </AppText>
+            <AppText tone="secondary">
+              El texto del capítulo se presenta como lectura continua, sin botones
+              repetidos entre fragmentos.
+            </AppText>
+          </View>
 
-          return (
-            <SurfaceCard
-              key={paragraph.id}
-              style={{
-                backgroundColor: isHighlighted ? theme.colors.accentSoft : theme.colors.card,
-                paddingTop: theme.spacing.lg,
-              }}
-            >
-              <View style={{ gap: theme.spacing.md }}>
+          {chapter.paragraphs.map((paragraph, index) => {
+            const isLastParagraph = index === chapter.paragraphs.length - 1;
+
+            return (
+              <View key={paragraph.id} style={{ gap: theme.spacing.md }}>
                 <View
                   style={{
                     alignItems: 'flex-start',
@@ -300,6 +292,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
                     style={{
                       minWidth: 18,
                       opacity: 0.55,
+                      paddingTop: 2,
                     }}
                     tone="accent"
                     variant="caption"
@@ -317,105 +310,18 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
                   </AppText>
                 </View>
 
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm }}>
-                  <Pressable
-                    accessibilityRole="button"
-                    onPress={() => toggleHighlight(paragraph.id)}
+                {!isLastParagraph ? (
+                  <View
                     style={{
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      gap: theme.spacing.xs,
+                      backgroundColor: theme.colors.separator,
+                      height: 1,
+                      marginLeft: 30,
                     }}
-                  >
-                    <Ionicons
-                      color={theme.colors.accent}
-                      name={isHighlighted ? 'brush' : 'brush-outline'}
-                      size={16}
-                    />
-                    <AppText tone="accent" variant="caption">
-                      {isHighlighted ? 'Subrayado' : 'Subrayar'}
-                    </AppText>
-                  </Pressable>
-
-                  {paragraph.quoteId ? (
-                    <Pressable
-                      accessibilityRole="button"
-                      onPress={() => toggleFavoriteQuote(paragraph.quoteId!)}
-                      style={{
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        gap: theme.spacing.xs,
-                      }}
-                    >
-                      <Ionicons
-                        color={theme.colors.accent}
-                        name={isFavorite ? 'bookmark' : 'bookmark-outline'}
-                        size={16}
-                      />
-                      <AppText tone="accent" variant="caption">
-                        {isFavorite ? 'Cita guardada' : 'Guardar cita'}
-                      </AppText>
-                    </Pressable>
-                  ) : null}
-                </View>
+                  />
+                ) : null}
               </View>
-            </SurfaceCard>
-          );
-        })}
-      </View>
-
-      <SurfaceCard tone="paper">
-        <View style={{ gap: theme.spacing.md }}>
-          <SectionHeader
-            subtitle={`Total en el dispositivo: ${progress.favoriteQuoteIds.length}.`}
-            title="Citas favoritas"
-          />
-          {favoriteQuotes.length ? (
-            favoriteQuotes.map((quote) => (
-              <SurfaceCard
-                key={quote.id}
-                style={{
-                  backgroundColor: theme.colors.card,
-                  padding: theme.spacing.sm,
-                }}
-              >
-                <View style={{ gap: theme.spacing.sm }}>
-                  <AppText style={{ fontStyle: 'italic' }}>"{quote.text}"</AppText>
-                  <Pressable
-                    accessibilityRole="button"
-                    onPress={() => toggleFavoriteQuote(quote.id)}
-                    style={{
-                      alignSelf: 'flex-start',
-                    }}
-                  >
-                    <AppText tone="accent" variant="caption">
-                      Quitar de favoritas
-                    </AppText>
-                  </Pressable>
-                </View>
-              </SurfaceCard>
-            ))
-          ) : (
-            <AppText tone="secondary">
-              Guarda citas desde los fragmentos del capitulo para reunir las voces que
-              quieras conservar.
-            </AppText>
-          )}
-
-          {chapter.letterIds[0] ? (
-            <Pressable
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate('LetterDetail', {
-                  letterId: chapter.letterIds[0],
-                })
-              }
-            >
-              <AppText tone="accent" variant="caption">
-                Ver carta enlazada
-              </AppText>
-            </Pressable>
-          ) : null}
+            );
+          })}
         </View>
       </SurfaceCard>
     </ScrollView>

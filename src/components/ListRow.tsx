@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Image, ImageSourcePropType, View } from 'react-native';
+import { ImageSourcePropType, View } from 'react-native';
 
 import { useAppTheme } from '../theme/ThemeContext';
 import { AppText } from './AppText';
+import { EditorialImage } from './EditorialImage';
 import { SurfaceCard } from './SurfaceCard';
 import { TagPill } from './TagPill';
 
@@ -14,6 +15,12 @@ type ListRowProps = {
   tags?: string[];
   onPress?: () => void;
   imageSource?: ImageSourcePropType;
+  imageTreatment?: {
+    focusX?: number;
+    focusY?: number;
+    opacity?: number;
+    scale?: number;
+  };
 };
 
 export function ListRow({
@@ -24,6 +31,7 @@ export function ListRow({
   tags,
   title,
   imageSource,
+  imageTreatment,
 }: ListRowProps) {
   const { theme } = useAppTheme();
 
@@ -31,13 +39,15 @@ export function ListRow({
     <SurfaceCard onPress={onPress}>
       <View style={{ gap: theme.spacing.sm }}>
         {imageSource ? (
-          <Image
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
             source={imageSource}
             style={{
               borderRadius: theme.radii.lg,
-              height: 160,
+              height: 320,
               width: '100%',
             }}
+            treatment={imageTreatment}
           />
         ) : null}
         {eyebrow ? (

@@ -1,13 +1,19 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SectionHeader } from '../../components/SectionHeader';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { characterMap, letters, locationMap } from '../../data';
-import { letterMediaSources, manuscriptImageSource } from '../../data/editorialMedia';
+import {
+  letterMediaSources,
+  letterMediaTreatments,
+  manuscriptImageSource,
+  mediaTreatments,
+} from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
@@ -29,23 +35,24 @@ export function LettersScreen() {
         <AppText variant="display">Cartas</AppText>
         <AppText>
           Las cartas sostienen una parte central de la experiencia: no solo informan,
-          tambien conservan respiracion, distancia, tono y temblor afectivo.
+          también conservan respiración, distancia, tono y temblor afectivo.
         </AppText>
       </View>
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
-            resizeMode="cover"
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
             source={manuscriptImageSource}
             style={{
               borderRadius: theme.radii.lg,
-              height: 176,
+              height: 280,
               width: '100%',
             }}
+            treatment={mediaTreatments.manuscript}
           />
           <SectionHeader
-            subtitle="Correspondencia preparada para escucha, anotacion y navegacion hacia capitulos relacionados."
+            subtitle="Correspondencia que conserva nombres, fechas, distancia y tono familiar."
             title="Archivo epistolar"
           />
           <AppText tone="secondary">
@@ -74,14 +81,15 @@ export function LettersScreen() {
             >
               <View style={{ gap: theme.spacing.md }}>
                 {mediaSource ? (
-                  <Image
-                    resizeMode="cover"
+                  <EditorialImage
+                    imageStyle={{ borderRadius: theme.radii.lg }}
                     source={mediaSource}
                     style={{
                       borderRadius: theme.radii.lg,
-                      height: 188,
+                      height: 320,
                       width: '100%',
                     }}
+                    treatment={letterMediaTreatments[letter.id]}
                   />
                 ) : null}
 
