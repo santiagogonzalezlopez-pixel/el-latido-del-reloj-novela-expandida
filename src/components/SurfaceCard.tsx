@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import { Platform, Pressable, StyleProp, View, ViewStyle } from 'react-native';
 
 import { useAppTheme } from '../theme/ThemeContext';
 
@@ -25,6 +25,18 @@ export function SurfaceCard({
       : tone === 'paper'
         ? theme.colors.paper
         : theme.colors.card;
+  const shadowStyle =
+    Platform.OS === 'web'
+      ? ({
+          boxShadow: tone === 'paper' ? '0 12px 22px rgba(68, 48, 26, 0.08)' : '0 12px 24px rgba(68, 48, 26, 0.12)',
+        } as ViewStyle)
+      : {
+          shadowColor: theme.dark ? '#000000' : '#44301a',
+          shadowOffset: { width: 0, height: 12 },
+          shadowOpacity: tone === 'paper' ? 0.08 : 0.12,
+          shadowRadius: tone === 'paper' ? 22 : 24,
+          elevation: tone === 'paper' ? 2 : 3,
+        };
 
   const baseStyle: ViewStyle = {
     backgroundColor,
@@ -32,11 +44,7 @@ export function SurfaceCard({
     borderRadius: theme.radii.lg,
     borderWidth: 1,
     padding: theme.spacing.md,
-    shadowColor: theme.dark ? '#000000' : '#44301a',
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: tone === 'paper' ? 0.08 : 0.12,
-    shadowRadius: tone === 'paper' ? 22 : 24,
-    elevation: tone === 'paper' ? 2 : 3,
+    ...shadowStyle,
   };
 
   if (onPress) {

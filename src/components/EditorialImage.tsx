@@ -43,15 +43,18 @@ export function EditorialImage({
   const offsetY = layout.height * Math.max(scale - 1, 0) * (0.5 - focusY);
 
   const handleLayout = ({ nativeEvent }: LayoutChangeEvent) => {
-    const { height, width } = nativeEvent.layout;
+    const height = Math.round(nativeEvent.layout.height);
+    const width = Math.round(nativeEvent.layout.width);
 
-    if (height === layout.height && width === layout.width) {
-      return;
-    }
+    setLayout((current) => {
+      if (height === current.height && width === current.width) {
+        return current;
+      }
 
-    setLayout({
-      height,
-      width,
+      return {
+        height,
+        width,
+      };
     });
   };
 

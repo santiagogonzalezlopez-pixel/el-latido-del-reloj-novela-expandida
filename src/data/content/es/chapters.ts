@@ -266,7 +266,7 @@ export const chapters: Chapter[] = [
       },
     ],
     characterIds: ["pedro", "tomas", "flora", "indalecia"],
-    locationIds: ["atlántico", "vigo", "sao-paulo"],
+    locationIds: ["atlantico", "vigo", "sao-paulo"],
     letterIds: ["letter-pedro-habana"],
     eventIds: ["event-brazil-crossing"],
     sources: [{ pdfId: "main-es", pages: [49, 56] }],
