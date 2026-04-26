@@ -27,6 +27,7 @@ export const iracemaLetterDetailSource: ImageSourcePropType = require('../../ass
 export const tomasBirthCertificateSource: ImageSourcePropType = require('../../assets/editorial/tomas-birth-certificate.jpg');
 export const tomasRegistrationSource: ImageSourcePropType = require('../../assets/editorial/tomas-registration.jpg');
 export const iracemaEnvelopeSource: ImageSourcePropType = require('../../assets/editorial/iracema-envelope.jpg');
+export const tomasMarriageCertificateSource: ImageSourcePropType = require('../../assets/editorial/tomas-marriage-certificate.jpg');
 export const tomasPedroPhotoSource: ImageSourcePropType = require('../../assets/editorial/tomas-pedro-photo.jpg');
 export const iracemaPedroPhotoSource: ImageSourcePropType = require('../../assets/editorial/iracema-pedro-photo.jpg');
 export const mariaTomasPedroPhotoSource: ImageSourcePropType = require('../../assets/editorial/maria-tomas-pedro-photo.jpg');
@@ -50,12 +51,12 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
   familyArchiveGroup: {
     focusX: 0.53,
     focusY: 0.26,
-    scale: 1.08,
+    scale: 1,
   },
   familyPresent: {
     focusX: 0.52,
     focusY: 0.36,
-    scale: 1.06,
+    scale: 1,
   },
   floraField: {
     focusX: 0.57,
@@ -90,12 +91,12 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
   iracemaPedro: {
     focusX: 0.5,
     focusY: 0.36,
-    scale: 1.02,
+    scale: 1,
   },
   mariaTomasPedro: {
     focusX: 0.48,
     focusY: 0.35,
-    scale: 1.02,
+    scale: 1,
   },
   manuscript: {
     focusX: 0.5,
@@ -125,7 +126,7 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
   tomasPedro: {
     focusX: 0.54,
     focusY: 0.34,
-    scale: 1.02,
+    scale: 1,
   },
 };
 
@@ -143,6 +144,7 @@ export const archiveMediaSources: Record<string, ImageSourcePropType> = {
   'archive-tomas-birth': tomasBirthCertificateSource,
   'archive-tomas-registration': tomasRegistrationSource,
   'archive-iracema-envelope': iracemaEnvelopeSource,
+  'archive-tomas-esmeralda-marriage': tomasMarriageCertificateSource,
   'archive-tomas-pedro-photo': tomasPedroPhotoSource,
   'archive-iracema-pedro-photo': iracemaPedroPhotoSource,
   'archive-maria-tomas-pedro-photo': mariaTomasPedroPhotoSource,
@@ -160,6 +162,7 @@ export const archiveMediaTreatments: Record<string, EditorialImageTreatment> = {
   'archive-tomas-birth': mediaTreatments.tomasBirth,
   'archive-tomas-registration': mediaTreatments.tomasRegistration,
   'archive-iracema-envelope': mediaTreatments.iracemaEnvelope,
+  'archive-tomas-esmeralda-marriage': mediaTreatments.tomasBirth,
   'archive-tomas-pedro-photo': mediaTreatments.tomasPedro,
   'archive-iracema-pedro-photo': mediaTreatments.iracemaPedro,
   'archive-maria-tomas-pedro-photo': mediaTreatments.mariaTomasPedro,
@@ -199,13 +202,13 @@ export const characterMediaTreatments: Record<string, EditorialImageTreatment> =
 
 export const characterMediaNotes: Record<string, string> = {
   flora:
-    'Retrato de Flora en la juventud. A partir de tu indicación, pasa a ser la imagen principal de su ficha dentro de la app.',
+    'Retrato de Flora en la juventud.',
   pedro:
     'Pedro aparece identificado junto a Iracema en una fotografía familiar del archivo americano.',
   tomas:
     'Tomás aparece identificado junto a Pedro: en la primera fotografía, de izquierda a derecha, Tomás y Pedro.',
   indalecia:
-    'Indalecia con Flora bebé. Esta pieza ya queda identificada en la app como una imagen materna central del archivo familiar.',
+    'Indalecia con Flora bebé.',
   maria:
     'María aparece identificada en la fotografía de grupo junto a Tomás y Pedro.',
   iracema:

@@ -15,6 +15,8 @@ type ListRowProps = {
   tags?: string[];
   onPress?: () => void;
   imageSource?: ImageSourcePropType;
+  imageHeight?: number;
+  imageResizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
   imageTreatment?: {
     focusX?: number;
     focusY?: number;
@@ -31,6 +33,8 @@ export function ListRow({
   tags,
   title,
   imageSource,
+  imageHeight = 320,
+  imageResizeMode = 'cover',
   imageTreatment,
 }: ListRowProps) {
   const { theme } = useAppTheme();
@@ -41,10 +45,11 @@ export function ListRow({
         {imageSource ? (
           <EditorialImage
             imageStyle={{ borderRadius: theme.radii.lg }}
+            resizeMode={imageResizeMode}
             source={imageSource}
             style={{
               borderRadius: theme.radii.lg,
-              height: 320,
+              height: imageHeight,
               width: '100%',
             }}
             treatment={imageTreatment}

@@ -22,7 +22,7 @@ import {
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatProgress, formatSourceReferences } from '../../utils/formatters';
+import { formatProgress } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChapterReader'>;
 
@@ -227,14 +227,9 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
           <SectionHeader
-            subtitle="Páginas y piezas conservadas que sostienen este tramo."
+            subtitle="Piezas conservadas que sostienen este tramo."
             title="Archivo de apoyo"
           />
-          {chapter.sources?.length ? (
-            <AppText tone="secondary">
-              Referencia: {formatSourceReferences(chapter.sources)}
-            </AppText>
-          ) : null}
           {relatedArchiveItems.length ? (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
               {relatedArchiveItems.map((item) => (
@@ -254,7 +249,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
           ) : (
             <AppText tone="secondary">
               Este capítulo se lee dentro del conjunto familiar reconstruido por
-              Santiago González López.
+              Santiago.
             </AppText>
           )}
         </View>

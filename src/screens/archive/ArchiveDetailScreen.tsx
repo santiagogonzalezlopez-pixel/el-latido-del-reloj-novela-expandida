@@ -9,7 +9,6 @@ import { archiveItemMap, chapterMap, characterMap, locationMap } from '../../dat
 import { archiveMediaSources, archiveMediaTreatments } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArchiveDetail'>;
 
@@ -17,6 +16,16 @@ export function ArchiveDetailScreen({ route }: Props) {
   const { theme } = useAppTheme();
   const item = archiveItemMap[route.params.itemId];
   const mediaSource = archiveMediaSources[item.id];
+  const containedArchiveIds = new Set([
+    'archive-family-tree',
+    'archive-port-doc',
+    'archive-letter-scan',
+    'archive-flora-envelope',
+    'archive-tomas-birth',
+    'archive-tomas-registration',
+    'archive-iracema-envelope',
+    'archive-tomas-esmeralda-marriage',
+  ]);
 
   return (
     <ScrollView
@@ -33,6 +42,7 @@ export function ArchiveDetailScreen({ route }: Props) {
           {mediaSource ? (
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.lg }}
+              resizeMode={containedArchiveIds.has(item.id) ? 'contain' : 'cover'}
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
@@ -90,11 +100,6 @@ export function ArchiveDetailScreen({ route }: Props) {
             ))}
           </View>
 
-          {item.sources?.length ? (
-            <AppText tone="secondary">
-              Referencia documental: {formatSourceReferences(item.sources)}
-            </AppText>
-          ) : null}
         </View>
       </SurfaceCard>
     </ScrollView>

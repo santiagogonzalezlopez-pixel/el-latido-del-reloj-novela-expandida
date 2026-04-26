@@ -98,19 +98,19 @@ function buildGenealogyReply(question: string) {
     asksTree &&
     (normalized.includes('leer') || normalized.includes('lee') || normalized.includes('interpre'))
   ) {
-    return `${genealogyReadingGuide.join(' ')} En resumen: Domingo Rodríguez y Antonia González están en la raíz; de ellos salen Pedro e Indalecia. Indalecia es madre de Tomás, Flora, Leonor y Secundino. Flora es madre de Luis, y Luis es padre de Beatriz, Olga, Mari Carmen, Luis y Santiago González López.`;
+    return `${genealogyReadingGuide.join(' ')} En resumen: Domingo y Antonia están en la raíz; de ellos salen Pedro e Indalecia. Indalecia es madre de Tomás, Flora, Leonor y Secundino. Flora es madre de Luis, y Luis es padre de Beatriz, Olga, Mari Carmen, Luis y Santiago.`;
   }
 
   if (normalized.includes('santiago')) {
-    return 'Santiago González López es el autor del libro. En la genealogía familiar es nieto de Flora e hijo de Luis. Reconstruye la historia de su yaya Flora, de Tomás, hermano de Flora, y de Pedro, tío de Flora.';
+    return 'Santiago es el autor del libro. En la genealogía familiar es nieto de Flora e hijo de Luis. Reconstruye la historia de su yaya Flora, de Tomás, hermano de Flora, y de Pedro, tío de Flora.';
   }
 
   if (normalized.includes('tomas') && normalized.includes('flora')) {
-    return 'Tomás Fernández Rodríguez y Flora son hermanos. Ambos son hijos de Indalecia. Tomás no es hermano de Santiago: Santiago pertenece a una generación posterior, como nieto de Flora e hijo de Luis.';
+    return 'Tomás y Flora son hermanos. Ambos son hijos de Indalecia. Tomás no es hermano de Santiago: Santiago pertenece a una generación posterior, como nieto de Flora e hijo de Luis.';
   }
 
   if (normalized.includes('pedro') && (normalized.includes('tio') || normalized.includes('flora'))) {
-    return 'Pedro Rodríguez es hermano de Indalecia. Por eso es tío de Flora y de Tomás. No es el tío directo de Santiago: pertenece a la generación anterior, como tío de la yaya Flora.';
+    return 'Pedro es hermano de Indalecia. Por eso es tío de Flora y de Tomás. No es el tío directo de Santiago: pertenece a la generación anterior, como tío de la yaya Flora.';
   }
 
   if (normalized.includes('esmeralda')) {
@@ -162,7 +162,7 @@ export function buildBookAssistantReply(question: string) {
     (normalized.includes('foto') && normalized.includes('barcelona')) ||
     (normalized.includes('fotografia') && normalized.includes('actual'))
   ) {
-    return 'La fotografía contemporánea de Barcelona, tomada en 2025, muestra de izquierda a derecha a Beatriz, Arlete, Bete —diminutivo de Elisabete— y Mari Carmen. Beatriz y Mari Carmen son hermanas de Santiago; Arlete y Bete son sus primas brasileñas.';
+    return 'La fotografía contemporánea de Barcelona, tomada en 2025, muestra de izquierda a derecha a Beatriz, Bete, Arlete y Mari Carmen. Beatriz y Mari Carmen son hermanas de Santiago; Bete y Arlete son sus primas brasileñas.';
   }
 
   if (normalized.includes('pedro')) {
@@ -175,14 +175,7 @@ export function buildBookAssistantReply(question: string) {
   }
 
   if (normalized.includes('reloj')) {
-    return 'El reloj simboliza continuidad, herencia y memoria material. Une la casa de Chandrexa, la partida de Pedro y Tomás, la voz de Flora y la reconstrucción familiar que hace Santiago González López.';
-  }
-
-  if (normalized.includes('cuba') || normalized.includes('habana')) {
-    const habana = locationMap.habana;
-    const cubaLetters = habana.letterIds.map((id) => letterMap[id]?.title).filter(Boolean);
-
-    return `Cuba aparece como etapa de trabajo, desgaste y correspondencia. ${habana.summary} Las cartas relacionadas son ${cubaLetters.join(' y ')}.`;
+    return 'El reloj simboliza continuidad, herencia y memoria material. Une la casa de Chandrexa, la partida de Pedro y Tomás, la voz de Flora y la reconstrucción familiar que hace Santiago.';
   }
 
   if (normalized.includes('cartas') && normalized.includes('habana')) {
@@ -191,6 +184,13 @@ export function buildBookAssistantReply(question: string) {
       .map((letter) => `- ${letter.title}`);
 
     return `Las cartas vinculadas a La Habana son:\n${relatedLetters.join('\n')}`;
+  }
+
+  if (normalized.includes('cuba') || normalized.includes('habana')) {
+    const habana = locationMap.habana;
+    const cubaLetters = habana.letterIds.map((id) => letterMap[id]?.title).filter(Boolean);
+
+    return `Cuba aparece como etapa de trabajo, desgaste y correspondencia. ${habana.summary} Las cartas relacionadas son ${cubaLetters.join(' y ')}.`;
   }
 
   if (aiSuggestedQuestions.some((item) => normalizeText(item) === normalized)) {

@@ -22,7 +22,6 @@ import {
 } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LetterDetail'>;
 
@@ -76,6 +75,7 @@ export function LetterDetailScreen({ navigation, route }: Props) {
           {mediaSource ? (
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.lg }}
+              resizeMode={letter.id === 'letter-iracema-santiago' ? 'cover' : 'contain'}
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
@@ -139,9 +139,6 @@ export function LetterDetailScreen({ navigation, route }: Props) {
               paddingTop: theme.spacing.lg,
             }}
           >
-            <AppText style={{ fontStyle: 'italic' }} tone="secondary">
-              Querida memoria:
-            </AppText>
             {letter.body.map((paragraph, index) => (
               <AppText
                 key={`${letter.id}-${index}`}
@@ -179,32 +176,6 @@ export function LetterDetailScreen({ navigation, route }: Props) {
               Ir al capítulo relacionado: {relatedChapter.title}
             </AppText>
           </Pressable>
-
-          {letter.sources?.length ? (
-            <View
-              style={{
-                borderColor: theme.colors.separator,
-                borderTopWidth: 1,
-                gap: theme.spacing.sm,
-                paddingTop: theme.spacing.md,
-              }}
-            >
-              <SectionHeader
-                subtitle="Lugar documental desde el que esta carta entra en la obra."
-                title="Referencia documental"
-              />
-              <AppText tone="secondary">
-                {formatSourceReferences(letter.sources)}
-              </AppText>
-              {letter.sources.map((source) =>
-                source.note ? (
-                  <AppText key={`${source.pdfId}-${source.pages.join('-')}`}>
-                    {source.note}
-                  </AppText>
-                ) : null,
-              )}
-            </View>
-          ) : null}
 
           {relatedArchiveItems.length ? (
             <View

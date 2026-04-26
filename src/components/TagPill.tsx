@@ -16,12 +16,13 @@ export function TagPill({ label }: TagPillProps) {
         alignSelf: 'flex-start',
         backgroundColor: theme.colors.accentSoft,
         borderRadius: theme.radii.pill,
+        maxWidth: '100%',
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
       }}
     >
       <AppText
-        style={{ letterSpacing: 0.3 }}
+        style={{ flexShrink: 1, letterSpacing: 0.3 }}
         tone="accent"
         variant="caption"
       >

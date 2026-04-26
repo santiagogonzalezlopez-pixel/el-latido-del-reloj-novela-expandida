@@ -143,7 +143,7 @@ export function FamilyTreeScreen() {
               RAÍCES
             </AppText>
             <TreeNode
-              label="Domingo Rodríguez y Antonia González"
+              label="Domingo y Antonia"
               note="Pareja de origen del árbol. De ellos salen dos ramas principales: Pedro e Indalecia."
             />
           </View>
@@ -155,12 +155,12 @@ export function FamilyTreeScreen() {
               PEDRO E INDALECIA
             </AppText>
             <TreeNode
-              label="Pedro Rodríguez"
+              label="Pedro"
               note="Hermano de Indalecia. Es tío de Flora y de Tomás; no es el tío directo de Santiago."
               onPress={() => navigation.navigate('CharacterDetail', { characterId: 'pedro' })}
             />
             <TreeNode
-              label="Indalecia Rodríguez González"
+              label="Indalecia"
               note="Madre de Tomás, Flora, Leonor y Secundino."
               onPress={() => navigation.navigate('CharacterDetail', { characterId: 'indalecia' })}
             />
@@ -178,11 +178,11 @@ export function FamilyTreeScreen() {
             />
             <TreeNode
               label="Flora > Luis > Beatriz, Olga, Mari Carmen, Luis y Santiago"
-              note="Santiago González López es nieto de Flora e hijo de Luis, y reconstruye la historia familiar."
+              note="Santiago es nieto de Flora e hijo de Luis, y reconstruye la historia familiar."
               onPress={() => navigation.navigate('CharacterDetail', { characterId: 'flora' })}
             />
             <TreeNode
-              label="Luis, hermano de Santiago > Luis, Natalie y Guillermo"
+              label="Luis, hermano de Santiago > Luis, Natalia y Guillermo"
               note="La rama continúa en la generación siguiente a través del hermano de Santiago."
             />
           </View>
@@ -204,8 +204,8 @@ export function FamilyTreeScreen() {
               onPress={() => navigation.navigate('CharacterDetail', { characterId: 'iracema' })}
             />
             <TreeNode
-              label="Iracema > Dominic y David > Jacqueline y Julia Valentina"
-              note="Dominic, hijo de Iracema, tiene dos hijas: Jacqueline y Julia Valentina."
+              label="Iracema > Dominic y David > Jacqueline y Giulia"
+              note="Dominic, hijo de Iracema, tiene dos hijas: Jacqueline y Giulia."
             />
           </View>
 

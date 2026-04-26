@@ -8,7 +8,6 @@ import { archiveItems, characterMap, locationMap } from '../../data';
 import {
   archiveMediaTreatments,
   archiveMediaSources,
-  floraFieldPortraitSource,
   familyTreeImageSource,
   mediaTreatments,
 } from '../../data/editorialMedia';
@@ -18,6 +17,16 @@ import { useAppTheme } from '../../theme/ThemeContext';
 export function ArchiveScreen() {
   const navigation = useNavigation<AppNavigationProp>();
   const { theme } = useAppTheme();
+  const containedArchiveIds = new Set([
+    'archive-family-tree',
+    'archive-port-doc',
+    'archive-letter-scan',
+    'archive-flora-envelope',
+    'archive-tomas-birth',
+    'archive-tomas-registration',
+    'archive-iracema-envelope',
+    'archive-tomas-esmeralda-marriage',
+  ]);
 
   return (
     <ScrollView
@@ -37,24 +46,15 @@ export function ArchiveScreen() {
         </AppText>
       </View>
 
-      <View style={{ flexDirection: 'row', gap: theme.spacing.sm }}>
+      <View style={{ gap: theme.spacing.sm }}>
         <EditorialImage
           imageStyle={{ borderRadius: theme.radii.lg }}
-          source={floraFieldPortraitSource}
-          style={{
-            borderRadius: theme.radii.lg,
-            flex: 1,
-            height: 260,
-          }}
-          treatment={mediaTreatments.floraField}
-        />
-        <EditorialImage
-          imageStyle={{ borderRadius: theme.radii.lg }}
+          resizeMode="contain"
           source={familyTreeImageSource}
           style={{
             borderRadius: theme.radii.lg,
-            flex: 1,
-            height: 260,
+            height: 220,
+            width: '100%',
           }}
           treatment={mediaTreatments.familyTree}
         />
@@ -65,6 +65,8 @@ export function ArchiveScreen() {
           key={item.id}
           eyebrow={item.type.toUpperCase()}
           imageSource={archiveMediaSources[item.id]}
+          imageHeight={item.id === 'archive-family-tree' ? 220 : 320}
+          imageResizeMode={containedArchiveIds.has(item.id) ? 'contain' : 'cover'}
           imageTreatment={archiveMediaTreatments[item.id]}
           meta={locationMap[item.locationId ?? '']?.name ?? 'Sin lugar asociado'}
           onPress={() =>

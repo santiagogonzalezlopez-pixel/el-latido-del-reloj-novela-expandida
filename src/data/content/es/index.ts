@@ -62,11 +62,11 @@ export const aiSuggestedQuestions = [
   '¿Quiénes son los hijos de Pedro?',
   '¿Quiénes son los hijos de Iracema?',
   '¿Quién es Santiago en esta historia?',
-  '¿Quién aparece en la foto reciente de Barcelona?',
-  '¿Por qué Esmeralda no aparece como rama de sangre?',
+  'Foto reciente de Barcelona',
+  'Esmeralda y el árbol',
   '¿Qué simboliza el reloj?',
   '¿Qué pasó en Cuba?',
-  'Muéstrame las cartas relacionadas con La Habana',
+  'Cartas de La Habana',
 ];
 
 export {

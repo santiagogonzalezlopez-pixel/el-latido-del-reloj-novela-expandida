@@ -26,15 +26,15 @@ export const letters: Letter[] = [
   },
   {
     id: 'letter-iracema-santiago',
-    title: 'Carta de Iracema Pastore',
+    title: 'Carta de Iracema',
     senderId: 'iracema',
     recipientId: 'santiago',
     locationId: 'nueva-york',
     approxDate: 'Mayo de 2001',
     summary:
-      'Pieza del archivo familiar: carta enviada por Iracema desde Nueva York a Santiago, prueba documental de la prolongacion americana de la historia familiar.',
+      'Pieza del archivo familiar: carta enviada por Iracema desde Nueva York a Santiago, prueba documental de la prolongación americana de la historia familiar.',
     body: [
-      'Carta de Iracema Pastore (2001).',
+      'Carta de Iracema (2001).',
       'Carta enviada por Iracema desde Nueva York, a Santiago, en Aix-en-Provence (Francia).',
       'Mayo de 2001. Archivo familiar.',
     ],
@@ -47,16 +47,16 @@ export const letters: Letter[] = [
   },
   {
     id: 'letter-esmeralda-flora',
-    title: 'Carta de Esmeralda Gomes a Flora',
+    title: 'Carta de Esmeralda a Flora',
     senderId: 'esmeralda',
     recipientId: 'flora',
     locationId: 'sao-paulo',
     approxDate: 'Agosto de 2003',
     summary:
-      'Carta del archivo familiar enviada desde Brasil por Esmeralda a Flora en Barcelona, ya en el tiempo tardio de la memoria recuperada y de la correspondencia que sigue enlazando ramas distantes.',
+      'Carta del archivo familiar enviada desde Brasil por Esmeralda a Flora en Barcelona, ya en el tiempo tardío de la memoria recuperada y de la correspondencia que sigue enlazando ramas distantes.',
     body: [
-      'Carta de Esmeralda Gomes (2003).',
-      'Carta dirigida a Flora Fernandez Rodriguez en Barcelona, Espana, enviada desde Brasil por Esmeralda.',
+      'Carta de Esmeralda (2003).',
+      'Carta dirigida a Flora en Barcelona, España, enviada desde Brasil por Esmeralda.',
       'Agosto de 2003. Archivo familiar conservado con su sobre postal.',
     ],
     relatedChapterId: 'chapter-voz-flora',

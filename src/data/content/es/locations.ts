@@ -129,4 +129,18 @@ export const locations: Location[] = [
     eventIds: ['event-american-branches', 'event-iracema-letter-2001'],
     sources: [{ pdfId: 'main-es', pages: [85, 86] }, { pdfId: 'appendix-es', pages: [234] }],
   },
+  {
+    id: 'washington',
+    name: 'Washington',
+    region: 'Costa este',
+    country: 'Estados Unidos',
+    summary:
+      'Otra localización de la rama americana de la familia, vinculada a los descendientes de Iracema además de Nueva York.',
+    coordinates: { latitude: 38.9072, longitude: -77.0369 },
+    chapterIds: ['chapter-salto'],
+    characterIds: ['iracema', 'santiago'],
+    letterIds: ['letter-iracema-santiago'],
+    eventIds: ['event-american-branches'],
+    sources: [{ pdfId: 'appendix-es', pages: [234] }],
+  },
 ];

@@ -15,10 +15,10 @@ export const timelineEvents: TimelineEvent[] = [
   },
   {
     id: 'event-tomas-birth-1908',
-    title: 'Nacimiento de Tomás Fernández Rodríguez',
+    title: 'Nacimiento de Tomás',
     approxDate: '1908',
     summary:
-      'El apéndice identifica el nacimiento de Tomás en Chandrexa, hijo de Indalecia Rodríguez y hermano de Flora.',
+      'El apéndice identifica el nacimiento de Tomás en Chandrexa, hijo de Indalecia y hermano de Flora.',
     chapterIds: ['chapter-casteligo'],
     characterIds: ['tomas', 'indalecia', 'flora'],
     locationIds: ['casteligo'],
@@ -162,7 +162,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: 'Carta de Iracema desde Nueva York',
     approxDate: 'Mayo de 2001',
     summary:
-      'El apéndice conserva una carta de Iracema Pastore enviada desde Nueva York a Santiago, prueba documental de la continuidad epistolar del archivo familiar.',
+      'El apéndice conserva una carta de Iracema enviada desde Nueva York a Santiago, prueba documental de la continuidad epistolar del archivo familiar.',
     chapterIds: ['chapter-descendencia', 'chapter-salto'],
     characterIds: ['iracema', 'santiago'],
     locationIds: ['nueva-york'],

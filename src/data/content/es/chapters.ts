@@ -14,7 +14,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-author-note-epigraph",
-        text: "“Unha casa ténse con mans e con memoria” — Flora.",
+        text: "“Unha casa ténse con maos e con memoria” — Flora.",
         sources: [{ pdfId: 'main-es', pages: [7] }],
       },
       {
@@ -539,7 +539,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-voz-flora-6",
-        text: "Flora sabía con certeza que no todo se pierde. Su voz, humilde y persistente, había atado Galicia, Cuba, Brasil y Estados Unidos en una misma trama. Y aunque la casa quedara en silencio, aunque las cartas amarillearan, la familia seguiría latiendo en cada generación. Porque la voz de Flora, al final, era más que voz: era memoria, era raíz, era el pulso del reloj que nunca dejó de sonar. La voz que mantuvo viva la historia para los que venimos detrás.",
+        text: "Flora sabía con certeza que no todo se pierde. Su voz, humilde y persistente, había atado Galicia, Cuba, Brasil y Estados Unidos en una misma trama. Y aunque la casa quedara en silencio, aunque las cartas amarillearan, la familia seguiría latiendo en cada generación. Porque la voz de Flora, al final, era más que voz: era memoria, era raíz, era el pulso del reloj que nunca dejó de sonar.",
         sources: [{ pdfId: 'main-es', pages: [94, 95, 96] }],
       },
     ],

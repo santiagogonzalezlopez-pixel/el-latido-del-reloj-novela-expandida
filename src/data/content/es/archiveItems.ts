@@ -6,15 +6,16 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Reencuentro familiar en Barcelona',
     type: 'fotografía',
     description:
-      'Fotografía contemporánea del archivo vivo tomada en Barcelona en 2025. De izquierda a derecha aparecen Beatriz, Arlete, Bete —diminutivo de Elisabete— y Mari Carmen: las hermanas de Santiago en los extremos y sus primas brasileñas en el centro.',
+      'Fotografía contemporánea del archivo vivo tomada en Barcelona en 2025. De izquierda a derecha aparecen Beatriz, Bete, Arlete y Mari Carmen: las hermanas de Santiago en los extremos y sus primas brasileñas en el centro.',
     characterIds: ['santiago', 'flora', 'luis'],
+    locationId: 'barcelona',
     chapterId: 'chapter-descendencia',
     placeholderLabel: 'Reencuentro familiar en Barcelona',
     sources: [
       {
         pdfId: 'main-es',
         pages: [71, 75],
-        note: 'Identificación familiar confirmada para la app: Beatriz, Arlete, Bete y Mari Carmen, reunidas en Barcelona junto al árbol de la memoria.',
+        note: 'Identificación familiar confirmada para la app: Beatriz, Bete, Arlete y Mari Carmen, reunidas en Barcelona junto al árbol de la memoria.',
       },
     ],
   },
@@ -104,7 +105,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'appendix-es',
         pages: [235],
-        note: 'Sobre asociado a la carta de Esmeralda Gomes a Flora, enviada desde Brasil a Barcelona en agosto de 2003.',
+        note: 'Sobre asociado a la carta de Esmeralda a Flora, enviada desde Brasil a Barcelona en agosto de 2003.',
       },
     ],
   },
@@ -128,10 +129,10 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: 'archive-flora-luis-fields',
-    title: 'Flora y Luis en los campos de la infancia',
+    title: 'Flora y Luis en Chandrexa de Queixa',
     type: 'fotografía',
     description:
-      'Flora regresa a los campos de su infancia junto a Luis, hijo de Flora y padre de Santiago. La pieza une memoria, filiación y paisaje familiar.',
+      'Fotografía de Flora con su hijo Luis en Chandrexa de Queixa. La pieza une memoria, filiación y paisaje familiar.',
     characterIds: ['flora', 'luis', 'santiago'],
     locationId: 'casteligo',
     chapterId: 'chapter-apéndice-documental',
@@ -149,7 +150,7 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Certificación de nacimiento de Tomás',
     type: 'documento',
     description:
-      'Documento civil que acredita el nacimiento de Tomás Fernández en Chandrexa de Queixa en 1908 y enlaza el relato literario con la prueba documental del apéndice.',
+      'Documento civil que acredita el nacimiento de Tomás en Chandrexa de Queixa en 1908 y enlaza el relato literario con la prueba documental del apéndice.',
     characterIds: ['tomas', 'indalecia', 'flora'],
     locationId: 'casteligo',
     chapterId: 'chapter-casteligo',
@@ -158,13 +159,13 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'appendix-es',
         pages: [223],
-        note: 'Certificación literal del nacimiento de Tomás Fernández, vinculada al origen familiar en Casteligo.',
+        note: 'Certificación literal del nacimiento de Tomás, vinculada al origen familiar en Casteligo.',
       },
     ],
   },
   {
     id: 'archive-tomas-registration',
-    title: 'Registro de Extranjeros de Tomás en São Paulo',
+    title: 'Registro de Extranjeros',
     type: 'documento',
     description:
       'Registro emitido en 1945 por la Delegacia Especializada de Estrangeiros, donde figuran la nacionalidad española de Tomás y los nombres de sus padres.',
@@ -185,7 +186,7 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Sobre postal de Iracema desde Nueva York',
     type: 'carta escaneada',
     description:
-      'Sobre conservado en el archivo familiar asociado a la carta enviada por Iracema Pastore desde Nueva York en mayo de 2001.',
+      'Sobre conservado en el archivo familiar asociado a la carta enviada por Iracema desde Nueva York en mayo de 2001.',
     characterIds: ['iracema', 'santiago'],
     locationId: 'nueva-york',
     chapterId: 'chapter-salto',
@@ -203,7 +204,7 @@ export const archiveItems: ArchiveItem[] = [
     title: 'Certificación de matrimonio de Tomás y Esmeralda',
     type: 'documento',
     description:
-      'Documento oficial del apéndice que acredita la unión de Tomás Fernandes Rodrigues con Esmeralda Gomes y fija en el archivo el momento en que la rama brasileña deja de ser tránsito para convertirse en familia.',
+      'Documento oficial del apéndice que acredita la unión de Tomás con Esmeralda y fija en el archivo el momento en que la rama brasileña deja de ser tránsito para convertirse en familia.',
     characterIds: ['tomas', 'esmeralda'],
     locationId: 'sao-paulo',
     chapterId: 'chapter-tomas-esmeralda',
@@ -212,7 +213,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'appendix-es',
         pages: [227],
-        note: 'Certificación de matrimonio de Tomás Fernandes Rodrigues y Esmeralda Gomes, con mención de Chandrexa de Queixa y Taubaté.',
+        note: 'Certificación de matrimonio de Tomás y Esmeralda, con mención de Chandrexa de Queixa y Taubaté.',
       },
     ],
   },

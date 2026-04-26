@@ -188,6 +188,7 @@ export function HomeScreen() {
                 <EditorialImage
                   key={`home-archive-${index}`}
                   imageStyle={{ borderRadius: theme.radii.lg }}
+                  resizeMode="cover"
                   source={item.source}
                   style={{
                     borderRadius: theme.radii.lg,
@@ -317,9 +318,9 @@ export function HomeScreen() {
           <View style={{ gap: theme.spacing.sm }}>
             <AppText variant="subtitle">La historia de Flora, Tomás y Pedro</AppText>
             <AppText>
-              Santiago González López reúne la memoria de su yaya Flora, de Tomás,
-              hermano de Flora, y de Pedro, tío de ambos, para devolver a la familia
-              una historia que cruzó Galicia, Cuba, Brasil y Barcelona.
+              Santiago reúne la memoria de su yaya Flora, de Tomás, hermano de Flora,
+              y de Pedro, tío de Flora y de Tomás, para devolver a la familia una historia
+              que cruzó Galicia, Cuba, Brasil y Barcelona.
             </AppText>
           </View>
         </SurfaceCard>

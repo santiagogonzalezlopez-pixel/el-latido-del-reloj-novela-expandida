@@ -79,7 +79,7 @@ export const characters: Character[] = [
   },
   {
     id: 'tomas',
-    name: 'Tomás Fernández Rodríguez',
+    name: 'Tomás',
     role: 'Hijo de Indalecia y viajero de dos orillas',
     biography:
       'Tomás parte con Pedro hacia Cuba, aprende el trabajo duro de la zafra, cruza a São Paulo y forma con Esmeralda una familia que arraiga definitivamente en Brasil.',
@@ -120,7 +120,7 @@ export const characters: Character[] = [
   },
   {
     id: 'indalecia',
-    name: 'Indalecia Rodríguez González',
+    name: 'Indalecia',
     role: 'Madre, hermana y raíz doméstica',
     biography:
       'Madre de Tomás y Flora y hermana de Pedro, Indalecia sostiene la casa de Casteligo y concentra el dolor y la dignidad de quienes se quedan esperando cartas.',
@@ -168,7 +168,7 @@ export const characters: Character[] = [
   },
   {
     id: 'esmeralda',
-    name: 'Esmeralda Gomes',
+    name: 'Esmeralda',
     role: 'Esposa de Tomás y raíz brasileña del hogar',
     biography:
       'Esmeralda entra en la historia en São Paulo como una mujer de mirada firme y vida compartida con Tomás; con ella la familia deja de ser emigración de paso y se vuelve raíz.',
@@ -192,7 +192,7 @@ export const characters: Character[] = [
   },
   {
     id: 'iracema',
-    name: 'Iracema Pastore',
+    name: 'Iracema',
     role: 'Rama migratoria hacia el norte',
     biography:
       'Iracema representa una nueva etapa del árbol familiar: la expansión desde São Paulo hacia Estados Unidos, con la memoria aún activa en la correspondencia del archivo.',
@@ -210,7 +210,7 @@ export const characters: Character[] = [
       },
     ],
     chapterIds: ['chapter-descendencia', 'chapter-salto'],
-    locationIds: ['nueva-york', 'sao-paulo'],
+    locationIds: ['nueva-york', 'washington', 'sao-paulo'],
     quoteIds: ['quote-salto-horizonte'],
     sources: [{ pdfId: 'main-es', pages: [73, 85] }, { pdfId: 'appendix-es', pages: [234] }],
   },
@@ -233,17 +233,17 @@ export const characters: Character[] = [
         note: 'A través de Luis, Santiago recibe la historia de Flora como memoria familiar y como responsabilidad narrativa.',
       },
     ],
-    chapterIds: ['chapter-author-note', 'chapter-voz-flora', 'chapter-apendice-documental'],
+    chapterIds: ['chapter-author-note', 'chapter-voz-flora', 'chapter-apéndice-documental'],
     locationIds: ['barcelona', 'casteligo'],
     quoteIds: [],
     sources: [{ pdfId: 'main-es', pages: [92] }, { pdfId: 'appendix-es', pages: [239] }],
   },
   {
     id: 'santiago',
-    name: 'Santiago González López',
+    name: 'Santiago',
     role: 'Autor y reconstructor de la historia familiar',
     biography:
-      'Autor de El latido del reloj, nieto de Flora e hijo de Luis. Santiago reconstruye la historia familiar a partir de cartas, fotografías, memoria oral y documentos: lo que le ocurrió a su yaya Flora, a su hermano Tomás y a su tío Pedro.',
+      'Autor de El latido del reloj, nieto de Flora e hijo de Luis. Santiago reconstruye la historia familiar a partir de cartas, fotografías, memoria oral y documentos: lo que le ocurrió a su yaya Flora, a Tomás, hermano de Flora, y a Pedro, tío de Flora y de Tomás.',
     relatedCharacterIds: ['flora', 'luis', 'iracema', 'tomas', 'pedro'],
     relationships: [
       {
@@ -262,8 +262,8 @@ export const characters: Character[] = [
         note: 'La carta de Iracema desde Nueva York forma parte del hilo contemporáneo que permite reunir las ramas americanas.',
       },
     ],
-    chapterIds: ['chapter-author-note', 'chapter-apendice-documental'],
-    locationIds: ['barcelona', 'nueva-york', 'casteligo'],
+    chapterIds: ['chapter-author-note', 'chapter-apéndice-documental'],
+    locationIds: ['barcelona', 'nueva-york', 'washington', 'casteligo'],
     quoteIds: [],
     sources: [{ pdfId: 'main-es', pages: [5, 6, 9, 11, 13, 15] }, { pdfId: 'appendix-es', pages: [234, 239] }],
   },

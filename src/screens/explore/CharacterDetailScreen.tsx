@@ -14,7 +14,6 @@ import {
 } from '../../data/editorialMedia';
 import { RootStackParamList } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
-import { formatSourceReferences } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CharacterDetail'>;
 
@@ -39,6 +38,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
           {mediaSource ? (
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.lg }}
+              resizeMode="cover"
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
@@ -76,12 +76,6 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
             <TagPill label={`${character.locationIds.length} lugares`} />
             <TagPill label={`${character.quoteIds.length} citas`} />
           </View>
-
-          {character.sources?.length ? (
-            <AppText tone="secondary">
-              Referencia documental: {formatSourceReferences(character.sources)}
-            </AppText>
-          ) : null}
         </View>
       </SurfaceCard>
 

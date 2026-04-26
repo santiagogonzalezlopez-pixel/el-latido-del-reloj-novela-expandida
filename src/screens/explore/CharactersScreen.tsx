@@ -43,6 +43,7 @@ export function CharactersScreen() {
         <View style={{ gap: theme.spacing.md }}>
           <EditorialImage
             imageStyle={{ borderRadius: theme.radii.lg }}
+            resizeMode="cover"
             source={floraFieldPortraitSource}
             style={{
               borderRadius: theme.radii.lg,
@@ -90,6 +91,7 @@ export function CharactersScreen() {
               {mediaSource ? (
                 <EditorialImage
                   imageStyle={{ borderRadius: theme.radii.lg }}
+                  resizeMode="cover"
                   source={mediaSource}
                   style={{
                     borderRadius: theme.radii.lg,

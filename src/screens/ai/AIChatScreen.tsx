@@ -105,7 +105,11 @@ export function AIChatScreen() {
             />
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
               {filteredSuggestions.map((question) => (
-                <Pressable key={question} onPress={() => sendQuestion(question)}>
+                <Pressable
+                  key={question}
+                  onPress={() => sendQuestion(question)}
+                  style={{ maxWidth: '100%' }}
+                >
                   <TagPill label={question} />
                 </Pressable>
               ))}
@@ -154,9 +158,9 @@ export function AIChatScreen() {
           padding: theme.spacing.md,
         }}
       >
-        <TextInput
-          onChangeText={setInput}
-          placeholder="Haz una pregunta sobre personajes, cartas, lugares o el árbol..."
+          <TextInput
+            onChangeText={setInput}
+            placeholder="Pregunta a la obra..."
           placeholderTextColor={theme.colors.textMuted}
           style={{
             backgroundColor: theme.colors.card,
