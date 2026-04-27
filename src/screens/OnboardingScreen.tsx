@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
+import { useState } from 'react';
+import { Pressable, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../components/AppText';
@@ -42,11 +42,12 @@ export function OnboardingScreen({ navigation, route }: Props) {
   const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
   const { setState: setHasSeenOnboarding } = useOnboardingPreference();
-  const scrollRef = useRef<ScrollView>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const isReplay = route.params?.replay === true;
   const lastPageIndex = onboardingPages.length - 1;
-  const pageWidth = width - theme.spacing.lg * 2;
+  const currentPage = onboardingPages[pageIndex];
+  const footerBottom = Math.max(insets.bottom + theme.spacing.md, theme.spacing.xl);
+  const footerReserve = footerBottom + 94;
 
   const finishOnboarding = () => {
     setHasSeenOnboarding(true);
@@ -65,15 +66,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
       return;
     }
 
-    scrollRef.current?.scrollTo({
-      animated: true,
-      x: pageWidth * (pageIndex + 1),
-    });
-  };
-
-  const handleMomentumEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const nextIndex = Math.round(event.nativeEvent.contentOffset.x / pageWidth);
-    setPageIndex(Math.min(lastPageIndex, Math.max(0, nextIndex)));
+    setPageIndex((current) => Math.min(lastPageIndex, current + 1));
   };
 
   return (
@@ -86,12 +79,11 @@ export function OnboardingScreen({ navigation, route }: Props) {
         }
         style={{
           flex: 1,
-          paddingBottom: Math.max(insets.bottom + theme.spacing.lg, theme.spacing.xl),
           paddingHorizontal: theme.spacing.lg,
           paddingTop: insets.top + theme.spacing.lg,
         }}
       >
-        <View style={{ flex: 1, gap: theme.spacing.lg }}>
+        <View style={{ flex: 1, gap: theme.spacing.md, paddingBottom: footerReserve }}>
           <View style={{ alignItems: 'center', gap: theme.spacing.md }}>
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.xl }}
@@ -101,7 +93,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
                 borderColor: theme.colors.paperBorder,
                 borderRadius: theme.radii.xl,
                 borderWidth: 1,
-                height: Math.min(270, Math.max(200, width * 0.58)),
+                height: Math.min(230, Math.max(160, width * 0.48)),
                 width: '100%',
               }}
               zoomable={false}
@@ -125,56 +117,42 @@ export function OnboardingScreen({ navigation, route }: Props) {
             style={{
               flex: 1,
               justifyContent: 'center',
-              paddingHorizontal: 0,
               paddingVertical: theme.spacing.lg,
             }}
             tone="paper"
           >
-            <ScrollView
-              horizontal
-              onMomentumScrollEnd={handleMomentumEnd}
-              pagingEnabled
-              ref={scrollRef}
-              scrollEventThrottle={16}
-              showsHorizontalScrollIndicator={false}
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+              }}
             >
-              {onboardingPages.map((page) => (
+              <View style={{ alignItems: 'center', gap: theme.spacing.md }}>
                 <View
-                  key={page.title}
                   style={{
+                    alignItems: 'center',
+                    backgroundColor: theme.colors.cardMuted,
+                    borderRadius: theme.radii.pill,
+                    height: 58,
                     justifyContent: 'center',
-                    paddingHorizontal: theme.spacing.lg,
-                    width: pageWidth,
+                    width: 58,
                   }}
                 >
-                  <View style={{ alignItems: 'center', gap: theme.spacing.md }}>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        backgroundColor: theme.colors.cardMuted,
-                        borderRadius: theme.radii.pill,
-                        height: 58,
-                        justifyContent: 'center',
-                        width: 58,
-                      }}
-                    >
-                      <Ionicons color={theme.colors.accent} name={page.icon} size={28} />
-                    </View>
-                    <View style={{ alignItems: 'center', gap: theme.spacing.xs }}>
-                      <AppText tone="accent" variant="caption">
-                        {page.eyebrow}
-                      </AppText>
-                      <AppText style={{ textAlign: 'center' }} variant="title">
-                        {page.title}
-                      </AppText>
-                      <AppText style={{ textAlign: 'center' }} tone="secondary">
-                        {page.text}
-                      </AppText>
-                    </View>
-                  </View>
+                  <Ionicons color={theme.colors.accent} name={currentPage.icon} size={28} />
                 </View>
-              ))}
-            </ScrollView>
+                <View style={{ alignItems: 'center', gap: theme.spacing.xs }}>
+                  <AppText tone="accent" variant="caption">
+                    {currentPage.eyebrow}
+                  </AppText>
+                  <AppText style={{ textAlign: 'center' }} variant="title">
+                    {currentPage.title}
+                  </AppText>
+                  <AppText style={{ textAlign: 'center' }} tone="secondary">
+                    {currentPage.text}
+                  </AppText>
+                </View>
+              </View>
+            </View>
 
             <View
               style={{
@@ -199,41 +177,57 @@ export function OnboardingScreen({ navigation, route }: Props) {
               ))}
             </View>
           </SurfaceCard>
+        </View>
 
-          <View style={{ gap: theme.spacing.sm }}>
-            <Pressable
-              accessibilityRole="button"
-              onPress={goNext}
-              style={({ pressed }) => ({
-                alignItems: 'center',
-                backgroundColor: theme.colors.accent,
-                borderRadius: theme.radii.pill,
-                flexDirection: 'row',
-                gap: theme.spacing.sm,
-                justifyContent: 'center',
-                opacity: pressed ? 0.9 : 1,
-                paddingHorizontal: theme.spacing.lg,
-                paddingVertical: theme.spacing.md,
-              })}
-            >
-              <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
-                {pageIndex === lastPageIndex ? 'Entrar en la obra' : 'Continuar'}
+        <View
+          style={{
+            bottom: footerBottom,
+            gap: theme.spacing.sm,
+            left: theme.spacing.lg,
+            position: 'absolute',
+            right: theme.spacing.lg,
+          }}
+        >
+          <Pressable
+            accessibilityRole="button"
+            onPress={goNext}
+            style={({ pressed }) => ({
+              alignItems: 'center',
+              backgroundColor: theme.colors.accent,
+              borderColor: theme.colors.accentContrast,
+              borderRadius: theme.radii.pill,
+              borderWidth: 1,
+              flexDirection: 'row',
+              gap: theme.spacing.sm,
+              justifyContent: 'center',
+              minHeight: 58,
+              opacity: pressed ? 0.9 : 1,
+              paddingHorizontal: theme.spacing.lg,
+              paddingVertical: theme.spacing.md,
+              shadowColor: theme.dark ? '#000000' : '#44301a',
+              shadowOffset: { width: 0, height: 8 },
+              shadowOpacity: 0.18,
+              shadowRadius: 14,
+              elevation: 5,
+            })}
+          >
+            <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
+              {pageIndex === lastPageIndex ? 'Entrar en la obra' : 'Continuar'}
+            </AppText>
+            <Ionicons
+              color={theme.colors.accentContrast}
+              name={pageIndex === lastPageIndex ? 'enter-outline' : 'arrow-forward'}
+              size={18}
+            />
+          </Pressable>
+
+          {pageIndex < lastPageIndex ? (
+            <Pressable accessibilityRole="button" onPress={finishOnboarding}>
+              <AppText style={{ textAlign: 'center' }} tone="secondary" variant="caption">
+                ENTRAR DIRECTAMENTE
               </AppText>
-              <Ionicons
-                color={theme.colors.accentContrast}
-                name={pageIndex === lastPageIndex ? 'enter-outline' : 'arrow-forward'}
-                size={18}
-              />
             </Pressable>
-
-            {pageIndex < lastPageIndex ? (
-              <Pressable accessibilityRole="button" onPress={finishOnboarding}>
-                <AppText style={{ textAlign: 'center' }} tone="secondary" variant="caption">
-                  ENTRAR DIRECTAMENTE
-                </AppText>
-              </Pressable>
-            ) : null}
-          </View>
+          ) : null}
         </View>
       </LinearGradient>
     </View>
