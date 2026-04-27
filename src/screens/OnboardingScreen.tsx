@@ -46,8 +46,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
   const isReplay = route.params?.replay === true;
   const lastPageIndex = onboardingPages.length - 1;
   const currentPage = onboardingPages[pageIndex];
-  const footerBottom = Math.max(insets.bottom + theme.spacing.md, theme.spacing.xl);
-  const footerReserve = footerBottom + 94;
+  const bottomSpace = Math.max(insets.bottom + theme.spacing.xxl, 86);
 
   const finishOnboarding = () => {
     setHasSeenOnboarding(true);
@@ -83,7 +82,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
           paddingTop: insets.top + theme.spacing.lg,
         }}
       >
-        <View style={{ flex: 1, gap: theme.spacing.md, paddingBottom: footerReserve }}>
+        <View style={{ flex: 1, gap: theme.spacing.md, paddingBottom: bottomSpace }}>
           <View style={{ alignItems: 'center', gap: theme.spacing.md }}>
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.xl }}
@@ -93,7 +92,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
                 borderColor: theme.colors.paperBorder,
                 borderRadius: theme.radii.xl,
                 borderWidth: 1,
-                height: Math.min(230, Math.max(160, width * 0.48)),
+                height: Math.min(210, Math.max(150, width * 0.42)),
                 width: '100%',
               }}
               zoomable={false}
@@ -114,9 +113,11 @@ export function OnboardingScreen({ navigation, route }: Props) {
           </View>
 
           <SurfaceCard
+            onPress={goNext}
             style={{
               flex: 1,
               justifyContent: 'center',
+              minHeight: 210,
               paddingVertical: theme.spacing.lg,
             }}
             tone="paper"
@@ -177,57 +178,53 @@ export function OnboardingScreen({ navigation, route }: Props) {
               ))}
             </View>
           </SurfaceCard>
-        </View>
 
-        <View
-          style={{
-            bottom: footerBottom,
-            gap: theme.spacing.sm,
-            left: theme.spacing.lg,
-            position: 'absolute',
-            right: theme.spacing.lg,
-          }}
-        >
-          <Pressable
-            accessibilityRole="button"
-            onPress={goNext}
-            style={({ pressed }) => ({
-              alignItems: 'center',
-              backgroundColor: theme.colors.accent,
-              borderColor: theme.colors.accentContrast,
-              borderRadius: theme.radii.pill,
-              borderWidth: 1,
-              flexDirection: 'row',
-              gap: theme.spacing.sm,
-              justifyContent: 'center',
-              minHeight: 58,
-              opacity: pressed ? 0.9 : 1,
-              paddingHorizontal: theme.spacing.lg,
-              paddingVertical: theme.spacing.md,
-              shadowColor: theme.dark ? '#000000' : '#44301a',
-              shadowOffset: { width: 0, height: 8 },
-              shadowOpacity: 0.18,
-              shadowRadius: 14,
-              elevation: 5,
-            })}
-          >
-            <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
-              {pageIndex === lastPageIndex ? 'Entrar en la obra' : 'Continuar'}
-            </AppText>
-            <Ionicons
-              color={theme.colors.accentContrast}
-              name={pageIndex === lastPageIndex ? 'enter-outline' : 'arrow-forward'}
-              size={18}
-            />
-          </Pressable>
-
-          {pageIndex < lastPageIndex ? (
-            <Pressable accessibilityRole="button" onPress={finishOnboarding}>
-              <AppText style={{ textAlign: 'center' }} tone="secondary" variant="caption">
-                ENTRAR DIRECTAMENTE
+          <View style={{ gap: theme.spacing.sm }}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={goNext}
+              style={({ pressed }) => ({
+                alignItems: 'center',
+                backgroundColor: theme.colors.accent,
+                borderColor: theme.colors.accentContrast,
+                borderRadius: theme.radii.pill,
+                borderWidth: 1,
+                flexDirection: 'row',
+                gap: theme.spacing.sm,
+                justifyContent: 'center',
+                minHeight: 62,
+                opacity: pressed ? 0.9 : 1,
+                paddingHorizontal: theme.spacing.lg,
+                paddingVertical: theme.spacing.md,
+                shadowColor: theme.dark ? '#000000' : '#44301a',
+                shadowOffset: { width: 0, height: 8 },
+                shadowOpacity: 0.18,
+                shadowRadius: 14,
+                elevation: 5,
+              })}
+            >
+              <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
+                {pageIndex === lastPageIndex ? 'Entrar en la obra' : 'Continuar'}
               </AppText>
+              <Ionicons
+                color={theme.colors.accentContrast}
+                name={pageIndex === lastPageIndex ? 'enter-outline' : 'arrow-forward'}
+                size={18}
+              />
             </Pressable>
-          ) : null}
+
+            {pageIndex < lastPageIndex ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={finishOnboarding}
+                style={{ paddingVertical: theme.spacing.xs }}
+              >
+                <AppText style={{ textAlign: 'center' }} tone="secondary" variant="caption">
+                  ENTRAR DIRECTAMENTE
+                </AppText>
+              </Pressable>
+            ) : null}
+          </View>
         </View>
       </LinearGradient>
     </View>
