@@ -2,9 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ActivityIndicator, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { archiveItems, chapters } from '../data';
+import { useOnboardingPreference } from '../hooks/useOnboardingPreference';
 import { ArchiveDetailScreen } from '../screens/archive/ArchiveDetailScreen';
 import { ArchiveScreen } from '../screens/archive/ArchiveScreen';
 import { AIChatScreen } from '../screens/ai/AIChatScreen';
@@ -18,6 +20,7 @@ import { TimelineScreen } from '../screens/explore/TimelineScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { LetterDetailScreen } from '../screens/letters/LetterDetailScreen';
 import { LettersScreen } from '../screens/letters/LettersScreen';
+import { OnboardingScreen } from '../screens/OnboardingScreen';
 import { ChapterReaderScreen } from '../screens/read/ChapterReaderScreen';
 import { ReadLibraryScreen } from '../screens/read/ReadLibraryScreen';
 import { useAppTheme } from '../theme/ThemeContext';
@@ -76,10 +79,27 @@ function MainTabs() {
 
 export function RootNavigator() {
   const { navigationTheme, theme } = useAppTheme();
+  const { ready, state: hasSeenOnboarding } = useOnboardingPreference();
+
+  if (!ready) {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          backgroundColor: theme.colors.background,
+          flex: 1,
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIndicator color={theme.colors.accent} />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer theme={navigationTheme}>
       <RootStack.Navigator
+        initialRouteName={hasSeenOnboarding ? 'MainTabs' : 'Onboarding'}
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.colors.background,
@@ -95,6 +115,11 @@ export function RootNavigator() {
           },
         }}
       >
+        <RootStack.Screen
+          component={OnboardingScreen}
+          name="Onboarding"
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen
           component={MainTabs}
           name="MainTabs"

@@ -158,6 +158,28 @@ export function HomeScreen() {
                 Comenzar lectura
               </AppText>
             </Pressable>
+
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => navigation.navigate('Onboarding', { replay: true })}
+              style={({ pressed }) => ({
+                alignItems: 'center',
+                alignSelf: 'flex-start',
+                borderColor: theme.colors.border,
+                borderRadius: theme.radii.pill,
+                borderWidth: 1,
+                flexDirection: 'row',
+                gap: theme.spacing.sm,
+                opacity: pressed ? 0.86 : 1,
+                paddingHorizontal: theme.spacing.md,
+                paddingVertical: theme.spacing.sm,
+              })}
+            >
+              <Ionicons color={theme.colors.accent} name="albums-outline" size={17} />
+              <AppText tone="accent" variant="bodyStrong">
+                Ver introducción
+              </AppText>
+            </Pressable>
           </View>
         </SurfaceCard>
 

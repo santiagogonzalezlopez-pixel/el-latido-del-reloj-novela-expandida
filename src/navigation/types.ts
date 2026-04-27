@@ -15,6 +15,7 @@ export type MainTabParamList = {
 };
 
 export type RootStackParamList = {
+  Onboarding: { replay?: boolean } | undefined;
   MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
   ChapterReader: { chapterId: string };
   LetterDetail: { letterId: string };
