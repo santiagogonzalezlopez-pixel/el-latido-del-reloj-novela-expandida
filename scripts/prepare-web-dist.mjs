@@ -50,11 +50,7 @@ writeFileSync(
 
 writeFileSync(
   serviceWorkerPath,
-  `const CACHE_NAME = 'el-latido-del-reloj-v1';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest'];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  `self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
@@ -62,11 +58,11 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) =>
-        Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
-      ),
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .then(() => self.registration.unregister())
+      .then(() => self.clients.matchAll({ type: 'window' }))
+      .then((clients) => Promise.all(clients.map((client) => client.navigate(client.url)))),
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
@@ -74,28 +70,22 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        return cached;
-      }
-
-      return fetch(event.request).then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      });
-    }),
-  );
+  event.respondWith(fetch(event.request));
 });
 `,
 );
 
-const installScript = `<script>
+const staleServiceWorkerCleanupScript = `<script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+      .catch(() => {});
   });
+}
+if ('caches' in window) {
+  caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key)))).catch(() => {});
 }
 </script>`;
 
@@ -119,8 +109,13 @@ if (!indexHtml.includes('manifest.webmanifest')) {
   indexHtml = indexHtml.replace('</head>', `${pwaHeadTags}\n</head>`);
 }
 
-if (!indexHtml.includes("navigator.serviceWorker.register('./sw.js')")) {
-  indexHtml = indexHtml.replace('</body>', `${installScript}\n</body>`);
+indexHtml = indexHtml.replace(
+  /<script>\s*if \('serviceWorker' in navigator\) \{[\s\S]*?navigator\.serviceWorker\.register\('\.\/sw\.js'\)\.catch\(\(\) => \{\}\);\s*}\);\s*}\s*<\/script>/,
+  '',
+);
+
+if (!indexHtml.includes('navigator.serviceWorker.getRegistrations()')) {
+  indexHtml = indexHtml.replace('</body>', `${staleServiceWorkerCleanupScript}\n</body>`);
 }
 
 writeFileSync(indexPath, indexHtml);

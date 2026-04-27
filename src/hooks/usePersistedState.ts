@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 
 type Setter<T> = T | ((current: T) => T);
 
@@ -9,6 +10,26 @@ export function usePersistedState<T>(key: string, initialValue: T) {
 
   useEffect(() => {
     let active = true;
+
+    if (Platform.OS === 'web') {
+      try {
+        const storedValue = globalThis.localStorage?.getItem(key);
+
+        if (storedValue !== null && storedValue !== undefined) {
+          setState(JSON.parse(storedValue) as T);
+        }
+      } catch (error) {
+        console.warn(`No se pudo leer ${key}`, error);
+      } finally {
+        if (active) {
+          setReady(true);
+        }
+      }
+
+      return () => {
+        active = false;
+      };
+    }
 
     async function loadValue() {
       try {
@@ -40,7 +61,15 @@ export function usePersistedState<T>(key: string, initialValue: T) {
           ? (nextValue as (value: T) => T)(current)
           : nextValue;
 
-      void AsyncStorage.setItem(key, JSON.stringify(resolvedValue));
+      if (Platform.OS === 'web') {
+        try {
+          globalThis.localStorage?.setItem(key, JSON.stringify(resolvedValue));
+        } catch (error) {
+          console.warn(`No se pudo guardar ${key}`, error);
+        }
+      } else {
+        void AsyncStorage.setItem(key, JSON.stringify(resolvedValue));
+      }
       return resolvedValue;
     });
   };
