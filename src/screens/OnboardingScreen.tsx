@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRef, useState } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
@@ -8,11 +9,10 @@ import { AppText } from '../components/AppText';
 import { EditorialImage } from '../components/EditorialImage';
 import { SurfaceCard } from '../components/SurfaceCard';
 import { book } from '../data';
-import { coverImageSource, coverImageTreatment } from '../data/editorialMedia';
+import { coverClockShipSource } from '../data/editorialMedia';
 import { useOnboardingPreference } from '../hooks/useOnboardingPreference';
 import { RootStackParamList } from '../navigation/types';
 import { useAppTheme } from '../theme/ThemeContext';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Onboarding'>;
 
@@ -46,6 +46,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
   const [pageIndex, setPageIndex] = useState(0);
   const isReplay = route.params?.replay === true;
   const lastPageIndex = onboardingPages.length - 1;
+  const pageWidth = width - theme.spacing.lg * 2;
 
   const finishOnboarding = () => {
     setHasSeenOnboarding(true);
@@ -66,12 +67,12 @@ export function OnboardingScreen({ navigation, route }: Props) {
 
     scrollRef.current?.scrollTo({
       animated: true,
-      x: width * (pageIndex + 1),
+      x: pageWidth * (pageIndex + 1),
     });
   };
 
   const handleMomentumEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const nextIndex = Math.round(event.nativeEvent.contentOffset.x / width);
+    const nextIndex = Math.round(event.nativeEvent.contentOffset.x / pageWidth);
     setPageIndex(Math.min(lastPageIndex, Math.max(0, nextIndex)));
   };
 
@@ -85,7 +86,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
         }
         style={{
           flex: 1,
-          paddingBottom: Math.max(insets.bottom, theme.spacing.md),
+          paddingBottom: Math.max(insets.bottom + theme.spacing.lg, theme.spacing.xl),
           paddingHorizontal: theme.spacing.lg,
           paddingTop: insets.top + theme.spacing.lg,
         }}
@@ -95,15 +96,14 @@ export function OnboardingScreen({ navigation, route }: Props) {
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.xl }}
               resizeMode="cover"
-              source={coverImageSource}
+              source={coverClockShipSource}
               style={{
                 borderColor: theme.colors.paperBorder,
                 borderRadius: theme.radii.xl,
                 borderWidth: 1,
-                height: Math.min(310, Math.max(230, width * 0.68)),
+                height: Math.min(270, Math.max(200, width * 0.58)),
                 width: '100%',
               }}
-              treatment={coverImageTreatment}
               zoomable={false}
             />
 
@@ -144,7 +144,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
                   style={{
                     justifyContent: 'center',
                     paddingHorizontal: theme.spacing.lg,
-                    width: width - theme.spacing.lg * 2,
+                    width: pageWidth,
                   }}
                 >
                   <View style={{ alignItems: 'center', gap: theme.spacing.md }}>
