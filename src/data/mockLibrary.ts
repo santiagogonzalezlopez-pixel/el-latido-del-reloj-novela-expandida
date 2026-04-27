@@ -15,7 +15,7 @@ export const contentSource = {
   sourceLabel:
     'El_latido_del_reloj - DEF Copyright Edit - Google Play Books - Edit-1-96 ESPAÑOL.pdf',
   ingestionNote:
-    'La app queda preparada con la versión española de la obra y sin las secciones en portugués e inglés.',
+    'La lectura reúne la versión española de la obra, cartas, documentos, fotografías y memoria familiar.',
 };
 
 export const quotes: Quote[] = [
@@ -749,6 +749,16 @@ export const book: Book = {
   authorName: 'Santiago González López',
   authorNote:
     'Autor, nieto de Flora e hijo de Luis. Reconstruye la historia de su familia a partir de cartas, memoria oral, documentos y fotografías del archivo familiar.',
+  rightsNotice:
+    'Textos, fotografías familiares y materiales documentales pertenecen a Santiago González López, autor de la obra y titular de los derechos correspondientes.',
+  isbn: '978-94-038-3597-6',
+  copyrightRegistration: {
+    registry: 'Safe Creative',
+    registrationNumber: '2510103281728',
+    registrationDate: '2025-10-10 15:13:31',
+    workFile: 'El_latido_del_reloj_-_DEF.pdf',
+    url: 'https://www.safecreative.org/work/2510103281728',
+  },
   intro:
     'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de su hermano Tomás y de su tío Pedro.',
   sourceLanguage: 'es',

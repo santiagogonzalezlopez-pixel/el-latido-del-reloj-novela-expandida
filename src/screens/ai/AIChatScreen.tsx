@@ -8,6 +8,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { aiSuggestedQuestions } from '../../data';
 import { useAppTheme } from '../../theme/ThemeContext';
@@ -24,6 +25,7 @@ type ChatMessage = {
 };
 
 export function AIChatScreen() {
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -80,15 +82,16 @@ export function AIChatScreen() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ backgroundColor: theme.colors.background, flex: 1 }}
     >
       <ScrollView
         contentContainerStyle={{
           gap: theme.spacing.lg,
           padding: theme.spacing.lg,
-          paddingBottom: theme.spacing.xl,
+          paddingBottom: theme.spacing.xxl + insets.bottom,
         }}
+        keyboardShouldPersistTaps="handled"
       >
         <View style={{ gap: theme.spacing.sm }}>
           <AppText variant="display">Pregunta a la obra</AppText>
@@ -155,12 +158,14 @@ export function AIChatScreen() {
           borderTopWidth: 1,
           flexDirection: 'row',
           gap: theme.spacing.sm,
-          padding: theme.spacing.md,
+          paddingHorizontal: theme.spacing.md,
+          paddingTop: theme.spacing.md,
+          paddingBottom: Math.max(insets.bottom, theme.spacing.sm),
         }}
       >
-          <TextInput
-            onChangeText={setInput}
-            placeholder="Pregunta a la obra..."
+        <TextInput
+          onChangeText={setInput}
+          placeholder="Pregunta a la obra..."
           placeholderTextColor={theme.colors.textMuted}
           style={{
             backgroundColor: theme.colors.card,

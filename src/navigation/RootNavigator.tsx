@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { archiveItems, chapters } from '../data';
 import { ArchiveDetailScreen } from '../screens/archive/ArchiveDetailScreen';
@@ -26,7 +27,9 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Tabs = createBottomTabNavigator<MainTabParamList>();
 
 function MainTabs() {
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
+  const bottomInset = Math.max(insets.bottom, 14);
 
   return (
     <Tabs.Navigator
@@ -37,8 +40,8 @@ function MainTabs() {
         tabBarStyle: {
           backgroundColor: theme.colors.tabBar,
           borderTopColor: theme.colors.border,
-          height: 70,
-          paddingBottom: 10,
+          height: 62 + bottomInset,
+          paddingBottom: bottomInset,
           paddingTop: 8,
         },
         tabBarLabelStyle: {

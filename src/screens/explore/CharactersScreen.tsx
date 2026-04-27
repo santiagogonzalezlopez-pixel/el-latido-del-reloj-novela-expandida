@@ -141,7 +141,7 @@ export function CharactersScreen() {
                 <AppText tone="secondary">
                   {relatedNames.length
                     ? relatedNames.join(', ')
-                    : 'Relación en desarrollo'}
+                    : 'Memoria familiar documentada'}
                 </AppText>
               </View>
 

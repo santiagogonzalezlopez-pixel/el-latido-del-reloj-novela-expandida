@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, ScrollView, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { Image, Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
-import { EditorialImage } from '../../components/EditorialImage';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { familyTreeImageSource } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
@@ -97,14 +98,30 @@ function Connector() {
 
 export function FamilyTreeScreen() {
   const navigation = useNavigation<AppNavigationProp>();
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
+  const { width } = useWindowDimensions();
+  const [treeScale, setTreeScale] = useState(1);
+  const treeViewportWidth = Math.max(width - theme.spacing.lg * 4, 560);
+  const treeImageWidth = useMemo(
+    () => Math.round(treeViewportWidth * treeScale),
+    [treeScale, treeViewportWidth],
+  );
+  const treeImageHeight = Math.round(treeImageWidth * 0.5625);
+
+  const updateTreeScale = (direction: 'in' | 'out') => {
+    setTreeScale((current) => {
+      const next = direction === 'in' ? current + 0.25 : current - 0.25;
+      return Math.min(2, Math.max(1, Number(next.toFixed(2))));
+    });
+  };
 
   return (
     <ScrollView
       contentContainerStyle={{
         gap: theme.spacing.lg,
         padding: theme.spacing.lg,
-        paddingBottom: theme.spacing.xxl * 2,
+        paddingBottom: theme.spacing.xxl * 2 + insets.bottom,
       }}
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: theme.colors.background }}
@@ -119,19 +136,88 @@ export function FamilyTreeScreen() {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.lg }}>
-          <EditorialImage
-            source={familyTreeImageSource}
-            style={{
-              aspectRatio: 16 / 9,
-              backgroundColor: theme.colors.cardMuted,
-              borderColor: theme.colors.paperBorder,
-              borderWidth: 1,
-              borderRadius: theme.radii.lg,
-              minHeight: 260,
-              width: '100%',
-            }}
-            resizeMode="contain"
-          />
+          <View style={{ gap: theme.spacing.sm }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: theme.spacing.sm,
+                justifyContent: 'space-between',
+              }}
+            >
+              <AppText tone="accent" variant="caption">
+                ÁRBOL ILUSTRADO
+              </AppText>
+              <View style={{ flexDirection: 'row', gap: theme.spacing.xs }}>
+                <Pressable
+                  accessibilityLabel="Reducir árbol"
+                  accessibilityRole="button"
+                  disabled={treeScale === 1}
+                  onPress={() => updateTreeScale('out')}
+                  style={({ pressed }) => ({
+                    backgroundColor: theme.colors.cardMuted,
+                    borderColor: theme.colors.border,
+                    borderRadius: theme.radii.pill,
+                    borderWidth: 1,
+                    opacity: treeScale === 1 ? 0.45 : pressed ? 0.7 : 1,
+                    paddingHorizontal: theme.spacing.md,
+                    paddingVertical: theme.spacing.xs,
+                  })}
+                >
+                  <AppText allowFontScaling={false} variant="caption">
+                    -
+                  </AppText>
+                </Pressable>
+                <Pressable
+                  accessibilityLabel="Ampliar árbol"
+                  accessibilityRole="button"
+                  disabled={treeScale === 2}
+                  onPress={() => updateTreeScale('in')}
+                  style={({ pressed }) => ({
+                    backgroundColor: theme.colors.cardMuted,
+                    borderColor: theme.colors.border,
+                    borderRadius: theme.radii.pill,
+                    borderWidth: 1,
+                    opacity: treeScale === 2 ? 0.45 : pressed ? 0.7 : 1,
+                    paddingHorizontal: theme.spacing.md,
+                    paddingVertical: theme.spacing.xs,
+                  })}
+                >
+                  <AppText allowFontScaling={false} variant="caption">
+                    +
+                  </AppText>
+                </Pressable>
+              </View>
+            </View>
+            <View
+              style={{
+                backgroundColor: theme.colors.cardMuted,
+                borderColor: theme.colors.paperBorder,
+                borderRadius: theme.radii.lg,
+                borderWidth: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <ScrollView
+                horizontal
+                nestedScrollEnabled
+                showsHorizontalScrollIndicator
+                style={{ width: '100%' }}
+              >
+                <Image
+                  resizeMode="contain"
+                  source={familyTreeImageSource}
+                  style={{
+                    height: treeImageHeight,
+                    width: treeImageWidth,
+                  }}
+                />
+              </ScrollView>
+            </View>
+            <AppText tone="secondary" variant="caption">
+              Usa + para ampliar y desliza horizontalmente para recorrer las ramas.
+            </AppText>
+          </View>
           <AppText tone="secondary">
             El árbol prioriza la línea de sangre. Las parejas que no pertenecen a
             esa línea pueden no aparecer como ramas, aunque sean esenciales para

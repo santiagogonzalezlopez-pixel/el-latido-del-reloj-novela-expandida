@@ -19,7 +19,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-author-note-2",
-        text: "Nota para el lector. Este libro recoge la historia de nuestra familia en tres idiomas: español, portugués e inglés. La primera parte corresponde a la versión en español, acompañada de ilustraciones. A continuación, encontrarás la traducción completa al portugués y, finalmente, la traducción al inglés, en ambos casos solo con el texto. De esta manera, todos los miembros de la familia podrán leerlo en la lengua que prefieran. El lector encontrará al final de este volumen un apéndice común con fotografías familiares y notas sobre la investigación.",
+        text: "Nota para el lector. Esta edición digital recoge la versión en español de la obra y organiza su memoria a través de capítulos, cartas, personajes, lugares y piezas de archivo. El recorrido conserva el pulso familiar del libro y deja las fotografías y documentos en diálogo con la lectura.",
         sources: [{ pdfId: 'main-es', pages: [9] }],
       },
       {
@@ -31,11 +31,6 @@ export const chapters: Chapter[] = [
         id: "p-author-note-4",
         text: "A mi yaya Flora. A mis primos de América, que han abierto para mí las puertas de nuestra memoria compartida. A Arlete, que con la foto del reloj del tío Pedro me mostró el símbolo que late en estas páginas, y a Bete, que junto a ella ha mantenido vivo el lazo con São Paulo. A Sara, en paz descanse, cuya voz fue el primer hilo de esta historia, y a Florisa, que continuó ese mismo tejido de cartas y recuerdos desde Brasil. A Iracema, con quien empezaron mis cartas, y a Gilda, a Nadir y a Lisa, que siguen tejiendo puentes a través de continentes. A Dominic, que desde Washington me recordó que hasta la rama más humilde puede tocar el horizonte del mundo. A mis hermanos, y en especial a mi hermana Carmen, por el lazo único que siempre la unió a nuestra yaya Flora. A mi sobrina Judith y a mi amiga Laura, por su mirada atenta, sus ideas y su ayuda en dar forma y estilo a estas páginas. Y a todos los gallegos que un día partieron, llevando en la maleta hambre y esperanza, y que dejaron tras de sí un bosque humano que aún crece. Este libro es para ellos, y para todos los que siguen escuchando, en su memoria, el latido del reloj.",
         sources: [{ pdfId: 'main-es', pages: [13] }],
-      },
-      {
-        id: "p-author-note-photo-indalecia-flora",
-        text: "Indalecia con su hija Flora, en los primeros años del siglo XX. Fotografía real del archivo familiar.",
-        sources: [{ pdfId: 'main-es', pages: [17] }],
       },
       {
         id: "p-author-note-5",
@@ -458,7 +453,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-flora-war-8",
-        text: "Por ahora bastaba con la lumbre mínima aprendida en Galicia: un calor modesto que no se ve desde la calle, pero que impide que la casa se enfríe del todo. Fuera, la ciudad empezaba a hablar con golpes. Dentro, Flora afirmaba su oficio: hacer que nada importante se pierda cuando todo alrededor tiembla. Flora, en su juventud. Imagen auténtica del archivo familiar",
+        text: "Por ahora bastaba con la lumbre mínima aprendida en Galicia: un calor modesto que no se ve desde la calle, pero que impide que la casa se enfríe del todo. Fuera, la ciudad empezaba a hablar con golpes. Dentro, Flora afirmaba su oficio: hacer que nada importante se pierda cuando todo alrededor tiembla.",
         sources: [{ pdfId: 'main-es', pages: [83, 84] }],
       },
     ],
@@ -562,53 +557,8 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-apéndice-documental-2",
-        text: "Certificación literal de nacimiento de Tomás Fernández, Casteligo, 1908. Documento oficial que acredita el nacimiento de Tomás.",
-        sources: [{ pdfId: 'appendix-es', pages: [223] }],
-      },
-      {
-        id: "p-apéndice-documental-3",
-        text: "Registro de Extranjeros de Tomás Fernández Rodríguez, São Paulo, 1945. Documento emitido por la Delegacia Especializada de Estrangeiros que acredita su admisión en Brasil con carácter permanente. Indica su nacionalidad española, religión católica y los nombres de sus padres: Ricardo Fernández e Indalecia Rodríguez.",
-        sources: [{ pdfId: 'appendix-es', pages: [225] }],
-      },
-      {
-        id: "p-apéndice-documental-4",
-        text: "Certificación de matrimonio de Tomás Fernandes Rodrigues y Esmeralda Gomes. Documento oficial que acredita el matrimonio de Tomás, natural de Chandrexa de Queixa (Ourense), con Esmeralda, nacida en Taubaté (São Paulo).",
-        sources: [{ pdfId: 'appendix-es', pages: [227] }],
-      },
-      {
-        id: "p-apéndice-documental-5",
-        text: "Certidão de nascimento de Eduardo Fernandes Rodrigues, São Paulo, 1946. Documento que acredita el nacimiento de Eduardo, hijo de Tomás Fernandes Rodrigues y Esmeralda Gomes Rodrigues. El registro incluye los nombres de los abuelos paternos: Rosendo Fernandes e Indalecia Rodríguez.",
-        sources: [{ pdfId: 'appendix-es', pages: [229] }],
-      },
-      {
-        id: "p-apéndice-documental-6",
-        text: "Legalización consular de un documento de Chandrexa de Queixa, Vigo, 1955. Certificación expedida por el Consulado General de Brasil en Vigo. Firmada por el cónsul Pedro Franklin de Almeida Lima, permitió validar en Brasil documentos civiles procedentes de Galicia.",
-        sources: [{ pdfId: 'appendix-es', pages: [231] }],
-      },
-      {
-        id: "p-apéndice-documental-7",
-        text: "Carta de Iracema Pastore, 2001. Carta enviada por Iracema desde Nueva York a Santiago, en Aix-en-Provence (Francia), en mayo de 2001. Archivo familiar.",
-        sources: [{ pdfId: 'appendix-es', pages: [234] }],
-      },
-      {
-        id: "p-apéndice-documental-8",
-        text: "Carta de Esmeralda Gomes, 2003. Carta dirigida a Flora en Barcelona, enviada desde Brasil por Esmeralda en agosto de 2003. Archivo familiar.",
-        sources: [{ pdfId: 'appendix-es', pages: [235] }],
-      },
-      {
-        id: "p-apéndice-documental-9",
-        text: "Fotografía de Tomás y Pedro. De pie en el centro, Tomás Fernández, hermano de Flora. Sentado a la derecha, Pedro Rodríguez, tío de Flora.",
-        sources: [{ pdfId: 'appendix-es', pages: [236] }],
-      },
-      {
-        id: "p-apéndice-documental-10",
-        text: "Reencuentro familiar en Barcelona, septiembre de 2025: Beatriz, Arlete, Bete y Mari Carmen.",
-        sources: [{ pdfId: 'appendix-es', pages: [237] }],
-      },
-      {
-        id: "p-apéndice-documental-11",
-        text: "Flora, de regreso a los campos de su infancia, junto a su hijo Luis, mi padre. Hoy caminan de nuevo por esos campos, bajo el mismo cielo. Archivo familiar.",
-        sources: [{ pdfId: 'appendix-es', pages: [239] }],
+        text: "Las piezas documentales —certificados, registros, cartas, sobres y fotografías— no se leen aquí como notas sueltas, sino como huellas materiales de la historia. Cada una encuentra su lugar en el Archivo de la app, donde puede explorarse junto a los personajes, los lugares y los capítulos relacionados.",
+        sources: [{ pdfId: 'appendix-es', pages: [223, 225, 227, 229, 231, 234, 235, 236, 237, 239] }],
       },
     ],
     characterIds: ["santiago", "flora", "luis", "tomas", "pedro", "indalecia", "esmeralda", "iracema"],

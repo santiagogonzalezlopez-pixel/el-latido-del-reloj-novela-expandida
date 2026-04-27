@@ -88,7 +88,7 @@ export function ArchiveDetailScreen({ route }: Props) {
           </View>
 
           <AppText tone="secondary">
-            Capítulo relacionado: {chapterMap[item.chapterId ?? '']?.title ?? 'Sin capítulo'}
+            Capítulo relacionado: {chapterMap[item.chapterId ?? '']?.title ?? 'Archivo documental'}
           </AppText>
 
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>

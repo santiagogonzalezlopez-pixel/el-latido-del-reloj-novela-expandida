@@ -1,8 +1,10 @@
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { bookCoverSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { ListRow } from '../../components/ListRow';
 import { SurfaceCard } from '../../components/SurfaceCard';
 
@@ -34,6 +36,7 @@ const clockMilestones = [
 ];
 
 export function ClockScreen() {
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
 
   return (
@@ -41,18 +44,25 @@ export function ClockScreen() {
       contentContainerStyle={{
         gap: theme.spacing.lg,
         padding: theme.spacing.lg,
-        paddingBottom: theme.spacing.xxl * 2,
+        paddingBottom: theme.spacing.xxl * 2 + insets.bottom,
       }}
       style={{ backgroundColor: theme.colors.background }}
     >
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
+            resizeMode="cover"
             source={bookCoverSource}
             style={{
               borderRadius: theme.radii.lg,
               height: 220,
               width: '100%',
+            }}
+            treatment={{
+              focusX: 0.82,
+              focusY: 1.05,
+              scale: 1.9,
             }}
           />
           <AppText variant="display">El reloj</AppText>

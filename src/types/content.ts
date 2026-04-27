@@ -119,6 +119,15 @@ export type Book = {
   subtitle: string;
   authorName: string;
   authorNote: string;
+  rightsNotice: string;
+  isbn?: string;
+  copyrightRegistration?: {
+    registry: string;
+    registrationNumber: string;
+    registrationDate: string;
+    workFile: string;
+    url: string;
+  };
   intro: string;
   sourceLanguage: 'es';
   ignoredLanguages: Array<'pt' | 'en'>;

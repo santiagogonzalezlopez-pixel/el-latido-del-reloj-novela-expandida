@@ -68,7 +68,7 @@ export function ArchiveScreen() {
           imageHeight={item.id === 'archive-family-tree' ? 220 : 320}
           imageResizeMode={containedArchiveIds.has(item.id) ? 'contain' : 'cover'}
           imageTreatment={archiveMediaTreatments[item.id]}
-          meta={locationMap[item.locationId ?? '']?.name ?? 'Sin lugar asociado'}
+          meta={locationMap[item.locationId ?? '']?.name ?? 'Archivo familiar'}
           onPress={() =>
             navigation.navigate('ArchiveDetail', {
               itemId: item.id,

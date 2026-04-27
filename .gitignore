@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+.npm-eas-cache/
 
 # Expo
 .expo/

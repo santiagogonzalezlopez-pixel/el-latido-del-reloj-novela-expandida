@@ -39,6 +39,16 @@ export const book: Book = {
   authorName: 'Santiago González López',
   authorNote:
     'Autor, nieto de Flora e hijo de Luis. Reconstruye la historia de su familia a partir de cartas, memoria oral, documentos y fotografías del archivo familiar.',
+  rightsNotice:
+    'Textos, fotografías familiares y materiales documentales pertenecen a Santiago González López, autor de la obra y titular de los derechos correspondientes.',
+  isbn: '978-94-038-3597-6',
+  copyrightRegistration: {
+    registry: 'Safe Creative',
+    registrationNumber: '2510103281728',
+    registrationDate: '2025-10-10 15:13:31',
+    workFile: 'El_latido_del_reloj_-_DEF.pdf',
+    url: 'https://www.safecreative.org/work/2510103281728',
+  },
   intro:
     'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de Tomás —hermano de Flora— y de Pedro —tío de Flora y de Tomás—, entre Galicia, Cuba, Brasil, Cataluña y Estados Unidos.',
   sourceLanguage: 'es',

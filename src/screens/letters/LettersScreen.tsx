@@ -66,7 +66,7 @@ export function LettersScreen() {
         {letters.map((letter, index) => {
           const sender = characterMap[letter.senderId]?.name ?? 'Sin remitente';
           const recipient = characterMap[letter.recipientId]?.name ?? 'Sin destinatario';
-          const location = locationMap[letter.locationId]?.name ?? 'Lugar sin definir';
+          const location = locationMap[letter.locationId]?.name ?? 'Archivo familiar';
           const mediaSource = letterMediaSources[letter.id];
 
           return (

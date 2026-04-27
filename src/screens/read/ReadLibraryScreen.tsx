@@ -52,12 +52,20 @@ export function ReadLibraryScreen() {
           </AppText>
           <AppText>{contentSource.sourceLabel}</AppText>
           <AppText tone="secondary">{contentSource.ingestionNote}</AppText>
+          <AppText tone="secondary">{book.rightsNotice}</AppText>
+          {book.copyrightRegistration ? (
+            <AppText tone="secondary" variant="caption">
+              ISBN {book.isbn}. Registro {book.copyrightRegistration.registry} nº{' '}
+              {book.copyrightRegistration.registrationNumber}, fecha{' '}
+              {book.copyrightRegistration.registrationDate}.
+            </AppText>
+          ) : null}
         </View>
       </SurfaceCard>
 
       <View style={{ gap: theme.spacing.md }}>
         <SectionHeader
-          subtitle={`Capítulos disponibles: ${chapters.length}. Cartas enlazables: ${letters.length}. Lugares trazados: ${locations.length}.`}
+          subtitle={`Un recorrido por ${chapters.length} capítulos, ${letters.length} cartas y ${locations.length} lugares de la memoria familiar.`}
           title="Capítulos"
         />
         {chapters.map((chapter) => {

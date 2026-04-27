@@ -1,17 +1,41 @@
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { ListRow } from '../../components/ListRow';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { locations, timelineEventMap } from '../../data';
 import {
   consularDocumentSource,
   familyArchivePhotoSource,
+  floraFieldPortraitSource,
+  mediaTreatments,
   timelineImageSource,
 } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 
+const routeStops = [
+  {
+    label: 'Chandrexa de Queixa',
+    note: 'Origen familiar y memoria de la casa.',
+  },
+  {
+    label: 'Vigo',
+    note: 'Puerto de salida y umbral de la emigración.',
+  },
+  {
+    label: 'La Habana',
+    note: 'Cuba, la zafra y la vida entre cartas.',
+  },
+  {
+    label: 'São Paulo',
+    note: 'Brasil, trabajo, descendencia y archivo familiar.',
+  },
+];
+
 export function LocationsScreen() {
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
 
   return (
@@ -19,7 +43,7 @@ export function LocationsScreen() {
       contentContainerStyle={{
         gap: theme.spacing.lg,
         padding: theme.spacing.lg,
-        paddingBottom: theme.spacing.xxl * 2,
+        paddingBottom: theme.spacing.xxl * 2 + insets.bottom,
       }}
       style={{ backgroundColor: theme.colors.background }}
     >
@@ -34,7 +58,8 @@ export function LocationsScreen() {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
             resizeMode="cover"
             source={timelineImageSource}
             style={{
@@ -57,45 +82,43 @@ export function LocationsScreen() {
       </SurfaceCard>
 
       <SurfaceCard tone="muted">
-        <View
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          {['Chandrexa', 'Vigo', 'La Habana', 'São Paulo'].map((label, index) => (
+        <View style={{ gap: theme.spacing.md }}>
+          {routeStops.map((stop, index) => (
             <View
-              key={label}
+              key={stop.label}
               style={{
-                alignItems: 'center',
-                flex: 1,
-                gap: theme.spacing.xs,
+                flexDirection: 'row',
+                gap: theme.spacing.md,
               }}
             >
-              <View
-                style={{
-                  backgroundColor: theme.colors.accent,
-                  borderRadius: theme.radii.pill,
-                  height: 12,
-                  width: 12,
-                }}
-              />
-              <AppText tone="secondary" variant="caption">
-                {label}
-              </AppText>
-              {index < 3 ? (
+              <View style={{ alignItems: 'center', width: 18 }}>
                 <View
                   style={{
-                    backgroundColor: theme.colors.border,
-                    height: 2,
-                    position: 'absolute',
-                    right: '-50%',
-                    top: 6,
-                    width: '100%',
+                    backgroundColor: theme.colors.accent,
+                    borderRadius: theme.radii.pill,
+                    height: 16,
+                    marginTop: 3,
+                    width: 16,
                   }}
                 />
-              ) : null}
+                {index < routeStops.length - 1 ? (
+                  <View
+                    style={{
+                      backgroundColor: theme.colors.border,
+                      flex: 1,
+                      marginTop: theme.spacing.xs,
+                      minHeight: 30,
+                      width: 2,
+                    }}
+                  />
+                ) : null}
+              </View>
+              <View style={{ flex: 1, gap: theme.spacing.xs }}>
+                <AppText variant="bodyStrong">{stop.label}</AppText>
+                <AppText tone="secondary" variant="caption">
+                  {stop.note}
+                </AppText>
+              </View>
             </View>
           ))}
         </View>
@@ -103,7 +126,8 @@ export function LocationsScreen() {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
             resizeMode="cover"
             source={consularDocumentSource}
             style={{
@@ -119,16 +143,27 @@ export function LocationsScreen() {
         </View>
       </SurfaceCard>
 
-      {locations.map((location, index) => (
+      {locations.map((location) => (
         <ListRow
           key={location.id}
           eyebrow={`${location.region}, ${location.country}`}
           imageSource={
-            index === 0
-              ? familyArchivePhotoSource
-              : index === 1
+            location.id === 'casteligo'
+              ? floraFieldPortraitSource
+              : location.id === 'vigo'
                 ? consularDocumentSource
-                : undefined
+                : location.id === 'barcelona'
+                  ? familyArchivePhotoSource
+                  : undefined
+          }
+          imageTreatment={
+            location.id === 'casteligo'
+              ? mediaTreatments.floraField
+              : location.id === 'barcelona'
+                ? mediaTreatments.familyArchiveGroup
+                : location.id === 'vigo'
+                  ? mediaTreatments.consularDocument
+                  : undefined
           }
           meta={`${location.chapterIds.length} capítulos / ${location.characterIds.length} personajes`}
           subtitle={location.summary}

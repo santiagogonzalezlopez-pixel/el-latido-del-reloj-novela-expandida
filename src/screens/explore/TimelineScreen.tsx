@@ -1,6 +1,8 @@
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
+import { EditorialImage } from '../../components/EditorialImage';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, locationMap, timelineEvents } from '../../data';
@@ -8,6 +10,7 @@ import { timelineImageSource } from '../../data/editorialMedia';
 import { useAppTheme } from '../../theme/ThemeContext';
 
 export function TimelineScreen() {
+  const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
 
   return (
@@ -15,7 +18,7 @@ export function TimelineScreen() {
       contentContainerStyle={{
         gap: theme.spacing.lg,
         padding: theme.spacing.lg,
-        paddingBottom: theme.spacing.xxl * 2,
+        paddingBottom: theme.spacing.xxl * 2 + insets.bottom,
       }}
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: theme.colors.background }}
@@ -30,7 +33,8 @@ export function TimelineScreen() {
 
       <SurfaceCard tone="paper">
         <View style={{ gap: theme.spacing.md }}>
-          <Image
+          <EditorialImage
+            imageStyle={{ borderRadius: theme.radii.lg }}
             resizeMode="contain"
             source={timelineImageSource}
             style={{
