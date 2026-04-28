@@ -54,6 +54,7 @@ export function EditorialImage({
   const offsetY = layout.height * Math.max(scale - 1, 0) * (0.5 - focusY);
   const imageWidth = Math.max(layout.width * scale, layout.width);
   const imageHeight = Math.max(layout.height * scale, layout.height);
+  const canPan = canZoom && zoom > 1;
 
   const updateZoom = (direction: 'in' | 'out') => {
     setZoom((current) => {
@@ -90,35 +91,47 @@ export function EditorialImage({
       ]}
     >
       <ScrollView
-        horizontal
         nestedScrollEnabled
-        scrollEnabled={canZoom && zoom > 1}
-        showsHorizontalScrollIndicator={canZoom && zoom > 1}
+        persistentScrollbar={canPan}
+        scrollEnabled={canPan}
+        showsVerticalScrollIndicator={canPan}
         style={{ height: '100%', width: '100%' }}
       >
-        <View
+        <ScrollView
+          horizontal
+          nestedScrollEnabled
+          persistentScrollbar={canPan}
+          scrollEnabled={canPan}
+          showsHorizontalScrollIndicator={canPan}
           style={{
-            height: layout.height || '100%',
-            overflow: 'hidden',
-            width: imageWidth || '100%',
+            height: imageHeight || '100%',
+            width: '100%',
           }}
         >
-          <Image
-            resizeMode={resizeMode}
-            source={source}
-            style={[
-              {
-                height: imageHeight || '100%',
-                left: offsetX,
-                opacity: treatment?.opacity ?? 1,
-                position: 'absolute',
-                top: offsetY,
-                width: imageWidth || '100%',
-              },
-              imageStyle,
-            ]}
-          />
-        </View>
+          <View
+            style={{
+              height: imageHeight || '100%',
+              overflow: 'hidden',
+              width: imageWidth || '100%',
+            }}
+          >
+            <Image
+              resizeMode={resizeMode}
+              source={source}
+              style={[
+                {
+                  height: imageHeight || '100%',
+                  left: offsetX,
+                  opacity: treatment?.opacity ?? 1,
+                  position: 'absolute',
+                  top: offsetY,
+                  width: imageWidth || '100%',
+                },
+                imageStyle,
+              ]}
+            />
+          </View>
+        </ScrollView>
       </ScrollView>
 
       {canZoom ? (
