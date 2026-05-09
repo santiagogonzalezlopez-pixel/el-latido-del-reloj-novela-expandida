@@ -5,21 +5,31 @@ export const chapters: Chapter[] = [
     id: "chapter-author-note",
     order: 0,
     title: "Apertura: nota del autor",
-    summary: "Santiago González López presenta la obra como una crónica familiar nacida de cartas, memoria y archivo: la historia de su yaya Flora, de Luis, de Tomás —hermano de Flora— y de Pedro —tío de Flora y de Tomás—.",
+    summary: "Santiago González López presenta la obra como una crónica familiar nacida de cartas, memoria y archivo: la historia de su yaya Flora, de Luis, de Tomás (hermano de Flora) y de Pedro (tío de Flora y de Tomás).",
     paragraphs: [
       {
         id: "p-author-note-1",
-        text: "EL LATIDO DEL RELOJ. O Batimento do Relógio. The Heartbeat of the Clock. Por Santiago González López. Este libro no es una novela al uso, sino una crónica familiar hecha de cartas y memoria. Hecho en Bruselas, 2025, para la familia. © Santiago González López, 2025. Todos los derechos reservados.",
+        text: "El latido del reloj es una crónica familiar hecha de cartas, memoria oral, documentos y fotografías. Santiago González López la escribió en Bruselas, en 2025, para su familia.",
+        sources: [{ pdfId: 'main-es', pages: [5, 6] }],
+      },
+      {
+        id: "p-author-note-rights",
+        text: "La obra y los materiales familiares incluidos en esta edición pertenecen a Santiago González López. Todos los derechos están reservados.",
         sources: [{ pdfId: 'main-es', pages: [5, 6] }],
       },
       {
         id: "p-author-note-epigraph",
-        text: "“Unha casa ténse con maos e con memoria” — Flora.",
+        text: "“Unha casa ténse con maos e con memoria”, Flora.",
         sources: [{ pdfId: 'main-es', pages: [7] }],
       },
       {
         id: "p-author-note-2",
-        text: "Nota para el lector. Esta edición digital recoge la versión en español de la obra y organiza su memoria a través de capítulos, cartas, personajes, lugares y piezas de archivo. El recorrido conserva el pulso familiar del libro y deja las fotografías y documentos en diálogo con la lectura.",
+        text: "Nota para el lector. Esta edición digital recoge la versión en español de la obra y organiza su memoria a través de capítulos, cartas, personajes, lugares y piezas de archivo.",
+        sources: [{ pdfId: 'main-es', pages: [9] }],
+      },
+      {
+        id: "p-author-note-2b",
+        text: "El recorrido conserva el pulso familiar del libro y deja las fotografías y documentos en diálogo con la lectura.",
         sources: [{ pdfId: 'main-es', pages: [9] }],
       },
       {
@@ -29,7 +39,22 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-author-note-4",
-        text: "A mi yaya Flora. A mis primos de América, que han abierto para mí las puertas de nuestra memoria compartida. A Arlete, que con la foto del reloj del tío Pedro me mostró el símbolo que late en estas páginas, y a Bete, que junto a ella ha mantenido vivo el lazo con São Paulo. A Sara, en paz descanse, cuya voz fue el primer hilo de esta historia, y a Florisa, que continuó ese mismo tejido de cartas y recuerdos desde Brasil. A Iracema, con quien empezaron mis cartas, y a Gilda, a Nadir y a Lisa, que siguen tejiendo puentes a través de continentes. A Dominic, que desde Washington me recordó que hasta la rama más humilde puede tocar el horizonte del mundo. A mis hermanos, y en especial a mi hermana Carmen, por el lazo único que siempre la unió a nuestra yaya Flora. A mi sobrina Judith y a mi amiga Laura, por su mirada atenta, sus ideas y su ayuda en dar forma y estilo a estas páginas. Y a todos los gallegos que un día partieron, llevando en la maleta hambre y esperanza, y que dejaron tras de sí un bosque humano que aún crece. Este libro es para ellos, y para todos los que siguen escuchando, en su memoria, el latido del reloj.",
+        text: "A mi yaya Flora. A mis primos de América, que han abierto para mí las puertas de nuestra memoria compartida. A Arlete, que con la foto del reloj del tío Pedro me mostró el símbolo que late en estas páginas, y a Bete, que junto a ella ha mantenido vivo el lazo con São Paulo.",
+        sources: [{ pdfId: 'main-es', pages: [13] }],
+      },
+      {
+        id: "p-author-note-4b",
+        text: "A Sara, en paz descanse, cuya voz fue el primer hilo de esta historia, y a Florisa, que continuó ese mismo tejido de cartas y recuerdos desde Brasil. A Iracema, con quien empezaron mis cartas, y a Gilda, a Nadir y a Lisa, que siguen tejiendo puentes a través de continentes.",
+        sources: [{ pdfId: 'main-es', pages: [13] }],
+      },
+      {
+        id: "p-author-note-4c",
+        text: "A Dominic, que desde Washington me recordó que hasta la rama más humilde puede tocar el horizonte del mundo. A mis hermanos, y en especial a mi hermana Carmen, por el lazo único que siempre la unió a nuestra yaya Flora.",
+        sources: [{ pdfId: 'main-es', pages: [13] }],
+      },
+      {
+        id: "p-author-note-4d",
+        text: "A mi sobrina Judith y a mi amiga Laura, por su mirada atenta, sus ideas y su ayuda en dar forma y estilo a estas páginas. Y a todos los gallegos que un día partieron, llevando en la maleta hambre y esperanza, y que dejaron tras de sí un bosque humano que aún crece. Este libro es para ellos, y para todos los que siguen escuchando, en su memoria, el latido del reloj.",
         sources: [{ pdfId: 'main-es', pages: [13] }],
       },
       {
@@ -390,7 +415,7 @@ export const chapters: Chapter[] = [
       },
       {
         id: "p-descendencia-5",
-        text: "A veces parecía que la historia se dispersaba demasiado, que la familia se iba alejando en caminos distintos; pero bastaba una reunión, una carta o una visita inesperada para que todos recordaran que seguían siendo parte de un mismo tronco. -¿Te acuerdas de Pedro? -preguntaba alguien en una sobremesa. -Cómo no me voy a acordar… si todavía oigo su voz cuando partía la leña - contestaba otro. Con el paso de las décadas, aquella descendencia se volvió incontable. Ya no cabía en una sola fotografía, ni en una sola mesa, ni en una sola casa. Era una familia que había dejado de ser familia pequeña para convertirse en constelación. Había quienes estudiaban y levantaban libros como herramientas de futuro. Había quienes trabajaban en oficios nuevos, en fábricas y en comercios. Había quienes viajaban lejos y quienes cuidaban de la memoria en casa. Cada uno trazaba su camino, pero todos llevaban, en algún rincón del corazón, la marca de Pedro y de María. En São Paulo, los barrios conocieron su apellido. En América del Norte, Iracema y Gilda llevaron esa memoria a ciudades de ríos anchos y de edificios altísimos.",
+        text: "A veces parecía que la historia se dispersaba demasiado, que la familia se iba alejando en caminos distintos; pero bastaba una reunión, una carta o una visita inesperada para que todos recordaran que seguían siendo parte de un mismo tronco. «¿Te acuerdas de Pedro?», preguntaba alguien en una sobremesa. «Cómo no me voy a acordar... si todavía oigo su voz cuando partía la leña», contestaba otro. Con el paso de las décadas, aquella descendencia se volvió incontable. Ya no cabía en una sola fotografía, ni en una sola mesa, ni en una sola casa. Era una familia que había dejado de ser familia pequeña para convertirse en constelación. Había quienes estudiaban y levantaban libros como herramientas de futuro. Había quienes trabajaban en oficios nuevos, en fábricas y en comercios. Había quienes viajaban lejos y quienes cuidaban de la memoria en casa. Cada uno trazaba su camino, pero todos llevaban, en algún rincón del corazón, la marca de Pedro y de María. En São Paulo, los barrios conocieron su apellido. En América del Norte, Iracema y Gilda llevaron esa memoria a ciudades de ríos anchos y de edificios altísimos.",
         sources: [{ pdfId: 'main-es', pages: [73, 74] }],
       },
       {
@@ -552,12 +577,37 @@ export const chapters: Chapter[] = [
     paragraphs: [
       {
         id: "p-apéndice-documental-1",
-        text: "Línea del tiempo. 1850-1865: probable nacimiento de Domingo Rodríguez (Manzaneda) y Antonia González (Casteligo), en el contexto del reinado de Isabel II y las Guerras Carlistas. Década de 1870: Domingo y Antonia ya son jóvenes adultos, probablemente casados y formando familia en Casteligo (Chandrexa de Queixa). 1868: Revolución Gloriosa y caída de Isabel II; en Galicia comienza una primera gran ola de emigración ultramarina hacia Cuba y Argentina. Década de 1880: nace Indalecia Rodríguez González, hacia 1887, y nace también Pedro Rodríguez González, hermano de Indalecia. Galicia vive una crisis agraria y una emigración creciente, con miles de gallegos partiendo hacia Cuba. Década de 1890: la familia Rodríguez González vive en Casteligo, con varios hijos, entre ellos Indalecia y Pedro. 1898: Desastre del 98; España pierde Cuba, Puerto Rico y Filipinas, y el fin del imperio acelera aún más la emigración hacia Brasil y Argentina. Década de 1900: Indalecia se casa con Ricardo Fernández Sabín. En 1908 nace Tomás Fernández Rodríguez, hijo de Indalecia y hermano de Flora, según el Registro Civil de Chandrexa. Pedro comienza a plantearse la emigración. Alfonso XIII está en el trono y Galicia vive un auge migratorio: entre 1880 y 1930 emigran más de un millón de gallegos.",
+        text: "Línea del tiempo. La cronología del apéndice sitúa primero el nacimiento probable de Domingo Rodríguez, en Manzaneda, y de Antonia González, en Casteligo, entre 1850 y 1865. Ese origen queda enmarcado por el reinado de Isabel II y las Guerras Carlistas.",
+        sources: [{ pdfId: 'appendix-es', pages: [217] }],
+      },
+      {
+        id: "p-apéndice-documental-1b",
+        text: "En la década de 1870, Domingo y Antonia ya aparecen como jóvenes adultos, probablemente casados y formando familia en Casteligo, en Chandrexa de Queixa. La Revolución Gloriosa de 1868 y la caída de Isabel II abren también un tiempo de cambios que empuja a muchos gallegos hacia Cuba y Argentina.",
+        sources: [{ pdfId: 'appendix-es', pages: [217] }],
+      },
+      {
+        id: "p-apéndice-documental-1c",
+        text: "En la década de 1880 nacen Indalecia Rodríguez González, hacia 1887, y Pedro Rodríguez González, hermano de Indalecia. Galicia vive entonces una crisis agraria y una emigración creciente.",
+        sources: [{ pdfId: 'appendix-es', pages: [217] }],
+      },
+      {
+        id: "p-apéndice-documental-1d",
+        text: "En la década de 1890, la familia Rodríguez González vive en Casteligo con varios hijos, entre ellos Indalecia y Pedro. El Desastre del 98, con la pérdida de Cuba, Puerto Rico y Filipinas, marca el final del imperio español y acelera la salida hacia América.",
+        sources: [{ pdfId: 'appendix-es', pages: [217] }],
+      },
+      {
+        id: "p-apéndice-documental-1e",
+        text: "En la década de 1900, Indalecia se casa con Ricardo Fernández Sabín. En 1908 nace Tomás Fernández Rodríguez, hijo de Indalecia y hermano de Flora, según el Registro Civil de Chandrexa.",
+        sources: [{ pdfId: 'appendix-es', pages: [217] }],
+      },
+      {
+        id: "p-apéndice-documental-1f",
+        text: "Mientras Pedro empieza a plantearse la emigración, Alfonso XIII está en el trono y Galicia vive un auge migratorio. Entre 1880 y 1930 emigran más de un millón de gallegos.",
         sources: [{ pdfId: 'appendix-es', pages: [217] }],
       },
       {
         id: "p-apéndice-documental-2",
-        text: "Las piezas documentales —certificados, registros, cartas, sobres y fotografías— no se leen aquí como notas sueltas, sino como huellas materiales de la historia. Cada una encuentra su lugar en el Archivo de la app, donde puede explorarse junto a los personajes, los lugares y los capítulos relacionados.",
+        text: "Las piezas documentales (certificados, registros, cartas, sobres y fotografías) no se leen aquí como notas sueltas, sino como huellas materiales de la historia. Cada una encuentra su lugar en el Archivo de la app, donde puede explorarse junto a los personajes, los lugares y los capítulos relacionados.",
         sources: [{ pdfId: 'appendix-es', pages: [223, 225, 227, 229, 231, 234, 235, 236, 237, 239] }],
       },
     ],

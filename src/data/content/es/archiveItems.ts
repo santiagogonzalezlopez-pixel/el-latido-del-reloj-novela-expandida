@@ -128,6 +128,23 @@ export const archiveItems: ArchiveItem[] = [
     ],
   },
   {
+    id: 'archive-flora-portrait',
+    title: 'Retrato de Flora joven',
+    type: 'fotografÃ­a',
+    description:
+      'Retrato familiar de Flora en su juventud. La imagen permite mirar de frente a la figura que sostiene buena parte de la memoria emocional de la obra.',
+    characterIds: ['flora'],
+    chapterId: 'chapter-voz-flora',
+    placeholderLabel: 'Retrato de Flora',
+    sources: [
+      {
+        pdfId: 'main-es',
+        pages: [17],
+        note: 'Retrato de Flora incorporado como imagen de referencia familiar en la app.',
+      },
+    ],
+  },
+  {
     id: 'archive-flora-luis-fields',
     title: 'Flora y Luis en Chandrexa de Queixa',
     type: 'fotografía',

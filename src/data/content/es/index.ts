@@ -50,7 +50,7 @@ export const book: Book = {
     url: 'https://www.safecreative.org/work/2510103281728',
   },
   intro:
-    'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de Tomás —hermano de Flora— y de Pedro —tío de Flora y de Tomás—, entre Galicia, Cuba, Brasil, Cataluña y Estados Unidos.',
+    'No es una novela al uso, sino una crónica familiar reconstruida por Santiago González López: la historia de su yaya Flora, de Tomás (hermano de Flora) y de Pedro (tío de Flora y de Tomás), entre Galicia, Cuba, Brasil, Cataluña y Estados Unidos.',
   sourceLanguage: 'es',
   ignoredLanguages: ['pt', 'en'],
   chapterIds: chapters.map((chapter) => chapter.id),

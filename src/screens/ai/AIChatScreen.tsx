@@ -113,7 +113,7 @@ export function AIChatScreen() {
                   onPress={() => sendQuestion(question)}
                   style={{ maxWidth: '100%' }}
                 >
-                  <TagPill label={question} />
+                  <TagPill interactive label={question} />
                 </Pressable>
               ))}
             </View>

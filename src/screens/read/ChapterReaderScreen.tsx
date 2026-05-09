@@ -242,7 +242,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
                     })
                   }
                 >
-                  <TagPill label={item.title} />
+                  <TagPill interactive label={item.title} />
                 </Pressable>
               ))}
             </View>

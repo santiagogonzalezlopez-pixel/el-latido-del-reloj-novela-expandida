@@ -1,4 +1,5 @@
-import { ScrollView, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
@@ -7,9 +8,11 @@ import { SurfaceCard } from '../../components/SurfaceCard';
 import { TagPill } from '../../components/TagPill';
 import { chapterMap, locationMap, timelineEvents } from '../../data';
 import { timelineImageSource } from '../../data/editorialMedia';
+import { AppNavigationProp } from '../../navigation/types';
 import { useAppTheme } from '../../theme/ThemeContext';
 
 export function TimelineScreen() {
+  const navigation = useNavigation<AppNavigationProp>();
   const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
 
@@ -26,8 +29,8 @@ export function TimelineScreen() {
       <View style={{ gap: theme.spacing.sm }}>
         <AppText variant="display">Cronología</AppText>
         <AppText>
-          Una línea temporal más visual para seguir la vida en Galicia, la salida,
-          Cuba, la zafra, el motín y la llegada a São Paulo.
+          Una línea temporal para seguir la vida en Galicia, la salida hacia América,
+          Cuba, la zafra, la travesía a Brasil y la memoria posterior de la familia.
         </AppText>
       </View>
 
@@ -103,7 +106,13 @@ export function TimelineScreen() {
                 <AppText>{event.summary}</AppText>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
                   {event.chapterIds.map((chapterId) => (
-                    <TagPill key={chapterId} label={chapterMap[chapterId]?.title ?? chapterId} />
+                    <Pressable
+                      accessibilityRole="button"
+                      key={chapterId}
+                      onPress={() => navigation.navigate('ChapterReader', { chapterId })}
+                    >
+                      <TagPill interactive label={chapterMap[chapterId]?.title ?? chapterId} />
+                    </Pressable>
                   ))}
                 </View>
               </View>

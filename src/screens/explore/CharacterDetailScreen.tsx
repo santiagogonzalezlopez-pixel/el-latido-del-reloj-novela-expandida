@@ -117,7 +117,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
                   })
                 }
               >
-                <TagPill label={chapterMap[chapterId]?.title ?? chapterId} />
+                <TagPill interactive label={chapterMap[chapterId]?.title ?? chapterId} />
               </Pressable>
             ))}
           </View>
