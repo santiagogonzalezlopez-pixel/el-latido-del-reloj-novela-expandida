@@ -34,7 +34,11 @@ export function SectionHeader({
       >
         <AppText variant="title">{title}</AppText>
         {actionLabel && onActionPress ? (
-          <Pressable onPress={onActionPress}>
+          <Pressable
+            accessibilityRole="button"
+            hitSlop={8}
+            onPress={onActionPress}
+          >
             <AppText tone="accent" variant="caption">
               {actionLabel}
             </AppText>

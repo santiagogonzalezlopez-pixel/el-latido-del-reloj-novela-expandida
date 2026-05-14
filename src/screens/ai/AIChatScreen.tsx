@@ -109,6 +109,7 @@ export function AIChatScreen() {
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.xs }}>
               {filteredSuggestions.map((question) => (
                 <Pressable
+                  accessibilityRole="button"
                   key={question}
                   onPress={() => sendQuestion(question)}
                   style={{ maxWidth: '100%' }}
@@ -182,6 +183,9 @@ export function AIChatScreen() {
           value={input}
         />
         <Pressable
+          accessibilityLabel="Enviar pregunta"
+          accessibilityRole="button"
+          hitSlop={8}
           onPress={() => sendQuestion(input)}
           style={({ pressed }) => ({
             alignItems: 'center',

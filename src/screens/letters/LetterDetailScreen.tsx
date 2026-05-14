@@ -83,6 +83,7 @@ export function LetterDetailScreen({ navigation, route }: Props) {
                 width: '100%',
               }}
               treatment={letterMediaTreatments[letter.id]}
+              zoomable
             />
           ) : null}
         </View>

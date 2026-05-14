@@ -50,6 +50,7 @@ export function ArchiveDetailScreen({ route }: Props) {
                 width: '100%',
               }}
               treatment={archiveMediaTreatments[item.id]}
+              zoomable
             />
           ) : (
             <View

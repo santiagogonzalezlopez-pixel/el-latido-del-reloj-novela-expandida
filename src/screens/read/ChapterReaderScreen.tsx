@@ -83,7 +83,7 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
     return () => {
       persistProgress();
     };
-  });
+  }, [chapter.id]);
 
   const paragraphFontSize = Math.round(
     theme.typography.body.fontSize * preferences.fontScale,

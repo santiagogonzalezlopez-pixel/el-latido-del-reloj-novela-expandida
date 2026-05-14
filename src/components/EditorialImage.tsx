@@ -36,7 +36,7 @@ export function EditorialImage({
   source,
   style,
   treatment,
-  zoomable = true,
+  zoomable = false,
 }: EditorialImageProps) {
   const { theme } = useAppTheme();
   const [zoom, setZoom] = useState(1);
@@ -153,6 +153,7 @@ export function EditorialImage({
               accessibilityLabel={control.label === '+' ? 'Acercar imagen' : 'Alejar imagen'}
               accessibilityRole="button"
               disabled={control.disabled}
+              hitSlop={8}
               key={control.label}
               onPress={control.onPress}
               style={({ pressed }) => ({

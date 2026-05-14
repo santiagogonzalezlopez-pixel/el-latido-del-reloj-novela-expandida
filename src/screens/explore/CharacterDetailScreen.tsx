@@ -46,6 +46,7 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
                 width: '100%',
               }}
               treatment={characterMediaTreatments[character.id]}
+              zoomable
             />
           ) : null}
 
