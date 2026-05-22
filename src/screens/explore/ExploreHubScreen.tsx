@@ -77,6 +77,7 @@ export function ExploreHubScreen() {
       <SurfaceCard tone="muted">
         <View style={{ gap: theme.spacing.md }}>
           <EditorialImage
+            resizeMode="cover"
             source={familyPresentImageSource}
             style={{
               borderRadius: theme.radii.lg,

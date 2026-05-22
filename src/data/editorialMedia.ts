@@ -42,7 +42,7 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
   consularDocument: {
     focusX: 0.48,
     focusY: 0.46,
-    scale: 1.02,
+    scale: 1,
   },
   coverClock: {
     focusX: 0.5,
@@ -75,9 +75,9 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
     scale: 1.16,
   },
   floraEnvelope: {
-    focusX: 0.48,
+    focusX: 0.42,
     focusY: 0.46,
-    scale: 1.03,
+    scale: 1,
   },
   iracemaEnvelope: {
     focusX: 0.52,
@@ -85,9 +85,9 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
     scale: 1.03,
   },
   iracemaLetterDetail: {
-    focusX: 0.52,
-    focusY: 0.38,
-    scale: 1.04,
+    focusX: 0.45,
+    focusY: 0.34,
+    scale: 1,
   },
   iracemaPedro: {
     focusX: 0.5,
@@ -102,7 +102,7 @@ export const mediaTreatments: Record<string, EditorialImageTreatment> = {
   manuscript: {
     focusX: 0.5,
     focusY: 0.48,
-    scale: 1.04,
+    scale: 1,
   },
   motherChild: {
     focusX: 0.46,

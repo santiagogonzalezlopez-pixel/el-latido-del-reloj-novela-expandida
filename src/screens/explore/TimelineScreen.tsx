@@ -38,7 +38,7 @@ export function TimelineScreen() {
         <View style={{ gap: theme.spacing.md }}>
           <EditorialImage
             imageStyle={{ borderRadius: theme.radii.lg }}
-            resizeMode="contain"
+            resizeMode="cover"
             source={timelineImageSource}
             style={{
               borderRadius: theme.radii.lg,

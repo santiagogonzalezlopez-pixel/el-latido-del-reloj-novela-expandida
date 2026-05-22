@@ -42,15 +42,14 @@ export function ArchiveDetailScreen({ route }: Props) {
           {mediaSource ? (
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.lg }}
-              resizeMode={containedArchiveIds.has(item.id) ? 'contain' : 'cover'}
+              resizeMode="cover"
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
-                height: 460,
+                height: containedArchiveIds.has(item.id) ? 320 : 460,
                 width: '100%',
               }}
               treatment={archiveMediaTreatments[item.id]}
-              zoomable
             />
           ) : (
             <View

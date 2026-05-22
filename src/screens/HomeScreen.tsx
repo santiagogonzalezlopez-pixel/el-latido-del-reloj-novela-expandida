@@ -232,6 +232,7 @@ export function HomeScreen() {
               }}
             >
               <EditorialImage
+                resizeMode="cover"
                 source={manuscriptImageSource}
                 style={{
                   height: 220,

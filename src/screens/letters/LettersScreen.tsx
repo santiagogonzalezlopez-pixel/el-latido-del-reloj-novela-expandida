@@ -43,6 +43,7 @@ export function LettersScreen() {
         <View style={{ gap: theme.spacing.md }}>
           <EditorialImage
             imageStyle={{ borderRadius: theme.radii.lg }}
+            resizeMode="cover"
             source={manuscriptImageSource}
             style={{
               borderRadius: theme.radii.lg,
@@ -83,10 +84,11 @@ export function LettersScreen() {
                 {mediaSource ? (
                   <EditorialImage
                     imageStyle={{ borderRadius: theme.radii.lg }}
+                    resizeMode="cover"
                     source={mediaSource}
                     style={{
                       borderRadius: theme.radii.lg,
-                      height: 320,
+                      height: 260,
                       width: '100%',
                     }}
                     treatment={letterMediaTreatments[letter.id]}

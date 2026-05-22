@@ -75,15 +75,14 @@ export function LetterDetailScreen({ navigation, route }: Props) {
           {mediaSource ? (
             <EditorialImage
               imageStyle={{ borderRadius: theme.radii.lg }}
-              resizeMode={letter.id === 'letter-iracema-santiago' ? 'cover' : 'contain'}
+              resizeMode="cover"
               source={mediaSource}
               style={{
                 borderRadius: theme.radii.lg,
-                height: 420,
+                height: letter.id === 'letter-iracema-santiago' ? 280 : 300,
                 width: '100%',
               }}
               treatment={letterMediaTreatments[letter.id]}
-              zoomable
             />
           ) : null}
         </View>
@@ -218,6 +217,7 @@ export function LetterDetailScreen({ navigation, route }: Props) {
                       {archivePreview ? (
                         <EditorialImage
                           imageStyle={{ borderRadius: theme.radii.md }}
+                          resizeMode="cover"
                           source={archivePreview}
                           style={{
                             borderRadius: theme.radii.md,
