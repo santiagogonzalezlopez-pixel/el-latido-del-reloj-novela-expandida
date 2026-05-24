@@ -17,7 +17,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: APP_NAME,
   slug: APP_SLUG,
   version: APP_VERSION,
-  orientation: 'portrait',
+  orientation: 'default',
   icon: './assets/icon.png',
   scheme: APP_SCHEME,
   userInterfaceStyle: 'automatic',
@@ -37,7 +37,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#f5efe2',
     },
-    edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
   },
   web: {
