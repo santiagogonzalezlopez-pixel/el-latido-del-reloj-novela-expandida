@@ -15,7 +15,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'main-es',
         pages: [71, 75],
-        note: 'Identificación familiar confirmada para la app: Beatriz, Bete, Arlete y Mari Carmen, reunidas en Barcelona junto al árbol de la memoria.',
+        note: 'Identificación familiar: Beatriz, Bete, Arlete y Mari Carmen, reunidas en Barcelona junto al árbol de la memoria.',
       },
     ],
   },
@@ -51,7 +51,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'appendix-es',
         pages: [217, 225, 227, 229, 234, 235],
-        note: 'Se apoya en el apéndice documental y en el árbol familiar complementario integrado en la app.',
+        note: 'Se apoya en el apéndice documental y en el árbol familiar complementario.',
       },
     ],
   },
@@ -130,7 +130,7 @@ export const archiveItems: ArchiveItem[] = [
   {
     id: 'archive-flora-portrait',
     title: 'Retrato de Flora joven',
-    type: 'fotografÃ­a',
+    type: 'fotografía',
     description:
       'Retrato familiar de Flora en su juventud. La imagen permite mirar de frente a la figura que sostiene buena parte de la memoria emocional de la obra.',
     characterIds: ['flora'],
@@ -140,7 +140,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'main-es',
         pages: [17],
-        note: 'Retrato de Flora incorporado como imagen de referencia familiar en la app.',
+        note: 'Retrato de Flora incorporado como imagen de referencia familiar.',
       },
     ],
   },
@@ -248,7 +248,7 @@ export const archiveItems: ArchiveItem[] = [
       {
         pdfId: 'appendix-es',
         pages: [236],
-        note: 'Identificación confirmada para la app: en la primera fotografía aparecen Tomás y Pedro, de izquierda a derecha.',
+        note: 'Identificación familiar: en la primera fotografía aparecen Tomás y Pedro, de izquierda a derecha.',
       },
     ],
   },

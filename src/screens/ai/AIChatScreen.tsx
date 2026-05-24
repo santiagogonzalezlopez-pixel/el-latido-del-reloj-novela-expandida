@@ -147,7 +147,7 @@ export function AIChatScreen() {
             );
           })}
           {isTyping ? (
-            <AppText tone="secondary">La obra está pensando...</AppText>
+            <AppText tone="secondary">Buscando en la obra…</AppText>
           ) : null}
         </View>
       </ScrollView>
@@ -166,7 +166,7 @@ export function AIChatScreen() {
       >
         <TextInput
           onChangeText={setInput}
-          placeholder="Pregunta a la obra..."
+          placeholder="Pregunta a la obra"
           placeholderTextColor={theme.colors.textMuted}
           style={{
             backgroundColor: theme.colors.card,

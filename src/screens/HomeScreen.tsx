@@ -34,6 +34,10 @@ export function HomeScreen() {
     currentChapter.order === 0
       ? 'APERTURA'
       : `CAP ${String(currentChapter.order).padStart(2, '0')}`;
+  const currentChapterCtaLabel =
+    currentChapter.order === 0
+      ? 'Abrir la apertura'
+      : `Abrir capítulo ${String(currentChapter.order).padStart(2, '0')}`;
 
   const quickLinks = [
     {
@@ -326,7 +330,7 @@ export function HomeScreen() {
               })}
             >
               <Ionicons color={theme.colors.accent} name="play-circle-outline" size={18} />
-              <AppText variant="bodyStrong">Abrir {currentChapterLabel.toLowerCase()}</AppText>
+              <AppText variant="bodyStrong">{currentChapterCtaLabel}</AppText>
             </Pressable>
           </View>
         </SurfaceCard>

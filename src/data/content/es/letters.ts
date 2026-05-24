@@ -11,7 +11,7 @@ export const letters: Letter[] = [
     summary:
       'La primera carta citada de Pedro a su hermana convierte la experiencia cubana en palabra dictada, calor, trabajo y esperanza de enviar dinero.',
     body: [
-      'Querida hermana, te escribo desde un café de la ciudad.',
+      'Querida hermana: te escribo desde un café de la ciudad.',
       'Aquí hay hombres que prestan pluma y papel a los que, como yo, no sabemos dar forma a las letras. Las palabras son mías, pero otra mano las pone.',
       'Imagínate el calor, hermana: como si en la piel ardieran brasas, y el sudor no refresca, sino que quema más.',
       'Hemos llegado bien, aunque cansados. Tomás está a mi lado, y no me suelta: vamos juntos a todo.',
