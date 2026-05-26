@@ -32,7 +32,7 @@ writeFileSync(
       display: 'standalone',
       background_color: '#f5efe2',
       theme_color: '#314850',
-      orientation: 'portrait',
+      orientation: 'any',
       lang: 'es',
       icons: [
         {
