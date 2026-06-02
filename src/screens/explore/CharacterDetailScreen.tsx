@@ -46,6 +46,8 @@ export function CharacterDetailScreen({ navigation, route }: Props) {
                 width: '100%',
               }}
               treatment={characterMediaTreatments[character.id]}
+              viewerSubtitle={character.role}
+              viewerTitle={character.name}
             />
           ) : null}
 

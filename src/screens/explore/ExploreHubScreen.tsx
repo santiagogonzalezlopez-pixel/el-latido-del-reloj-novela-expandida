@@ -84,6 +84,8 @@ export function ExploreHubScreen() {
               height: 260,
               width: '100%',
             }}
+            viewerSubtitle="Explorar"
+            viewerTitle="Archivo narrativo familiar"
           />
           <AppText variant="subtitle">Archivo narrativo</AppText>
           <AppText tone="secondary">

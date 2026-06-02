@@ -45,6 +45,8 @@ export function TimelineScreen() {
               height: 180,
               width: '100%',
             }}
+            viewerSubtitle="Cronología"
+            viewerTitle="Línea temporal de la obra"
           />
           <AppText tone="secondary">
             Esquema visual del arco histórico principal: Galicia, Cuba, Brasil,

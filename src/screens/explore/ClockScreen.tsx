@@ -64,6 +64,8 @@ export function ClockScreen() {
               focusY: 1.05,
               scale: 1.9,
             }}
+            viewerSubtitle="Objeto simbólico"
+            viewerTitle="El reloj en la portada"
           />
           <AppText variant="display">El reloj</AppText>
           <AppText>

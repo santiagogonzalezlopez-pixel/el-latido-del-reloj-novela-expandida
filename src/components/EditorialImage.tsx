@@ -3,11 +3,15 @@ import {
   Image,
   ImageSourcePropType,
   ImageStyle,
+  GestureResponderEvent,
   LayoutChangeEvent,
+  Pressable,
   StyleProp,
   View,
   ViewStyle,
 } from 'react-native';
+
+import { ImageViewerModal } from './ImageViewerModal';
 
 type EditorialImageTreatment = {
   focusX?: number;
@@ -22,6 +26,9 @@ type EditorialImageProps = {
   imageStyle?: StyleProp<ImageStyle>;
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
   treatment?: EditorialImageTreatment;
+  viewerSubtitle?: string;
+  viewerTitle?: string;
+  zoomable?: boolean;
 };
 
 export function EditorialImage({
@@ -30,7 +37,11 @@ export function EditorialImage({
   source,
   style,
   treatment,
+  viewerSubtitle,
+  viewerTitle,
+  zoomable = true,
 }: EditorialImageProps) {
+  const [viewerVisible, setViewerVisible] = useState(false);
   const [layout, setLayout] = useState({
     height: 0,
     width: 0,
@@ -59,33 +70,63 @@ export function EditorialImage({
       };
     });
   };
+  const openViewer = (event: GestureResponderEvent) => {
+    event.stopPropagation();
+    setViewerVisible(true);
+  };
 
-  return (
-    <View
-      onLayout={handleLayout}
+  const containerStyle = [
+    {
+      backgroundColor: 'rgba(20, 25, 30, 0.06)',
+      overflow: 'hidden' as const,
+    },
+    style,
+  ];
+  const image = (
+    <Image
+      resizeMode={resizeMode}
+      source={source}
       style={[
         {
-          backgroundColor: 'rgba(20, 25, 30, 0.06)',
-          overflow: 'hidden',
+          height: imageHeight || '100%',
+          left: offsetX,
+          opacity: treatment?.opacity ?? 1,
+          position: 'absolute',
+          top: offsetY,
+          width: imageWidth || '100%',
         },
-        style,
+        imageStyle,
       ]}
-    >
-      <Image
-        resizeMode={resizeMode}
+    />
+  );
+
+  if (!zoomable) {
+    return (
+      <View onLayout={handleLayout} style={containerStyle}>
+        {image}
+      </View>
+    );
+  }
+
+  return (
+    <>
+      <Pressable
+        accessibilityHint="Abre un visor para ampliar y recorrer la imagen."
+        accessibilityLabel={viewerTitle ? `Ampliar ${viewerTitle}` : 'Ampliar imagen'}
+        accessibilityRole="button"
+        onLayout={handleLayout}
+        onPress={openViewer}
+        style={containerStyle}
+      >
+        {image}
+      </Pressable>
+      <ImageViewerModal
+        onClose={() => setViewerVisible(false)}
         source={source}
-        style={[
-          {
-            height: imageHeight || '100%',
-            left: offsetX,
-            opacity: treatment?.opacity ?? 1,
-            position: 'absolute',
-            top: offsetY,
-            width: imageWidth || '100%',
-          },
-          imageStyle,
-        ]}
+        subtitle={viewerSubtitle}
+        title={viewerTitle}
+        visible={viewerVisible}
       />
-    </View>
+    </>
   );
 }

@@ -51,6 +51,8 @@ export function LettersScreen() {
               width: '100%',
             }}
             treatment={mediaTreatments.manuscript}
+            viewerSubtitle="Archivo epistolar"
+            viewerTitle="Manuscrito del archivo familiar"
           />
           <SectionHeader
             subtitle="Correspondencia que conserva nombres, fechas, distancia y tono familiar."
@@ -92,6 +94,8 @@ export function LettersScreen() {
                       width: '100%',
                     }}
                     treatment={letterMediaTreatments[letter.id]}
+                    viewerSubtitle={`${sender} para ${recipient}`}
+                    viewerTitle={letter.title}
                   />
                 ) : null}
 

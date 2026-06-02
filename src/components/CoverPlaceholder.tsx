@@ -26,6 +26,7 @@ export function CoverPlaceholder() {
           top: 0,
         }}
         resizeMode="contain"
+        zoomable={false}
       />
     </View>
   );

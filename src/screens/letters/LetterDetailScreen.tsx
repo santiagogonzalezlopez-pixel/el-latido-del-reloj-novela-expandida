@@ -83,6 +83,8 @@ export function LetterDetailScreen({ navigation, route }: Props) {
                 width: '100%',
               }}
               treatment={letterMediaTreatments[letter.id]}
+              viewerSubtitle={`${sender?.name ?? 'Archivo familiar'} para ${recipient?.name ?? 'familia'}`}
+              viewerTitle={letter.title}
             />
           ) : null}
         </View>
@@ -225,6 +227,8 @@ export function LetterDetailScreen({ navigation, route }: Props) {
                             width: 78,
                           }}
                           treatment={archiveMediaTreatments[item.id]}
+                          viewerSubtitle={item.type}
+                          viewerTitle={item.title}
                         />
                       ) : null}
                       <View style={{ flex: 1, gap: theme.spacing.xs }}>

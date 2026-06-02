@@ -51,6 +51,8 @@ export function CharactersScreen() {
               width: '100%',
             }}
             treatment={mediaTreatments.floraField}
+            viewerSubtitle="Galería de personajes"
+            viewerTitle="Flora en el archivo familiar"
           />
           <View style={{ gap: theme.spacing.xs }}>
             <AppText tone="accent" variant="caption">
@@ -99,6 +101,8 @@ export function CharactersScreen() {
                     width: '100%',
                   }}
                   treatment={characterMediaTreatments[character.id]}
+                  viewerSubtitle={character.role}
+                  viewerTitle={character.name}
                 />
               ) : null}
 

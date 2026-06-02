@@ -53,6 +53,8 @@ export function ListRow({
               width: '100%',
             }}
             treatment={imageTreatment}
+            viewerSubtitle={eyebrow}
+            viewerTitle={title}
           />
         ) : null}
         {eyebrow ? (

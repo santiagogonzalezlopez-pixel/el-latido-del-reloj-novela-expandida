@@ -36,8 +36,8 @@ export function HomeScreen() {
       : `CAP ${String(currentChapter.order).padStart(2, '0')}`;
   const currentChapterCtaLabel =
     currentChapter.order === 0
-      ? 'Abrir la apertura'
-      : `Abrir capítulo ${String(currentChapter.order).padStart(2, '0')}`;
+      ? 'Leer apertura'
+      : `Leer cap. ${String(currentChapter.order).padStart(2, '0')}`;
 
   const quickLinks = [
     {
@@ -222,6 +222,8 @@ export function HomeScreen() {
                     height: 280,
                   }}
                   treatment={item.treatment}
+                  viewerSubtitle="Archivo vivo"
+                  viewerTitle={index === 0 ? 'Retrato de Flora' : 'Indalecia con Flora bebé'}
                 />
               ))}
             </View>
@@ -243,6 +245,8 @@ export function HomeScreen() {
                   width: '100%',
                 }}
                 treatment={mediaTreatments.manuscript}
+                viewerSubtitle="Archivo vivo"
+                viewerTitle="Manuscrito y memoria familiar"
               />
             </View>
           </View>
@@ -324,13 +328,16 @@ export function HomeScreen() {
                 flexDirection: 'row',
                 gap: theme.spacing.sm,
                 justifyContent: 'center',
+                minWidth: 0,
                 opacity: pressed ? 0.94 : 1,
                 paddingHorizontal: theme.spacing.lg,
                 paddingVertical: theme.spacing.sm,
               })}
             >
               <Ionicons color={theme.colors.accent} name="play-circle-outline" size={18} />
-              <AppText variant="bodyStrong">{currentChapterCtaLabel}</AppText>
+              <AppText numberOfLines={1} style={{ flexShrink: 1 }} variant="bodyStrong">
+                {currentChapterCtaLabel}
+              </AppText>
             </Pressable>
           </View>
         </SurfaceCard>

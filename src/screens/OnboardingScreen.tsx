@@ -116,6 +116,7 @@ export function OnboardingScreen({ navigation, route }: Props) {
                   height: heroHeight,
                   width: '100%',
                 }}
+                zoomable={false}
               />
 
               <View style={{ alignItems: 'center', gap: theme.spacing.xxs }}>

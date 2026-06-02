@@ -61,6 +61,8 @@ export function ArchiveScreen() {
                 width: '100%',
               }}
               treatment={mediaTreatments.familyTree}
+              viewerSubtitle="Archivo familiar"
+              viewerTitle="Árbol familiar"
             />
           </View>
         </View>

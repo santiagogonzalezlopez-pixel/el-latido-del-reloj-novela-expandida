@@ -50,6 +50,8 @@ export function ArchiveDetailScreen({ route }: Props) {
                 width: '100%',
               }}
               treatment={archiveMediaTreatments[item.id]}
+              viewerSubtitle={item.type}
+              viewerTitle={item.title}
             />
           ) : (
             <View

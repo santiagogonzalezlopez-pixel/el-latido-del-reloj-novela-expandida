@@ -4,6 +4,7 @@ import { Image, Pressable, ScrollView, useWindowDimensions, View } from 'react-n
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/AppText';
+import { ImageViewerModal } from '../../components/ImageViewerModal';
 import { SurfaceCard } from '../../components/SurfaceCard';
 import { familyTreeImageSource } from '../../data/editorialMedia';
 import { AppNavigationProp } from '../../navigation/types';
@@ -101,6 +102,7 @@ export function FamilyTreeScreen() {
   const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
   const { width } = useWindowDimensions();
+  const [treeViewerVisible, setTreeViewerVisible] = useState(false);
   const [treeScale, setTreeScale] = useState(1);
   const treeViewportWidth = Math.max(width - theme.spacing.lg * 4, 560);
   const treeImageWidth = useMemo(
@@ -149,6 +151,24 @@ export function FamilyTreeScreen() {
                 ÁRBOL ILUSTRADO
               </AppText>
               <View style={{ flexDirection: 'row', gap: theme.spacing.xs }}>
+                <Pressable
+                  accessibilityLabel="Abrir visor del árbol"
+                  accessibilityRole="button"
+                  onPress={() => setTreeViewerVisible(true)}
+                  style={({ pressed }) => ({
+                    backgroundColor: theme.colors.cardMuted,
+                    borderColor: theme.colors.border,
+                    borderRadius: theme.radii.pill,
+                    borderWidth: 1,
+                    opacity: pressed ? 0.7 : 1,
+                    paddingHorizontal: theme.spacing.md,
+                    paddingVertical: theme.spacing.xs,
+                  })}
+                >
+                  <AppText variant="caption">
+                    Ver
+                  </AppText>
+                </Pressable>
                 <Pressable
                   accessibilityLabel="Reducir árbol"
                   accessibilityRole="button"
@@ -215,8 +235,15 @@ export function FamilyTreeScreen() {
               </ScrollView>
             </View>
             <AppText tone="secondary" variant="caption">
-              Usa + para ampliar y desliza horizontalmente para recorrer las ramas.
+              Usa + para ampliar aquí, o abre el visor para recorrerlo en vertical y horizontal.
             </AppText>
+            <ImageViewerModal
+              onClose={() => setTreeViewerVisible(false)}
+              source={familyTreeImageSource}
+              subtitle="Árbol familiar"
+              title="Árbol ilustrado completo"
+              visible={treeViewerVisible}
+            />
           </View>
           <AppText tone="secondary">
             El árbol prioriza la línea de sangre. Las parejas que no pertenecen a

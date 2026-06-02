@@ -67,6 +67,8 @@ export function LocationsScreen() {
               height: 170,
               width: '100%',
             }}
+            viewerSubtitle="Ruta narrativa"
+            viewerTitle="Mapa temporal de la obra"
           />
           <View style={{ gap: theme.spacing.xs }}>
             <AppText tone="accent" variant="caption">
@@ -135,6 +137,8 @@ export function LocationsScreen() {
               height: 190,
               width: '100%',
             }}
+            viewerSubtitle="Documento"
+            viewerTitle="Legalización consular"
           />
           <AppText tone="secondary">
             Papeles, sellos y fotografías también cuentan el mapa: la emigración no
