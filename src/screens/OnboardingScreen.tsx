@@ -32,7 +32,7 @@ const onboardingPages = [
   {
     eyebrow: 'GUÍA DE LECTURA',
     icon: 'sparkles-outline' as const,
-    title: 'Preguntar a la obra',
+    title: 'Guía de la obra',
     text: 'Usa las preguntas sugeridas para orientarte por el árbol familiar y los recuerdos conservados.',
   },
 ];

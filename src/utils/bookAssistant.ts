@@ -1,7 +1,5 @@
 import {
-  aiSuggestedQuestions,
   characterMap,
-  characters,
   genealogyAliases,
   genealogyMap,
   genealogyPeople,
@@ -16,16 +14,6 @@ function normalizeText(value: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
-}
-
-function getCharacterLine(characterId: string) {
-  const character = characterMap[characterId];
-
-  if (!character) {
-    return '';
-  }
-
-  return `${character.name}: ${character.biography}`;
 }
 
 function namesForIds(ids: string[] = []) {
@@ -193,10 +181,5 @@ export function buildBookAssistantReply(question: string) {
     return `Cuba aparece como etapa de trabajo, desgaste y correspondencia. ${habana.summary} Las cartas relacionadas son ${cubaLetters.join(' y ')}.`;
   }
 
-  if (aiSuggestedQuestions.some((item) => normalizeText(item) === normalized)) {
-    return buildBookAssistantReply(`${question} `);
-  }
-
-  const characterSummary = characters.map((character) => getCharacterLine(character.id)).join(' ');
-  return `Puedo responder a partir de la obra, el archivo familiar y el árbol genealógico. ${characterSummary}`;
+  return 'No tengo una respuesta preparada para esa consulta. Puedes elegir una de las preguntas sugeridas o explorar las secciones Personajes, Cartas y Árbol familiar.';
 }

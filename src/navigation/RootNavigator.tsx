@@ -72,7 +72,7 @@ function MainTabs() {
       <Tabs.Screen component={LettersScreen} name="Letters" options={{ title: 'Cartas' }} />
       <Tabs.Screen component={ExploreHubScreen} name="Explore" options={{ title: 'Explorar' }} />
       <Tabs.Screen component={ArchiveScreen} name="Archive" options={{ title: 'Archivo' }} />
-      <Tabs.Screen component={AIChatScreen} name="AI" options={{ title: 'IA' }} />
+      <Tabs.Screen component={AIChatScreen} name="AI" options={{ title: 'Guía' }} />
     </Tabs.Navigator>
   );
 }

@@ -1,9 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Image,
+  ImageLoadEventData,
   ImageSourcePropType,
   Modal,
+  NativeSyntheticEvent,
   Pressable,
   ScrollView,
   useWindowDimensions,
@@ -36,12 +38,27 @@ export function ImageViewerModal({
   const { height, width } = useWindowDimensions();
   const { theme } = useAppTheme();
   const [zoom, setZoom] = useState(MIN_ZOOM);
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 900 });
 
-  const asset = useMemo(() => Image.resolveAssetSource(source), [source]);
-  const assetWidth = Math.max(asset?.width ?? 1200, 1);
-  const assetHeight = Math.max(asset?.height ?? 900, 1);
+  const handleImageLoad = useCallback(({ nativeEvent }: NativeSyntheticEvent<ImageLoadEventData>) => {
+    // React Native Web supplies the browser load event; native supplies source dimensions.
+    const event = nativeEvent as ImageLoadEventData & {
+      target?: { naturalWidth: number; naturalHeight: number };
+    };
+    const width = event.source?.width ?? event.target?.naturalWidth ?? 0;
+    const height = event.source?.height ?? event.target?.naturalHeight ?? 0;
+    if (width > 0 && height > 0) {
+      setDimensions((current) => current.width === width && current.height === height
+        ? current
+        : { width, height });
+    }
+  }, []);
+
+  const sourceDimensions = typeof source === 'object' && !Array.isArray(source) ? source : undefined;
+  const assetWidth = Math.max(sourceDimensions?.width ?? dimensions.width, 1);
+  const assetHeight = Math.max(sourceDimensions?.height ?? dimensions.height, 1);
   const aspectRatio = assetHeight / assetWidth;
-  const availableWidth = Math.max(260, width - theme.spacing.md * 2);
+  const availableWidth = Math.max(220, width - theme.spacing.lg * 2);
   const availableHeight = Math.max(260, height - 220);
   const fitScale = Math.min(availableWidth / assetWidth, availableHeight / assetHeight);
   const fittedWidth = Math.round(assetWidth * fitScale);
@@ -228,6 +245,8 @@ export function ImageViewerModal({
             showsVerticalScrollIndicator
           >
             <Image
+              accessibilityLabel={title}
+              onLoad={handleImageLoad}
               resizeMode="contain"
               source={source}
               style={{

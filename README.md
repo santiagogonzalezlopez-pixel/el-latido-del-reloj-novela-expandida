@@ -1,6 +1,6 @@
 # El latido del reloj - Novela expandida
 
-App editorial construida con React Native, Expo y TypeScript para convertir la obra de Santiago González López en una experiencia narrativa expandida: lectura, cartas, personajes, genealogía, cronología, lugares, fotografías, árbol familiar e IA guiada por la obra y el archivo familiar.
+App editorial construida con React Native, Expo y TypeScript para convertir la obra de Santiago González López en una experiencia narrativa expandida: lectura, cartas, personajes, genealogía, cronología, lugares, fotografías, árbol familiar y una guía de consulta sobre la obra y el archivo familiar.
 
 No es una novela al uso: es una crónica familiar reconstruida por Santiago, nieto de Flora e hijo de Luis. La app recoge la historia de su yaya Flora, de Tomás, hermano de Flora, y de Pedro, tío de Flora y de Tomás.
 
@@ -9,7 +9,7 @@ No es una novela al uso: es una crónica familiar reconstruida por Santiago, nie
 - Lectura continua del libro, con progreso guardado por capítulo.
 - Archivo familiar con fotografías, cartas escaneadas, documentos y árbol genealógico.
 - Fichas de personajes, relaciones familiares, lugares y cronología.
-- IA local de consulta sobre la obra, las cartas, las fotografías y el árbol familiar.
+- Guía local con respuestas preparadas sobre la obra, las cartas, las fotografías y el árbol familiar.
 - Versión web publicable en GitHub Pages e instalable en el móvil como web app.
 
 ## Desarrollo local

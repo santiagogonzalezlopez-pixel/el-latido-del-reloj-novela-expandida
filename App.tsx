@@ -12,12 +12,14 @@ import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { RootNavigator } from './src/navigation/RootNavigator';
+import { ReadingProgressProvider, useReadingProgress } from './src/hooks/useReadingProgress';
 import { ThemePreferenceProvider, useAppTheme } from './src/theme/ThemeContext';
 
 function AppShell() {
   const { isDark, ready, theme } = useAppTheme();
+  const { ready: progressReady } = useReadingProgress();
 
-  if (!ready) {
+  if (!ready || !progressReady) {
     return (
       <View
         style={{
@@ -66,7 +68,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemePreferenceProvider>
-        <AppShell />
+        <ReadingProgressProvider>
+          <AppShell />
+        </ReadingProgressProvider>
       </ThemePreferenceProvider>
     </SafeAreaProvider>
   );

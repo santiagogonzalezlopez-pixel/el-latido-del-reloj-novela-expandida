@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useDeferredValue, useEffect, useRef, useState, startTransition } from 'react';
+import { useDeferredValue, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -28,22 +28,16 @@ export function AIChatScreen() {
   const insets = useSafeAreaInsets();
   const { theme } = useAppTheme();
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'assistant-welcome',
       role: 'assistant',
-      text: 'Pregunta a la obra y al archivo familiar. Puedo ayudarte con capítulos, personajes, cartas, lugares y el árbol genealógico.',
+      text: 'Esta guía reúne respuestas preparadas sobre la familia, las cartas, los lugares y el reloj. Puedes elegir una pregunta sugerida o escribir tu consulta.',
     },
   ]);
-  const timersRef = useRef<Array<ReturnType<typeof setTimeout>>>([]);
+  const scrollRef = useRef<ScrollView>(null);
+  const messageIdRef = useRef(0);
   const deferredInput = useDeferredValue(input);
-
-  useEffect(() => {
-    return () => {
-      timersRef.current.forEach(clearTimeout);
-    };
-  }, []);
 
   const filteredSuggestions = aiSuggestedQuestions.filter((question) =>
     deferredInput.trim()
@@ -58,26 +52,14 @@ export function AIChatScreen() {
       return;
     }
 
+    const messageId = ++messageIdRef.current;
+    const reply = buildBookAssistantReply(question);
     setMessages((current) => [
       ...current,
-      { id: `user-${Date.now()}`, role: 'user', text: question },
+      { id: `user-${messageId}`, role: 'user', text: question },
+      { id: `assistant-${messageId}`, role: 'assistant', text: reply },
     ]);
     setInput('');
-    setIsTyping(true);
-
-    const timer = setTimeout(() => {
-      const reply = buildBookAssistantReply(question);
-
-      startTransition(() => {
-        setMessages((current) => [
-          ...current,
-          { id: `assistant-${Date.now()}`, role: 'assistant', text: reply },
-        ]);
-        setIsTyping(false);
-      });
-    }, 420);
-
-    timersRef.current.push(timer);
   };
 
   return (
@@ -86,6 +68,10 @@ export function AIChatScreen() {
       style={{ backgroundColor: theme.colors.background, flex: 1 }}
     >
       <ScrollView
+        ref={scrollRef}
+        onContentSizeChange={() => {
+          if (messages.length > 1) scrollRef.current?.scrollToEnd({ animated: true });
+        }}
         contentContainerStyle={{
           gap: theme.spacing.lg,
           padding: theme.spacing.lg,
@@ -94,9 +80,10 @@ export function AIChatScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View style={{ gap: theme.spacing.sm }}>
-          <AppText variant="display">Pregunta a la obra</AppText>
+          <AppText variant="display">Guía de la obra</AppText>
           <AppText>
-            Consulta guiada sobre la historia familiar, las cartas, los documentos, las fotografías y las relaciones del árbol.
+            Respuestas preparadas para orientarte por la historia y el archivo familiar.
+            La guía tiene un alcance limitado: las preguntas sugeridas son un buen punto de partida.
           </AppText>
         </View>
 
@@ -146,9 +133,6 @@ export function AIChatScreen() {
               </SurfaceCard>
             );
           })}
-          {isTyping ? (
-            <AppText tone="secondary">Buscando en la obra…</AppText>
-          ) : null}
         </View>
       </ScrollView>
 
@@ -165,8 +149,11 @@ export function AIChatScreen() {
         }}
       >
         <TextInput
+          accessibilityLabel="Consulta a la guía"
           onChangeText={setInput}
-          placeholder="Pregunta a la obra"
+          onSubmitEditing={() => sendQuestion(input)}
+          returnKeyType="send"
+          placeholder="Escribe tu consulta"
           placeholderTextColor={theme.colors.textMuted}
           style={{
             backgroundColor: theme.colors.card,

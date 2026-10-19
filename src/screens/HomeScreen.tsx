@@ -30,10 +30,7 @@ export function HomeScreen() {
   const currentChapter = chapterMap[progress.lastChapterId ?? ''] ?? chapters[0];
   const currentChapterProgress =
     progress.chapterProgress[currentChapter.id]?.progress ?? 0;
-  const currentChapterLabel =
-    currentChapter.order === 0
-      ? 'APERTURA'
-      : `CAP ${String(currentChapter.order).padStart(2, '0')}`;
+  const hasReadingProgress = Boolean(progress.lastChapterId);
   const currentChapterCtaLabel =
     currentChapter.order === 0
       ? 'Leer apertura'
@@ -72,7 +69,7 @@ export function HomeScreen() {
     },
     {
       id: 'ia',
-      label: 'Preguntar a la obra',
+      label: 'Guía de la obra',
       icon: 'sparkles-outline' as const,
       onPress: () => navigation.navigate('MainTabs', { screen: 'AI' }),
     },
@@ -88,6 +85,54 @@ export function HomeScreen() {
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: theme.colors.background }}
     >
+      <View style={{ gap: theme.spacing.md }}>
+        <SectionHeader
+          subtitle={hasReadingProgress ? 'Retoma el libro donde lo dejaste.' : 'Abre la obra y comienza el recorrido familiar.'}
+          title={hasReadingProgress ? 'Continuar leyendo' : 'Comenzar lectura'}
+        />
+        <SurfaceCard>
+          <View style={{ gap: theme.spacing.md }}>
+            <View style={{ gap: theme.spacing.xs }}>
+              <AppText tone="accent" variant="caption">
+                {hasReadingProgress ? 'TU LECTURA' : 'PRIMERAS PÁGINAS'}
+              </AppText>
+              <AppText variant="subtitle">{currentChapter.title}</AppText>
+              <AppText numberOfLines={2} tone="secondary">
+                {currentChapter.summary}
+              </AppText>
+            </View>
+            {hasReadingProgress ? (
+              <View style={{ gap: theme.spacing.sm }}>
+                <ProgressBar progress={currentChapterProgress} />
+                <AppText tone="secondary">
+                  Avance guardado: {formatProgress(currentChapterProgress)}
+                </AppText>
+              </View>
+            ) : null}
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => navigation.navigate('ChapterReader', { chapterId: currentChapter.id })}
+              style={({ pressed }) => ({
+                alignItems: 'center',
+                backgroundColor: theme.colors.accent,
+                borderRadius: theme.radii.pill,
+                flexDirection: 'row',
+                gap: theme.spacing.sm,
+                justifyContent: 'center',
+                opacity: pressed ? 0.94 : 1,
+                paddingHorizontal: theme.spacing.lg,
+                paddingVertical: theme.spacing.md,
+              })}
+            >
+              <Ionicons color={theme.colors.accentContrast} name="book-outline" size={18} />
+              <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
+                {currentChapterCtaLabel}
+              </AppText>
+            </Pressable>
+          </View>
+        </SurfaceCard>
+      </View>
+
       <View style={{ gap: theme.spacing.lg }}>
         <CoverPlaceholder />
 
@@ -137,31 +182,6 @@ export function HomeScreen() {
                 </View>
               ))}
             </View>
-
-            <Pressable
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate('ChapterReader', {
-                  chapterId: currentChapter.id,
-                })
-              }
-              style={({ pressed }) => ({
-                alignItems: 'center',
-                alignSelf: 'flex-start',
-                backgroundColor: theme.colors.accent,
-                borderRadius: theme.radii.pill,
-                flexDirection: 'row',
-                gap: theme.spacing.sm,
-                opacity: pressed ? 0.94 : 1,
-                paddingHorizontal: theme.spacing.lg,
-                paddingVertical: theme.spacing.md,
-              })}
-            >
-              <Ionicons color={theme.colors.accentContrast} name="book-outline" size={18} />
-              <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
-                Comenzar lectura
-              </AppText>
-            </Pressable>
 
             <Pressable
               accessibilityRole="button"
@@ -259,88 +279,6 @@ export function HomeScreen() {
           title="Accesos rápidos"
         />
         <QuickLinkGrid items={quickLinks} />
-      </View>
-
-      <View style={{ gap: theme.spacing.md }}>
-        <SectionHeader
-          subtitle="Retoma el último capítulo abierto y el avance de lectura."
-          title="Continuar leyendo"
-        />
-        <SurfaceCard>
-          <View style={{ gap: theme.spacing.lg }}>
-            <View
-              style={{
-                alignItems: 'flex-start',
-                flexDirection: 'row',
-                gap: theme.spacing.md,
-                justifyContent: 'space-between',
-              }}
-            >
-              <View style={{ flex: 1, gap: theme.spacing.xs }}>
-                <AppText tone="accent" variant="caption">
-                  ÚLTIMA APERTURA
-                </AppText>
-                <AppText variant="subtitle">{currentChapter.title}</AppText>
-                <AppText numberOfLines={3} tone="secondary">
-                  {currentChapter.summary}
-                </AppText>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  backgroundColor: theme.colors.cardMuted,
-                  borderRadius: theme.radii.md,
-                  minWidth: 72,
-                  paddingHorizontal: theme.spacing.sm,
-                  paddingVertical: theme.spacing.sm,
-                }}
-              >
-                <AppText tone="accent" variant="caption">
-                  {currentChapter.order === 0 ? 'SECCIÓN' : 'CAP'}
-                </AppText>
-                <AppText variant="subtitle">
-                  {currentChapter.order === 0
-                    ? 'Apertura'
-                    : String(currentChapter.order).padStart(2, '0')}
-                </AppText>
-              </View>
-            </View>
-
-            <View style={{ gap: theme.spacing.sm }}>
-              <ProgressBar progress={currentChapterProgress} />
-              <AppText tone="secondary">
-                Avance guardado: {formatProgress(currentChapterProgress)}
-              </AppText>
-            </View>
-
-            <Pressable
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate('ChapterReader', {
-                  chapterId: currentChapter.id,
-                })
-              }
-              style={({ pressed }) => ({
-                alignItems: 'center',
-                borderColor: theme.colors.border,
-                borderRadius: theme.radii.pill,
-                borderWidth: 1,
-                flexDirection: 'row',
-                gap: theme.spacing.sm,
-                justifyContent: 'center',
-                minWidth: 0,
-                opacity: pressed ? 0.94 : 1,
-                paddingHorizontal: theme.spacing.lg,
-                paddingVertical: theme.spacing.sm,
-              })}
-            >
-              <Ionicons color={theme.colors.accent} name="play-circle-outline" size={18} />
-              <AppText numberOfLines={1} style={{ flexShrink: 1 }} variant="bodyStrong">
-                {currentChapterCtaLabel}
-              </AppText>
-            </Pressable>
-          </View>
-        </SurfaceCard>
       </View>
 
       <View style={{ gap: theme.spacing.md }}>

@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useRef, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, AppState, Platform, Pressable, ScrollView, View } from 'react-native';
 
 import { AppText } from '../../components/AppText';
 import { ProgressBar } from '../../components/ProgressBar';
@@ -11,6 +11,7 @@ import { TagPill } from '../../components/TagPill';
 import {
   archiveItems,
   chapterMap,
+  chapters,
   characterMap,
   letterMap,
   locationMap,
@@ -26,22 +27,31 @@ import { formatProgress } from '../../utils/formatters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChapterReader'>;
 
-export function ChapterReaderScreen({ navigation, route }: Props) {
+export function ChapterReaderScreen(props: Props) {
+  return <ChapterReaderContent key={props.route.params.chapterId} {...props} />;
+}
+
+function ChapterReaderContent({ navigation, route }: Props) {
   const { theme, toggleTheme } = useAppTheme();
   const chapter = chapterMap[route.params.chapterId];
-  const { setFontScale, state: preferences } = useReaderPreferences();
+  const { ready: preferencesReady, setFontScale, state: preferences } = useReaderPreferences();
   const { saveChapterProgress, state: progress } = useReadingProgress();
 
   const scrollRef = useRef<ScrollView>(null);
   const restoredRef = useRef(false);
+  const activeRef = useRef(true);
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initialOffsetRef = useRef(progress.chapterProgress[chapter.id]?.offset ?? 0);
   const metricsRef = useRef({
     contentHeight: 0,
     layoutHeight: 0,
     offset: progress.chapterProgress[chapter.id]?.offset ?? 0,
   });
-  const [contentReady, setContentReady] = useState(false);
+  const [contentHeight, setContentHeight] = useState(0);
+  const [layoutHeight, setLayoutHeight] = useState(0);
 
   const chapterProgress = progress.chapterProgress[chapter.id];
+  const nextChapter = chapters[chapters.findIndex((item) => item.id === chapter.id) + 1];
   const relatedCharacters = chapter.characterIds
     .map((id) => characterMap[id]?.name)
     .filter(Boolean);
@@ -53,7 +63,13 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
     .filter(Boolean);
   const relatedArchiveItems = archiveItems.filter((item) => item.chapterId === chapter.id);
 
-  const persistProgress = () => {
+  const persistProgress = useCallback(() => {
+    if (saveTimerRef.current !== null) {
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+    }
+    if (!restoredRef.current || !activeRef.current) return;
+
     const { contentHeight, layoutHeight, offset } = metricsRef.current;
     const scrollableHeight = Math.max(contentHeight - layoutHeight, 1);
     const ratio = Math.max(0, Math.min(1, offset / scrollableHeight));
@@ -67,23 +83,49 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       offset,
       progress: ratio,
     });
-  };
+  }, [chapter, saveChapterProgress]);
 
   useEffect(() => {
-    if (chapterProgress?.offset && contentReady && !restoredRef.current) {
-      scrollRef.current?.scrollTo({
-        animated: false,
-        y: chapterProgress.offset,
-      });
-      restoredRef.current = true;
+    if (!preferencesReady || contentHeight <= 0 || layoutHeight <= 0 || restoredRef.current) return;
+    const offset = Math.min(initialOffsetRef.current, Math.max(0, contentHeight - layoutHeight));
+    metricsRef.current = { contentHeight, layoutHeight, offset };
+    restoredRef.current = true;
+    scrollRef.current?.scrollTo({ animated: false, y: offset });
+    persistProgress();
+  }, [contentHeight, layoutHeight, preferencesReady, persistProgress]);
+
+  useEffect(() => {
+    const pause = () => {
+      persistProgress();
+      activeRef.current = false;
+    };
+    const unsubscribeBlur = navigation.addListener('blur', pause);
+    const unsubscribeRemove = navigation.addListener('beforeRemove', pause);
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      activeRef.current = true;
+    });
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state !== 'active') persistProgress();
+    });
+    const saveWhenHidden = () => {
+      if (document.visibilityState === 'hidden') persistProgress();
+    };
+    if (Platform.OS === 'web') {
+      window.addEventListener('pagehide', persistProgress);
+      document.addEventListener('visibilitychange', saveWhenHidden);
     }
-  }, [chapterProgress?.offset, contentReady]);
-
-  useEffect(() => {
     return () => {
+      unsubscribeBlur();
+      unsubscribeRemove();
+      unsubscribeFocus();
+      subscription.remove();
+      if (Platform.OS === 'web') {
+        window.removeEventListener('pagehide', persistProgress);
+        document.removeEventListener('visibilitychange', saveWhenHidden);
+      }
       persistProgress();
     };
-  }, [chapter.id]);
+  }, [navigation, persistProgress]);
 
   const paragraphFontSize = Math.round(
     theme.typography.body.fontSize * preferences.fontScale,
@@ -94,6 +136,10 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       ? 'APERTURA'
       : `CAPÍTULO ${String(chapter.order).padStart(2, '0')}`;
 
+  if (!preferencesReady) {
+    return <ActivityIndicator color={theme.colors.accent} style={{ flex: 1 }} />;
+  }
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -103,13 +149,20 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
       }}
       onContentSizeChange={(_, height) => {
         metricsRef.current.contentHeight = height;
-        setContentReady(true);
+        setContentHeight(height);
+      }}
+      onLayout={({ nativeEvent }) => {
+        metricsRef.current.layoutHeight = nativeEvent.layout.height;
+        setLayoutHeight(nativeEvent.layout.height);
       }}
       onMomentumScrollEnd={persistProgress}
       onScroll={({ nativeEvent }) => {
+        if (!restoredRef.current || !activeRef.current) return;
         metricsRef.current.contentHeight = nativeEvent.contentSize.height;
         metricsRef.current.layoutHeight = nativeEvent.layoutMeasurement.height;
         metricsRef.current.offset = nativeEvent.contentOffset.y;
+        if (saveTimerRef.current !== null) clearTimeout(saveTimerRef.current);
+        saveTimerRef.current = setTimeout(persistProgress, 250);
       }}
       onScrollEndDrag={persistProgress}
       ref={scrollRef}
@@ -268,6 +321,49 @@ export function ChapterReaderScreen({ navigation, route }: Props) {
               {paragraph.text}
             </AppText>
           ))}
+        </View>
+      </SurfaceCard>
+
+      <SurfaceCard>
+        <View style={{ gap: theme.spacing.md }}>
+          <AppText variant="subtitle">
+            {nextChapter ? 'Sigue la historia' : 'Has llegado al final de la lectura'}
+          </AppText>
+          {nextChapter ? <AppText tone="secondary">{nextChapter.title}</AppText> : null}
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => {
+              // Navigation can reset the outgoing scroll view before unmounting it.
+              // Save completion now and ignore those later scroll events.
+              if (saveTimerRef.current !== null) clearTimeout(saveTimerRef.current);
+              activeRef.current = false;
+              saveChapterProgress(chapter.id, {
+                offset: Math.max(0, metricsRef.current.contentHeight - metricsRef.current.layoutHeight),
+                progress: 1,
+                lastParagraphId: chapter.paragraphs.at(-1)?.id,
+              });
+              if (nextChapter) {
+                navigation.replace('ChapterReader', { chapterId: nextChapter.id });
+              } else {
+                navigation.popTo('MainTabs', { screen: 'Read' });
+              }
+            }}
+            style={({ pressed }) => ({
+              alignItems: 'center',
+              backgroundColor: theme.colors.accent,
+              borderRadius: theme.radii.pill,
+              flexDirection: 'row',
+              gap: theme.spacing.sm,
+              justifyContent: 'center',
+              opacity: pressed ? 0.9 : 1,
+              padding: theme.spacing.md,
+            })}
+          >
+            <AppText style={{ color: theme.colors.accentContrast }} variant="bodyStrong">
+              {nextChapter ? 'Siguiente capítulo' : 'Volver al índice'}
+            </AppText>
+            <Ionicons color={theme.colors.accentContrast} name="arrow-forward" size={18} />
+          </Pressable>
         </View>
       </SurfaceCard>
     </ScrollView>
