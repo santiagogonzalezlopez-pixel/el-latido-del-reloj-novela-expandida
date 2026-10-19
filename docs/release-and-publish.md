@@ -1,100 +1,64 @@
-# Release And Publish
+# Publicar y actualizar la app
 
-## Estado actual
+La web y la app de Google Play tienen publicaciones independientes. Publicar en GitHub Pages no actualiza la instalación de Google Play.
 
-La app ya esta preparada para:
+## Destinos actuales
 
-- desarrollo con Expo
-- build interna Android en APK
-- build de produccion Android en AAB
-- publicacion posterior en Google Play
+- Repositorio: https://github.com/santiagogonzalezlopez-pixel/el-latido-del-reloj-novela-expandida
+- Web: https://santiagogonzalezlopez-pixel.github.io/el-latido-del-reloj-novela-expandida/
+- Google Play: https://play.google.com/store/apps/details?id=com.santiagogonzalezlopezpixel.latidodelreloj
+- Proyecto Expo: `@munjoie/el-latido-del-reloj-novela-expandida`
+- Identificador Android: `com.santiagogonzalezlopezpixel.latidodelreloj`
 
-## Identificadores editables
+Las actualizaciones de Android deben conservar este identificador y la firma existente. EAS guarda las credenciales de firma en el proyecto de Expo.
 
-Los identificadores estan centralizados en:
-
-- `app.config.ts`
-- `.env.example`
-
-Variables disponibles:
-
-- `EXPO_ANDROID_PACKAGE`
-- `EXPO_IOS_BUNDLE_IDENTIFIER`
-
-Valor por defecto actual:
-
-- `com.santiagogonzalezlopezpixel.latidodelreloj`
-
-Antes de la primera publicacion real en Google Play, conviene confirmar que ese package name sera el definitivo.
-
-## Ver la app
+## Comprobaciones antes de publicar
 
 ```bash
-npm install
-npm run start
+npm ci
+npm run typecheck
+npm run build:web
 ```
 
-## Login en Expo
-
-Si aun no has iniciado sesion en Expo:
+Comprobar la lectura, la recuperación del progreso, las imágenes y la navegación. Para probar una instalación Android antes de publicar:
 
 ```bash
-npx eas login
+npx eas-cli build --platform android --profile preview
 ```
 
-## Build interna Android
+El perfil `preview` genera un APK para pruebas. Google Play requiere el AAB del perfil `production`.
 
-```bash
-npm run build:android:preview
-```
+## Actualizar la web
 
-Esto genera una build interna Android para probar la app en movil antes de publicar.
+Guardar los cambios en `main` y subirlos al repositorio. La acción `Deploy Web To GitHub Pages` compila y publica `dist/` automáticamente. Verificar que termina correctamente y abrir la URL pública.
 
-## Build de produccion Android
+## Actualizar Google Play
 
-```bash
-npm run build:android:production
-```
+1. Cambiar la versión visible en `app.config.ts`, `package.json` y la entrada raíz de `package-lock.json`.
+2. Ejecutar las comprobaciones y guardar los cambios en un commit.
+3. Iniciar sesión en la cuenta de Expo que tiene acceso al proyecto:
 
-Esto genera el `.aab` para Google Play.
+   ```bash
+   npx eas-cli login --browser
+   ```
 
-## Envio a Google Play
+4. Crear el paquete de producción:
 
-Cuando la ficha de Play Console este creada y el servicio de subida configurado:
+   ```bash
+   npx eas-cli build --platform android --profile production
+   ```
 
-```bash
-npm run submit:android:production
-```
+   `eas.json` usa `appVersionSource: remote` y `autoIncrement: true`: EAS asigna un `versionCode` nuevo. No reutilizar el código de una versión anterior. Las compilaciones gratuitas pueden esperar en cola.
 
-Tambien puedes subir el `.aab` manualmente desde Play Console.
+5. Descargar el archivo `.aab` de la compilación terminada. Comprobar la versión, el código, el commit y el perfil `production`.
+6. En Google Play Console, abrir **El latido del reloj → Producción → Crear nueva versión**. Subir el AAB y añadir las notas de la versión.
+7. Revisar los errores y avisos de Google Play, confirmar la versión y enviar los cambios a revisión desde el resumen de publicación.
+8. Comprobar el estado de la revisión. Con la publicación gestionada desactivada, los cambios aprobados se publican automáticamente; si está activada, hay que publicarlos después de la aprobación.
 
-## GitHub
+Cuando la actualización esté disponible, Google Play mostrará **Actualizar** a los usuarios que tengan una versión anterior. También podrá instalarla automáticamente según los ajustes del dispositivo.
 
-Repo sugerido:
+La subida mediante `npx eas-cli submit --platform android --profile production` es una alternativa si se configura el acceso de EAS a Google Play. La configuración actual permite la subida manual desde Play Console.
 
-```text
-https://github.com/santiagogonzalezlopez-pixel/el-latido-del-reloj-novela-expandida
-```
+## Actualizaciones sin pasar por la tienda
 
-Cuando el repo exista en GitHub, el push inicial sera:
-
-```bash
-git push -u origin main
-```
-
-Si necesitas configurar el remoto manualmente:
-
-```bash
-git remote add origin https://github.com/santiagogonzalezlopez-pixel/el-latido-del-reloj-novela-expandida.git
-```
-
-## Orden recomendado
-
-1. Crear el repo remoto en GitHub con ese nombre o uno equivalente.
-2. Hacer el primer push de `main`.
-3. Iniciar sesion en Expo con `npx eas login`.
-4. Lanzar `npm run build:android:preview`.
-5. Probar la app en Android real.
-6. Crear o abrir la ficha de la app en Google Play Console.
-7. Lanzar `npm run build:android:production`.
-8. Subir el `.aab` a Play Console.
+Esta app no tiene EAS Update configurado. No usar `eas update` como sustituto de una nueva publicación en Google Play. Incorporar ese mecanismo requiere configurarlo y distribuir primero una versión Android compatible.
